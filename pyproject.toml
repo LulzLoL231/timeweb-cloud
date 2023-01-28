@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "timeweb-cloud"
+version = "0.1.0"
+description = "Timeweb Cloud API wrapper"
+authors = ["Maxim Mosin <max@mosin.pw>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+httpx = "^0.23.3"
+pydantic = "^1.10.4"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^6.0.0"
+mypy = "^0.991"
+autopep8 = "^2.0.1"
+bumpver = "^2022.1120"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
