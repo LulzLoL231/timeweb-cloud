@@ -4,6 +4,22 @@ version = "0.1.0"
 description = "Timeweb Cloud API wrapper"
 authors = ["Maxim Mosin <max@mosin.pw>"]
 license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/LulzLoL231/timeweb-cloud"
+repository = "https://github.com/LulzLoL231/timeweb-cloud"
+keywords = ["timeweb", "timeweb.cloud", "api", "wrapper"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+packages = [
+    { include = "timeweb", from = "src" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -19,3 +35,20 @@ bumpver = "^2022.1120"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.bumpver]
+current_version = "0.1.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "Bump version {old_version} -> {new_version}"
+commit = false
+tag = false
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+    'version = "{version}"',
+]
+"src/timeweb/__meta.py" = [
+    "__version__ = '{version}'",
+]
