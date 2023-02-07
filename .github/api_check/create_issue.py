@@ -45,7 +45,7 @@ def get_issue_body() -> str:
     resp.raise_for_status()
     with open('bundle.json', 'wb') as f:
         f.write(resp.content)
-    diff = sp.check_output(['git', 'diff', '--no-index', '.github/api_check/bundle.json', 'bundle.json'])
+    diff = sp.check_output(['git', 'diff', '--no-index', '.github/api_check/current_bundle.json', 'bundle.json'])
     diff_data = diff.decode('utf-8')
     return f'''New API version is available.
 
