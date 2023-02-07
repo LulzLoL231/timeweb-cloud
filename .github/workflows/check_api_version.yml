@@ -26,7 +26,7 @@ jobs:
 
       - name: "Check timeweb.cloud API version"
         id: check
-        run: echo "status=$(python3 .github/workflows/check_api_version.py --check --batch)" >> $GITHUB_OUTPUT
+        run: echo "status=$(python3 .github/api_check/check_api_version.py --check --batch)" >> $GITHUB_OUTPUT
 
   create_issue:
     name: "Create issue"
@@ -42,4 +42,4 @@ jobs:
           python-version: 3.11
 
       - name: Creating issue
-        run: python3 .github/workflows/check_api_version.py $(python3 .github/workflows/check_api_version.py --actual_etag --batch)
+        run: python3 .github/api_check/check_api_version.py $(python3 .github/api_check/check_api_version.py --actual_etag --batch)
