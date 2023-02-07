@@ -54,3 +54,34 @@ jobs:
 
       - name: Creating issue
         run: python3 .github/api_check/create_issue.py $(python3 .github/api_check/check_api_ver.py --actual_etag --batch)
+
+  send_notify:
+    name: "Send notification"
+    needs: check
+    if: needs.check.outputs.status == 'outdated'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+
+      - name: Install requirements
+        run: pip install httpx
+
+      - name: Set env
+        run: |
+          echo "old=$(python3 .github/api_check/check_api_ver.py --etag --batch)" >> $GITHUB_ENV
+          echo "new=$(python3 .github/api_check/check_api_ver.py --actual_etag --batch)" >> $GITHUB_ENV
+
+      - name: Send Telegram message
+        uses: appleboy/telegram-action@0.0.3
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          message: |
+            API version changed from ${{ env.old }} to ${{ env.new }}
+
+            See changes: https://timeweb.cloud/api-docs
