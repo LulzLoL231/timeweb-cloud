@@ -77,7 +77,7 @@ jobs:
           echo "new=$(python3 .github/api_check/check_api_ver.py --actual_etag --batch)" >> $GITHUB_ENV
 
       - name: Send Telegram message
-        uses: appleboy/telegram-action@0.0.3
+        uses: appleboy/telegram-action@v0.1.1
         with:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
