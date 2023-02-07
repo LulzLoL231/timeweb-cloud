@@ -1,0 +1,45 @@
+name: "Check timeweb.cloud API version"
+
+on:
+  schedule:
+    - cron: '0 18 * * *'
+  push:
+    branches:
+      - master
+
+jobs:
+  check:
+    name: "Check timeweb.cloud API version"
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ steps.check.outputs.status }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+
+      - name: Install requirements
+        run: pip install httpx
+
+      - name: "Check timeweb.cloud API version"
+        id: check
+        run: echo "status=$(python3 .github/workflows/check_api_version.py --check --batch)" >> $GITHUB_OUTPUT
+
+  create_issue:
+    name: "Create issue"
+    needs: check
+    if: needs.check.outputs.status == 'outdated'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+
+      - name: Creating issue
+        run: python3 .github/workflows/check_api_version.py $(python3 .github/workflows/check_api_version.py --actual_etag --batch)
