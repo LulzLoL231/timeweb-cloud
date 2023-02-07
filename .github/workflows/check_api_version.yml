@@ -39,6 +39,8 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     permissions:
       issues: write
+      contents: read
+      packages: read
     steps:
       - uses: actions/checkout@v3
 
