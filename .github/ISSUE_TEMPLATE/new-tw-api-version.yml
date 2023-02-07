@@ -1,0 +1,20 @@
+name: New Timeweb API version
+description: Report about new issued API version
+title: "[API] New version: <etag>"
+labels:
+  - "tw-api"
+assignees:
+  - "LulzLoL231"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to report about new issued API version.
+  - type: input
+    id: etag
+    attributes:
+      label: ETag
+      description: ETag of new API version
+      placeholder: "e.g. \"63dcf66c-a9f40\""
+    validations:
+      required: true
