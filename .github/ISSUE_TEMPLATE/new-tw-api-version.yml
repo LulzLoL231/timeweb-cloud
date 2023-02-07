@@ -10,6 +10,7 @@ body:
     attributes:
       value: |
         Use this template to report about new issued API version.
+        You can find ETag in response headers of [bundle.json](https://timeweb.cloud/api-docs-data/bundle.json) request.
   - type: input
     id: etag
     attributes:
@@ -18,3 +19,6 @@ body:
       placeholder: "e.g. \"63dcf66c-a9f40\""
     validations:
       required: true
+  - type: markdown
+    attributes:
+      value: Before submitting, please replace etag in title with actual ETag.
