@@ -60,7 +60,7 @@ jobs:
       - name: Get issue url
         id: issue
         run: |
-          echo "url=$(python3 .github/api_check/create_issue.py --get_url $(python3 .github/api_check/check_api_ver.py --actual_etag --batch))" >> $GITHUB_OUTPUT
+          echo "url=$(python3 .github/api_check/create_issue.py --get-link $(python3 .github/api_check/check_api_ver.py --actual_etag --batch))" >> $GITHUB_OUTPUT
 
   send_notify:
     name: "Send notification"
