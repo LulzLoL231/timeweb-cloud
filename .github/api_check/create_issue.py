@@ -24,7 +24,12 @@ def have_active_issue(etag: str) -> bool:
 
 
 def create_issue(etag: str) -> None:
-    sp.run(['gh', 'issue', 'create', '--title', f'[API] New version: {etag}', '--label', 'tw-api'])
+    params = [
+        'gh', 'issue', 'create', '--title',
+        f'[API] New version: {etag}', '--label', 'tw-api',
+        '--body', 'New API version is available.'
+    ]
+    sp.run(params)
 
 
 if not have_active_issue(args.etag):
