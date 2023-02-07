@@ -26,7 +26,9 @@ jobs:
 
       - name: "Check timeweb.cloud API version"
         id: check
-        run: echo "status=$(python3 .github/api_check/check_api_ver.py --check --batch)" >> $GITHUB_OUTPUT
+        run: |
+          echo "API is $(python3 .github/api_check/check_api_ver.py --check --batch)"
+          echo "status=$(python3 .github/api_check/check_api_ver.py --check --batch)" >> $GITHUB_OUTPUT
 
   create_issue:
     name: "Create issue"
@@ -40,6 +42,9 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.11
+
+      - name: Install requirements
+        run: pip install httpx
 
       - name: Creating issue
         run: python3 .github/api_check/create_issue.py $(python3 .github/api_check/check_api_ver.py --actual_etag --batch)
