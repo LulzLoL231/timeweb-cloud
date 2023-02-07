@@ -57,7 +57,7 @@ jobs:
 
   send_notify:
     name: "Send notification"
-    needs: check
+    needs: [check, create_issue]
     if: needs.check.outputs.status == 'outdated'
     runs-on: ubuntu-latest
     steps:
