@@ -5,6 +5,7 @@ import logging
 from httpx import AsyncClient
 
 from .tokens import TokensAPI
+from .images import ImagesAPI
 from .account import AccountAPI
 from .ssh_keys import SSHKeysAPI
 
@@ -16,6 +17,7 @@ class AsyncTimeweb:
         account (AccountAPI): API для работы с аккаунтом.
         tokens (TokensAPI): API для работы с токенами.
         ssh_keys (SSHKeysAPI): API для работы с SSH ключами.
+        images (ImagesAPI): API для работы с образами.
     '''
 
     def __init__(self, token: str, client: AsyncClient | None = None):
@@ -29,3 +31,4 @@ class AsyncTimeweb:
         self.account = AccountAPI(token, client)
         self.tokens = TokensAPI(token, client)
         self.ssh_keys = SSHKeysAPI(token, client)
+        self.images = ImagesAPI(token, client)
