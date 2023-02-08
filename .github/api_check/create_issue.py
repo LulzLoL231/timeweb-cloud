@@ -12,7 +12,7 @@ OPENAPI_URL = 'https://timeweb.cloud/api-docs-data/bundle.json'
 argparser = argparse.ArgumentParser(description='Create issue about new API version.')
 argparser.add_argument('etag', help='New API version etag.')
 argparser.add_argument('--get-link', action='store_true', help='Print issue link and exit.', default=False)
-args = argparser.parse_args()
+argparser.add_argument('--issue-created', action='store_true', help='Print true or false, if issue created.')
 
 
 def have_active_issue(etag: str) -> bool:
@@ -45,8 +45,9 @@ def get_issue_body() -> str:
     resp.raise_for_status()
     with open('bundle.json', 'wb') as f:
         f.write(resp.content)
-    diff = sp.check_output(['git', 'diff', '--no-index', '.github/api_check/current_bundle.json', 'bundle.json'])
-    diff_data = diff.decode('utf-8')
+    sp.run('git diff --no-color current_bundle.json bundle.json > diff.txt'.split(' '))
+    with open('diff.txt', 'r') as f:
+        diff_data = f.read()
     return f'''New API version is available.
 
     ```diff
@@ -64,12 +65,16 @@ def create_issue(etag: str) -> None:
     sp.run(params)
 
 
-if args.get_link:
-    print(get_issue_link(args.etag))
-    exit(0)
-else:
+if __name__ == '__main__':
+    args = argparser.parse_args()
+
+    if args.issue_created:
+        print(str(have_active_issue(args.etag)).lower())
+        exit(0)
+    if args.get_link:
+        print(get_issue_link(args.etag))
+        exit(0)
     if not have_active_issue(args.etag):
         create_issue(args.etag)
         exit(0)
-    print('Issue already exists.')
-    exit(1)
+    print(':: warning::Issue already exists.')

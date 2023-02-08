@@ -27,7 +27,7 @@ jobs:
       - name: "Check timeweb.cloud API version"
         id: check
         run: |
-          echo "API is $(python3 .github/api_check/check_api_ver.py --check --batch)"
+          echo "::warning ::API is $(python3 .github/api_check/check_api_ver.py --check --batch)"
           echo "status=$(python3 .github/api_check/check_api_ver.py --check --batch)" >> $GITHUB_OUTPUT
 
   create_issue:
@@ -60,12 +60,13 @@ jobs:
       - name: Get issue url
         id: issue
         run: |
-          echo "url=$(python3 .github/api_check/create_issue.py --get-link $(python3 .github/api_check/check_api_ver.py --actual_etag --batch))" >> $GITHUB_OUTPUT
+          echo "url=$(python3 .github/api_check/create_issue.py --get-link asda)" >> $GITHUB_OUTPUT
+          echo "issue_created=$(python3 .github/api_check/create_issue.py --issue-created asd)" >> $GITHUB_OUTPUT
 
   send_notify:
     name: "Send notification"
     needs: [check, create_issue]
-    if: needs.check.outputs.status == 'outdated'
+    if: needs.check.outputs.status == 'outdated' && needs.create_issue.outputs.issue_created == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
