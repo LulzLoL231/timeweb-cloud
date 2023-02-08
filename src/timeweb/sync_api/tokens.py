@@ -16,7 +16,7 @@ from ..schemas import tokens as schemas
 
 
 class TokensAPI(BaseClient):
-    '''Клиент для работы с API аккаунта Timeweb Cloud'''
+    '''Клиент для работы с API токенами Timeweb Cloud'''
 
     def __init__(self, token: str, client: Client | None = None):
         '''Инициализация клиента.
