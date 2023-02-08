@@ -14,6 +14,7 @@ argparser = argparse.ArgumentParser(description='Create issue about new API vers
 argparser.add_argument('etag', help='New API version etag.')
 argparser.add_argument('--get-link', action='store_true', help='Print issue link and exit.', default=False)
 argparser.add_argument('--issue-created', action='store_true', help='Print true or false, if issue created.')
+argparser.add_argument('--run-url', type=str, help='Workflow run url', default='')
 
 
 def create_github_issue(etag: str, body: str):
@@ -53,7 +54,7 @@ def get_issue_link(etag: str) -> str:
     return ''
 
 
-def get_issue_body() -> str:
+def get_issue_body(run_url: str) -> str:
     resp = httpx.get(OPENAPI_URL)
     resp.raise_for_status()
     with open('bundle.json', 'wb') as f:
@@ -63,6 +64,7 @@ def get_issue_body() -> str:
     except sp.CalledProcessError as e:
         diff_data = e.output.decode('utf-8')
     return f'''New API version is available.
+Workflow run: {run_url}
 
 ```diff
 {diff_data}
@@ -70,8 +72,8 @@ def get_issue_body() -> str:
 '''
 
 
-def create_issue(etag: str) -> None:
-    create_github_issue(etag, get_issue_body())
+def create_issue(etag: str, run_url: str) -> None:
+    create_github_issue(etag, get_issue_body(run_url))
 
 
 if __name__ == '__main__':
@@ -84,6 +86,6 @@ if __name__ == '__main__':
         print(get_issue_link(args.etag))
         exit(0)
     if not have_active_issue(args.etag):
-        create_issue(args.etag)
+        create_issue(args.etag, args.run_url)
         exit(0)
-    print(':: warning::Issue already exists.')
+    print('[!] Issue already exists.')
