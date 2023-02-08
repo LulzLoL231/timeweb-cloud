@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+'''Синхронный клиент для Timeweb Cloud API'''
 import logging
 
 from httpx import Client
 
+from .tokens import TokensAPI
 from .account import AccountAPI
 
 
@@ -11,6 +13,7 @@ class Timeweb:
 
     Attributes:
         account (AccountAPI): API для работы с аккаунтом.
+        tokens (TokensAPI): API для работы с токенами.
     '''
 
     def __init__(self, token: str, client: Client | None = None):
@@ -22,3 +25,4 @@ class Timeweb:
         '''
         self.log = logging.getLogger('timeweb')
         self.account = AccountAPI(token, client)
+        self.tokens = TokensAPI(token, client)
