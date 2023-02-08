@@ -15,3 +15,15 @@ class BaseResponse(BaseModel):
                            'идентификатор, мы сможем найти ответ на него '
                            'намного быстрее.')
     )
+
+
+class BaseMeta(BaseModel):
+    '''Базовая модель мета-данных'''
+    total: int | None = Field(
+        None, description='Общее количество элементов в коллекции.'
+    )
+
+
+class ResponseWithMeta(BaseResponse):
+    '''Модель ответа с мета-данными'''
+    meta: BaseMeta | None = Field(None, description='Мета-данные.')
