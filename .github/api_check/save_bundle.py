@@ -14,6 +14,6 @@ args = argparser.parse_args()
 
 
 if __name__ == '__main__':
-    etag = args.etag.replace('"', '').replace("W", '')
+    etag = args.etag.replace('"', '').replace("W/", '')
     os.system(f'curl -s {OPENAPI_URL} -o .github/api_check/{etag}.json')
     print(f'{etag}.json')

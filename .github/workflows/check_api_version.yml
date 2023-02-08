@@ -96,7 +96,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.bundle }}
-          path: .github/api_check/${{ env.bundle }}.json
+          path: .github/api_check/${{ env.bundle }}
 
   send_notify:
     name: "Send notification"
