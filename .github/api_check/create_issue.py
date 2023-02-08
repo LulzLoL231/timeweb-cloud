@@ -60,7 +60,7 @@ def get_issue_body() -> str:
     with open('bundle.json', 'wb') as f:
         f.write(resp.content)
     try:
-        sp.check_output('git diff --no-color --no-index current_bundle.json bundle.json'.split(' '))
+        sp.check_output('git diff --no-color --no-index .github/api_check/current_bundle.json bundle.json'.split(' '))
     except sp.CalledProcessError as e:
         diff_data = e.output.decode('utf-8')
     return f'''New API version is available.

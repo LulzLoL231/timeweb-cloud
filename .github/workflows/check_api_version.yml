@@ -39,6 +39,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     outputs:
       issue_url: ${{ steps.issue.outputs.url }}
+      issue_created: ${{ steps.issue.outputs.issue_created }}
     permissions:
       issues: write
       contents: read
