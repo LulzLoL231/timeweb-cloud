@@ -79,8 +79,8 @@ jobs:
 
   save_bundle:
     name: "Save bundle.json"
-    needs: [check, create_issue]
-    if: needs.check.outputs.status == 'outdated' && needs.create_issue.outputs.issue_created == 'True' && needs.create_issue.outputs.issue_exists == 'False'
+    needs: check
+    if: needs.check.outputs.status == 'outdated'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
