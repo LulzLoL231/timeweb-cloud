@@ -62,15 +62,16 @@ jobs:
           echo "actual_etag=$(python3 .github/api_check/check_api_ver.py --actual_etag --batch)" >> $GITHUB_ENV
 
       - name: Set issue already exists flag
+        id: issue_exists_check
         run: |
           echo "issue_exists=$(python3 .github/api_check/create_issue.py --issue-created ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
 
       - name: Creating issue
-        if: env.issue_exists == 'False'
+        if: steps.issue_exists_check.outputs.issue_exists == 'False'
         run: python3 .github/api_check/create_issue.py ${{ env.actual_etag }}
 
       - name: Get issue url
-        if: env.issue_exists == 'False'
+        if: steps.issue_exists_check.outputs.issue_exists == 'False'
         id: issue
         run: |
           echo "url=$(python3 .github/api_check/create_issue.py --get-link ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
