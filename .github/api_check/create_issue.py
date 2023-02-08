@@ -49,7 +49,7 @@ def get_issue_link(etag: str) -> str:
     list_issue_data: list[dict] = json.loads(list_issue.decode('utf-8'))
     for issue in list_issue_data:
         match = ISSUE_PATTERN.match(issue['title'])
-        if match and match.group('etag') == etag:
+        if match and match.group('etag') == etag.replace('"', ''):
             return issue['url']
     return ''
 
