@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+'''Исключения для библиотеки'''
 from uuid import UUID
 
 from httpx import HTTPStatusError, Request, Response

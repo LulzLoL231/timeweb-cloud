@@ -39,6 +39,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     outputs:
       issue_url: ${{ steps.issue.outputs.url }}
+      issue_exists: ${{ steps.issue.outputs.issue_exists }}
       issue_created: ${{ steps.issue.outputs.issue_created }}
     permissions:
       issues: write
@@ -59,10 +60,16 @@ jobs:
         run: |
           echo "actual_etag=$(python3 .github/api_check/check_api_ver.py --actual_etag --batch)" >> $GITHUB_ENV
 
+      - name: Set issue already exists flag to env
+        run: |
+          echo "issue_exists=$(python3 .github/api_check/create_issue.py --issue-created ${{ env.actual_etag }})" >> $GITHUB_ENV
+
       - name: Creating issue
+        if: env.issue_exists == 'False'
         run: python3 .github/api_check/create_issue.py ${{ env.actual_etag }}
 
       - name: Get issue url
+        if: env.issue_exists == 'False'
         id: issue
         run: |
           echo "url=$(python3 .github/api_check/create_issue.py --get-link ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
@@ -71,7 +78,7 @@ jobs:
   save_bundle:
     name: "Save bundle.json"
     needs: [check, create_issue]
-    if: needs.check.outputs.status == 'outdated' && needs.create_issue.outputs.issue_created == 'True'
+    if: needs.check.outputs.status == 'outdated' && needs.create_issue.outputs.issue_created == 'True' && needs.create_issue.outputs.issue_exists == 'False'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -101,7 +108,7 @@ jobs:
   send_notify:
     name: "Send notification"
     needs: [check, create_issue]
-    if: needs.check.outputs.status == 'outdated' && needs.create_issue.outputs.issue_created == 'True'
+    if: needs.check.outputs.status == 'outdated' && needs.create_issue.outputs.issue_created == 'True' && needs.create_issue.outputs.issue_exists == 'False'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

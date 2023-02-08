@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
+import sys
 import logging
 
 from httpx import Client, Response, HTTPStatusError
 
+from ..errors import exc
 from ..__meta import __version__
-from ..errors import exceptions as exc
 from ..schemas.errors import BaseError
 
 
@@ -23,6 +24,8 @@ class BaseClient:
         '''
         self.log = logging.getLogger('timeweb')
         self.token = token
+        ua = f'timeweb-cloud/{__version__} (Python {sys.version}) '
+        ua += 'https://github.com/LulzLoL231/timeweb-cloud'
         default_client = Client(
             headers={
                 'User-Agent': f'timeweb-cloud/{__version__}',
