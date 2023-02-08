@@ -4,6 +4,7 @@ import logging
 
 from httpx import AsyncClient
 
+from .tokens import TokensAPI
 from .account import AccountAPI
 
 
@@ -12,6 +13,7 @@ class AsyncTimeweb:
 
     Attributes:
         account (AccountAPI): API для работы с аккаунтом.
+        tokens (TokensAPI): API для работы с токенами.
     '''
 
     def __init__(self, token: str, client: AsyncClient | None = None):
@@ -23,3 +25,4 @@ class AsyncTimeweb:
         '''
         self.log = logging.getLogger('timeweb')
         self.account = AccountAPI(token, client)
+        self.tokens = TokensAPI(token, client)
