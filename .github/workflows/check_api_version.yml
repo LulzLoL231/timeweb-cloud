@@ -39,7 +39,7 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     outputs:
-      issue_url: ${{ steps.issue.outputs.url }}
+      issue_url: ${{ steps.issue.outputs.issue_url }}
       issue_created: ${{ steps.issue.outputs.issue_created }}
       issue_exists: ${{ steps.issue_exists_check.outputs.issue_exists }}
     permissions:
@@ -74,7 +74,7 @@ jobs:
         if: steps.issue_exists_check.outputs.issue_exists == 'False'
         id: issue
         run: |
-          echo "url=$(python3 .github/api_check/create_issue.py --get-link ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
+          echo "issue_url=$(python3 .github/api_check/create_issue.py --get-link ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
           echo "issue_created=$(python3 .github/api_check/create_issue.py --issue-created ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
 
       - name: Show outputs
