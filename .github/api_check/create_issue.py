@@ -36,15 +36,14 @@ def have_active_issue(etag: str) -> bool:
     list_issue_data: list[dict] = json.loads(list_issue.decode('utf-8'))
     for issue in list_issue_data:
         match = ISSUE_PATTERN.match(issue['title'])
-        if match and match.group('etag') == etag:
+        if match and match.group('etag') == etag.replace('"', ''):
             return True
     return False
 
 
 def get_issue_link(etag: str) -> str:
     list_issue = sp.check_output(
-        ['gh', 'issue', 'list', '--json', 'title,url',
-            '--label', 'timeweb.cloud', '--state', 'open']
+        'gh issue list --json title,url --label timeweb.cloud --state open'.split(' ')
     )
     list_issue_data: list[dict] = json.loads(list_issue.decode('utf-8'))
     for issue in list_issue_data:
