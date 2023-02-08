@@ -68,7 +68,7 @@ jobs:
 
       - name: Creating issue
         if: steps.issue_exists_check.outputs.issue_exists == 'False'
-        run: python3 .github/api_check/create_issue.py ${{ env.actual_etag }} --run-url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: python3 .github/api_check/create_issue.py ${{ env.actual_etag }} --run-url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs/${{ github.job_id }}
 
       - name: Get issue url
         if: steps.issue_exists_check.outputs.issue_exists == 'False'
@@ -76,6 +76,12 @@ jobs:
         run: |
           echo "url=$(python3 .github/api_check/create_issue.py --get-link ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
           echo "issue_created=$(python3 .github/api_check/create_issue.py --issue-created ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
+
+      - name: Show outputs
+        run: |
+          echo "issue_url=${{ steps.issue.outputs.url }}"
+          echo "issue_created=${{ steps.issue.outputs.issue_created }}"
+          echo "issue_exists=${{ steps.issue_exists_check.outputs.issue_exists }}"
 
   save_bundle:
     name: "Save bundle.json"
