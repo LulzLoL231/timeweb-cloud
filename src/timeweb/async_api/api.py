@@ -4,6 +4,8 @@ import logging
 
 from httpx import AsyncClient
 
+from .account import AccountAPI
+
 
 class AsyncTimeweb:
     '''Клиент для работы с API Timeweb Cloud
@@ -20,3 +22,4 @@ class AsyncTimeweb:
             client (AsyncClient | None, optional): HTTPX клиент. Defaults to None.
         '''
         self.log = logging.getLogger('timeweb')
+        self.account = AccountAPI(token, client)
