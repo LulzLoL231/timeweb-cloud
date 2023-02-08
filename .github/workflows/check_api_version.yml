@@ -68,10 +68,35 @@ jobs:
           echo "url=$(python3 .github/api_check/create_issue.py --get-link ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
           echo "issue_created=$(python3 .github/api_check/create_issue.py --issue-created ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
 
-      - name: Explore env
+  save_bundle:
+    name: "Save bundle.json"
+    needs: [check, create_issue]
+    if: needs.check.outputs.status == 'outdated' && needs.create_issue.outputs.issue_created == 'True'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+
+      - name: Install requirements
+        run: pip install httpx
+
+      - name: Set actual etag to env
         run: |
-          echo "issue_url=${{ steps.issue.outputs.url }}"
-          echo "issue_created=${{ steps.issue.outputs.issue_created }}"
+          echo "actual_etag=$(python3 .github/api_check/check_api_ver.py --actual_etag --batch)" >> $GITHUB_ENV
+
+      - name: Save bundle.json
+        run: |
+          echo "bundle=$(python3 .github/api_check/save_bundle.py ${{ env.actual_etag }})" >> $GITHUB_ENV
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.bundle }}
+          path: .github/api_check/${{ env.bundle }}.json
 
   send_notify:
     name: "Send notification"
