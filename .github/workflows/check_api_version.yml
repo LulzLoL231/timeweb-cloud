@@ -3,9 +3,10 @@ name: "Check timeweb.cloud API version"
 on:
   schedule:
     - cron: '0 18 * * *'
-  push:
-    branches:
-      - master
+  release:
+    types: [published]
+  workflow_dispatch:
+    
 
 jobs:
   check:
