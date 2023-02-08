@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+import os
 import json
 import argparse
 import subprocess as sp
@@ -13,6 +14,19 @@ argparser = argparse.ArgumentParser(description='Create issue about new API vers
 argparser.add_argument('etag', help='New API version etag.')
 argparser.add_argument('--get-link', action='store_true', help='Print issue link and exit.', default=False)
 argparser.add_argument('--issue-created', action='store_true', help='Print true or false, if issue created.')
+
+
+def create_github_issue(etag: str, body: str):
+    cli = httpx.Client(
+        headers={
+            'Authorization': f'token {os.environ["GH_TOKEN"]}',
+            'Accept': 'application/vnd.github.v3+json',
+        }, base_url='https://api.github.com'
+    )
+    cli.post(
+        '/repos/LulzLoL231/timeweb-cloud/issues',
+        json={'title': f'[API] New version: {etag}', 'body': body, 'labels': ['timeweb.cloud']}
+    )
 
 
 def have_active_issue(etag: str) -> bool:
@@ -45,24 +59,19 @@ def get_issue_body() -> str:
     resp.raise_for_status()
     with open('bundle.json', 'wb') as f:
         f.write(resp.content)
-    sp.run('git diff --no-color current_bundle.json bundle.json > diff.txt'.split(' '))
-    with open('diff.txt', 'r') as f:
+    sp.run('git diff --no-color --no-index --output diff.txt current_bundle.json bundle.json'.split(' '))
+    with open('diff.txt') as f:
         diff_data = f.read()
     return f'''New API version is available.
 
-    ```diff
-    {diff_data}
-    ```
-    '''
+```diff
+{diff_data}
+```
+'''
 
 
 def create_issue(etag: str) -> None:
-    params = [
-        'gh', 'issue', 'create', '--title',
-        f'[API] New version: {etag}', '--label', 'timeweb.cloud',
-        '--body', get_issue_body()
-    ]
-    sp.run(params)
+    create_github_issue(etag, get_issue_body())
 
 
 if __name__ == '__main__':
