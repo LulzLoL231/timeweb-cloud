@@ -6,6 +6,7 @@ from httpx import AsyncClient
 
 from .tokens import TokensAPI
 from .account import AccountAPI
+from .ssh_keys import SSHKeysAPI
 
 
 class AsyncTimeweb:
@@ -14,6 +15,7 @@ class AsyncTimeweb:
     Attributes:
         account (AccountAPI): API для работы с аккаунтом.
         tokens (TokensAPI): API для работы с токенами.
+        ssh_keys (SSHKeysAPI): API для работы с SSH ключами.
     '''
 
     def __init__(self, token: str, client: AsyncClient | None = None):
@@ -26,3 +28,4 @@ class AsyncTimeweb:
         self.log = logging.getLogger('timeweb')
         self.account = AccountAPI(token, client)
         self.tokens = TokensAPI(token, client)
+        self.ssh_keys = SSHKeysAPI(token, client)
