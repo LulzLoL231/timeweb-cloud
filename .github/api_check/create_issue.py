@@ -59,9 +59,10 @@ def get_issue_body() -> str:
     resp.raise_for_status()
     with open('bundle.json', 'wb') as f:
         f.write(resp.content)
-    sp.run('git diff --no-color --no-index --output diff.txt current_bundle.json bundle.json'.split(' '))
-    with open('diff.txt') as f:
-        diff_data = f.read()
+    try:
+        sp.check_output('git diff --no-color --no-index current_bundle.json bundle.json'.split(' '))
+    except sp.CalledProcessError as e:
+        diff_data = e.output.decode('utf-8')
     return f'''New API version is available.
 
 ```diff
@@ -78,7 +79,7 @@ if __name__ == '__main__':
     args = argparser.parse_args()
 
     if args.issue_created:
-        print(str(have_active_issue(args.etag)).lower())
+        print(have_active_issue(args.etag))
         exit(0)
     if args.get_link:
         print(get_issue_link(args.etag))
