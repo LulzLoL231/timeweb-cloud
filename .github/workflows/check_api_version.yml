@@ -68,7 +68,7 @@ jobs:
 
       - name: Creating issue
         if: steps.issue_exists_check.outputs.issue_exists == 'False'
-        run: python3 .github/api_check/create_issue.py ${{ env.actual_etag }} --run-url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs/${{ github.job_id }}
+        run: python3 .github/api_check/create_issue.py ${{ env.actual_etag }} --run-url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/
 
       - name: Get issue url
         if: steps.issue_exists_check.outputs.issue_exists == 'False'
