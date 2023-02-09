@@ -5,7 +5,7 @@ import argparse
 import httpx
 
 
-LAST_ETAG = 'W/"63e36e8f-af5e4"'
+LAST_ETAG = 'W/"63e3c467-b194f"'
 OPENAPI_URL = 'https://timeweb.cloud/api-docs-data/bundle.json'
 
 
