@@ -7,7 +7,7 @@ API Timeweb Cloud позволяет вам управлять ресурсам�
 
 [Документация API](https://timeweb.cloud/api-docs)
 
-[![OpenAPI etag: 63e4be35-b1cdc](https://img.shields.io/badge/OpenAPI%20etag-63e4be35--b1cdc-blue)](https://github.com/LulzLoL231/timeweb-cloud/wiki/) [Как определяется etag?](#etag)
+[![OpenAPI etag: 63e67c80-b1c27](https://img.shields.io/badge/OpenAPI%20etag-63e67c80--b1c27-blue)](https://github.com/LulzLoL231/timeweb-cloud/wiki/) [Как определяется etag?](#etag)
 
 [![PyPI version](https://badge.fury.io/py/timeweb-cloud.svg)](https://badge.fury.io/py/timeweb-cloud) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/timeweb-cloud)](https://pypi.org/project/timeweb-cloud/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/timeweb-cloud)](https://pypi.org/project/timeweb-cloud/) [![PyPI - License](https://img.shields.io/pypi/l/timeweb-cloud)](https://github.com/LulzLoL231/timeweb-cloud/blob/master/LICENSE)
 
