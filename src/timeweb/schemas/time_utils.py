@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''Time utilites.'''
+'''Работа с периодами ISO8601.'''
 import datetime
 from typing import Any, Callable, Generator, TYPE_CHECKING
 
