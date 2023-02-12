@@ -11,6 +11,7 @@ from .images import ImagesAPI
 from .dedics import DedicsAPI
 from .account import AccountAPI
 from .ssh_keys import SSHKeysAPI
+from .balancers import BalancersAPI
 
 
 class Servers:
@@ -41,6 +42,7 @@ class Timeweb:
         s3 (BucketsAPI): API для работы с S3-хранилищами.
         dbs (DatabasesAPI): API для работы с базами данных.
         servers (Servers): API для работы с серверами.
+        balancers (BalancersAPI): API для работы с балансировщиками.
     '''
 
     def __init__(self, token: str, client: Client | None = None):
@@ -58,3 +60,4 @@ class Timeweb:
         self.s3 = BucketsAPI(token, client)
         self.dbs = DatabasesAPI(token, client)
         self.servers = Servers(token, client)
+        self.balancers = BalancersAPI(token, client)
