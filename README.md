@@ -7,7 +7,7 @@ API Timeweb Cloud позволяет вам управлять ресурсам�
 
 [Документация API](https://timeweb.cloud/api-docs)
 
-[![OpenAPI etag: 63e67c80-b1c27](https://img.shields.io/badge/OpenAPI%20etag-63e67c80--b1c27-blue)](https://github.com/LulzLoL231/timeweb-cloud/wiki/) [Как определяется etag?](#etag)
+[![OpenAPI etag: 63eb93d2-f32ef](https://img.shields.io/badge/OpenAPI%20etag-63eb93d2--f32ef-blue)](https://github.com/LulzLoL231/timeweb-cloud/wiki/) [Как определяется etag?](#etag)
 
 [![PyPI version](https://badge.fury.io/py/timeweb-cloud.svg)](https://badge.fury.io/py/timeweb-cloud) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/timeweb-cloud)](https://pypi.org/project/timeweb-cloud/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/timeweb-cloud)](https://pypi.org/project/timeweb-cloud/) [![PyPI - License](https://img.shields.io/pypi/l/timeweb-cloud)](https://github.com/LulzLoL231/timeweb-cloud/blob/master/LICENSE)
 
@@ -46,4 +46,4 @@ print(account_status)
  - [x] SSH-ключи
 
 ## Etag
-Etag - это уникальный идентификатор, который используется для проверки изменений в API. Он будет использоваться чтобы определять текущею версию API, т.к. сейчас API Timeweb Cloud не имеет версионности. Получается он из запроса к спецификации OpenAPI по ссылке https://timeweb.cloud/api-docs-data/bundle.json. Сервер сам его возвращает и мы пока операемся на него. В будущем, когда/если API Timeweb Cloud будет иметь версионность, будем опираться на их версию API.
+Etag - это уникальный идентификатор, который используется для проверки изменений в API. Он будет использоваться чтобы определять текущею версию Swagger API, т.к. сейчас Swagger API Timeweb Cloud не имеет версионности и/или changelog'а. Получается он из запроса к спецификации OpenAPI по ссылке https://timeweb.cloud/api-docs-data/bundle.json. Сервер сам его возвращает и мы пока операемся на него. В будущем, когда/если Swagger API Timeweb Cloud будет иметь версионность и/или changelog, будем опираться на их версию Swagger API.
