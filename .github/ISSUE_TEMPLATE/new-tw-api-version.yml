@@ -2,7 +2,7 @@ name: New Timeweb API version
 description: Report about new issued API version
 title: "[API] New version: <etag>"
 labels:
-  - "tw-api"
+  - "timeweb.cloud"
 assignees:
   - "LulzLoL231"
 body:
