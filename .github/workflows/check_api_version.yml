@@ -64,18 +64,18 @@ jobs:
       - name: Set issue already exists flag
         id: issue_exists_check
         run: |
-          echo "issue_exists=$(python3 .github/api_check/create_issue.py --issue-created ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
+          echo "issue_exists=$(python3 .github/api_check/create_issue.py --batch --issue-created ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
 
       - name: Creating issue
         if: steps.issue_exists_check.outputs.issue_exists == 'False'
-        run: python3 .github/api_check/create_issue.py ${{ env.actual_etag }} --run-url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/
+        run: python3 .github/api_check/create_issue.py ${{ env.actual_etag }} --batch --run-url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/
 
       - name: Get issue url
         if: steps.issue_exists_check.outputs.issue_exists == 'False'
         id: issue
         run: |
-          echo "issue_url=$(python3 .github/api_check/create_issue.py --get-link ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
-          echo "issue_created=$(python3 .github/api_check/create_issue.py --issue-created ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
+          echo "issue_url=$(python3 .github/api_check/create_issue.py --batch --get-link ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
+          echo "issue_created=$(python3 .github/api_check/create_issue.py --batch --issue-created ${{ env.actual_etag }})" >> $GITHUB_OUTPUT
 
       - name: Show outputs
         run: |
