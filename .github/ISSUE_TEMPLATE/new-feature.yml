@@ -1,0 +1,28 @@
+name: New Feature
+description: Tell us what can be added or improved in the library
+title: "[FEATURE]: <title>"
+labels:
+  - "enhancement"
+body:
+  - type: dropdown
+    attributes:
+      label: Feature type
+      description: What are you offering?
+      multiple: false
+      options:
+        - "New feature"
+        - "Enhancement"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "Describe the changes:"
+      description: Tell us in as much detail as possible what changes you would like to see in the project.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "**Before submitting, change the <title> in the issue title with a small description of the feature**"
+  - type: markdown
+    attributes:
+      value: "Thank you for your time!"
