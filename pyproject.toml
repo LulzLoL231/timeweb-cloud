@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "timeweb-cloud"
-version = "0.6.0"
+version = "0.6.1"
 description = "Timeweb Cloud API wrapper"
 authors = ["Maxim Mosin <max@mosin.pw>"]
 license = "MIT"
@@ -40,7 +40,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.bumpver]
-current_version = "0.6.0"
+current_version = "0.6.1"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "Bump version {old_version} -> {new_version}"
 commit = false
