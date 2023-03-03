@@ -40,7 +40,7 @@ def create_github_issue(etag: str, run_url: str):
         'body': get_issue_body(run_url), 'labels': ['timeweb.cloud']
     }
     issue = gh.post(
-        '/repos/LulzLoL231/timeweb-cloud/issues', json=issue_data
+        f'/repos/{OWNER}/{REPO}/issues', json=issue_data
     )
     if issue.is_success:
         log(f'Created issue: {issue.json()}')
@@ -49,7 +49,7 @@ def create_github_issue(etag: str, run_url: str):
         short_issue_data = issue_data.copy()
         short_issue_data['body'] = get_short_issue_body(run_url)
         short_issue = gh.post(
-            '/repos/LulzLoL231/timeweb-cloud/issues', json=short_issue_data
+            f'/repos/{OWNER}/{REPO}/issues', json=short_issue_data
         )
         if short_issue.is_success:
             log(f'Created issue: {short_issue.json()}')
@@ -86,15 +86,11 @@ def get_issue_body(run_url: str) -> str:
     resp.raise_for_status()
     with open('bundle.json', 'wb') as f:
         f.write(resp.content)
-    try:
-        sp.check_output('git diff --no-color --no-index .github/api_check/current_bundle.json bundle.json'.split(' '))
-    except sp.CalledProcessError as e:
-        diff_data = e.output.decode('utf-8')
+    output = sp.check_output('python3 .github/api_check/api_diff.py --old .github/api_check/current_bundle.json --new ./bundle.json --ignore_ids 1001 --sort_by_code --get_md'.split(' '))
+    diff_data = output.decode('utf-8')
     return f'''{get_short_issue_body(run_url)}
 
-```diff
 {diff_data}
-```
 '''
 
 

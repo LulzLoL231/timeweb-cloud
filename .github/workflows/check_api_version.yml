@@ -6,7 +6,7 @@ on:
   release:
     types: [published]
   workflow_dispatch:
-    
+     
 
 jobs:
   check:
@@ -16,11 +16,6 @@ jobs:
       status: ${{ steps.check.outputs.status }}
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.11
 
       - name: Install requirements
         run: pip install httpx
@@ -49,13 +44,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.11
+      - name: Install python requirements
+        run: pip install httpx typed-argument-parser markdown-strings
 
-      - name: Install requirements
-        run: pip install httpx
+      - name: Install openapi-compare
+        run: dotnet tool install -g Criteo.OpenApi.Comparator.Cli
 
       - name: Set actual etag to env
         run: |
@@ -91,11 +84,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.11
-
       - name: Install requirements
         run: pip install httpx
 
@@ -120,11 +108,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.11
 
       - name: Install requirements
         run: pip install httpx

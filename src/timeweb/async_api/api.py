@@ -4,6 +4,7 @@ import logging
 
 from httpx import AsyncClient
 
+from .vds import VDSAPI
 from .s3 import BucketsAPI
 from .dbs import DatabasesAPI
 from .tokens import TokensAPI
@@ -18,7 +19,8 @@ class Servers:
     '''API для работы с серверами.
 
     Attributes:
-        dedics (DedicsAPI): API для работы с серверами.
+        dedics (DedicsAPI): API для работы с выделенными серверами.
+        cloud (VDSAPI): API для работы с облачными серверами.
     '''
 
     def __init__(self, token: str, client: AsyncClient | None = None):
@@ -30,6 +32,7 @@ class Servers:
         '''
         self.log = logging.getLogger('timeweb')
         self.dedics = DedicsAPI(token, client)
+        self.cloud = VDSAPI(token, client)
 
 
 class AsyncTimeweb:
