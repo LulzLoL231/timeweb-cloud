@@ -11,29 +11,29 @@ import logging
 from datetime import datetime, date
 from ipaddress import IPv4Address, IPv6Address
 
-from httpx import Client
+from httpx import AsyncClient
 
-from .base import BaseClient
+from .base import BaseAsyncClient
 from ..schemas.servers import cloud as schemas
 
 
 IPAddress = IPv4Address | IPv6Address
 
 
-class VDSAPI(BaseClient):
+class VDSAPI(BaseAsyncClient):
     '''Клиент для работы с API облачных серверов.'''
 
-    def __init__(self, token: str, client: Client | None = None):
+    def __init__(self, token: str, client: AsyncClient | None = None):
         '''Инициализация клиента.
 
         Args:
             token (str): API токен.
-            client (Client | None, optional): HTTPX клиент. Defaults to None.
+            client (AsyncClient | None, optional): HTTPX клиент. Defaults to None.
         '''
         super().__init__(token, client)
         self.log = logging.getLogger('timeweb')
 
-    def get_all(self, limit: int = 100, offset: int = 0) -> schemas.VDSArray:
+    async def get_all(self, limit: int = 100, offset: int = 0) -> schemas.VDSArray:
         '''Возвращает список серверов.
 
         Args:
@@ -43,13 +43,13 @@ class VDSAPI(BaseClient):
         Returns:
             schemas.VDSArray: Список облачных серверов.
         '''
-        vds = self._request(
+        vds = await self._request(
             'GET', '/servers'
         )
         vds.raise_for_status()
         return schemas.VDSArray(**vds.json())
 
-    def get(self, server_id: int) -> schemas.VDSResponse:
+    async def get(self, server_id: int) -> schemas.VDSResponse:
         '''Возвращает сервер.
 
         Args:
@@ -58,12 +58,12 @@ class VDSAPI(BaseClient):
         Returns:
             schemas.VDSResponse: Облачный сервер.
         '''
-        vds = self._request(
+        vds = await self._request(
             'GET', f'/servers/{server_id}'
         )
         return schemas.VDSResponse(**vds.json())
 
-    def delete(self, server_id: int) -> bool:
+    async def delete(self, server_id: int) -> bool:
         '''Удаление сервера.
 
         Args:
@@ -72,12 +72,12 @@ class VDSAPI(BaseClient):
         Returns:
             bool: Сервер удалён?
         '''
-        status = self._request(
+        status = await self._request(
             'DELETE', f'/servers/{server_id}'
         )
         return status.is_success
 
-    def create(
+    async def create(
         self, name: str, os_id: int, is_ddos_guard: bool,
         bandwidth: int, preset_id: int | None = None,
         configurator: dict[str, int] | None = None,
@@ -107,11 +107,14 @@ class VDSAPI(BaseClient):
             schemas.VDSResponse: Созданный облачный сервер.
         '''
         if not configurator and not preset_id:
-            raise ValueError('Обязательно нужно указать configurator или preset_id!')
+            raise ValueError(
+                'Обязательно нужно указать configurator или preset_id!')
         if configurator and preset_id:
-            raise ValueError('Нельзя указать одновременно configurator и preset_id!')
+            raise ValueError(
+                'Нельзя указать одновременно configurator и preset_id!')
         if bandwidth not in range(100, 1100, 100):
-            raise ValueError('Указаный bandwidth не подходит, только число от 100 до 1000 с шагом 100!')
+            raise ValueError(
+                'Указаный bandwidth не подходит, только число от 100 до 1000 с шагом 100!')
         if len(name) > 255:
             raise ValueError('name не может превышать 255 символов!')
         if comment and len(comment) > 255:
@@ -147,12 +150,12 @@ class VDSAPI(BaseClient):
             server_param['ssh_keys_ids'] = ssh_keys_ids
         if is_local_network:
             server_param['is_local_network'] = is_local_network
-        created_vds = self._request(
+        created_vds = await self._request(
             'POST', '/servers', json=server_param
         )
         return schemas.VDSResponse(**created_vds.json())
 
-    def update(
+    async def update(
         self, server_id: int, name: str | None = None,
         os_id: int | None = None, bandwidth: int | None = None,
         preset_id: int | None = None, comment: str | None = None,
@@ -215,13 +218,13 @@ class VDSAPI(BaseClient):
             server_param['avatar_id'] = avatar_id
         if comment:
             server_param['comment'] = comment
-        updated_vds = self._request(
+        updated_vds = await self._request(
             'PATCH', f'/servers/{server_id}',
             json=server_param
         )
         return schemas.VDSResponse(**updated_vds.json())
 
-    def make_action(self, server_id: int, action: str) -> bool:
+    async def make_action(self, server_id: int, action: str) -> bool:
         '''Выполнить действие над сервером.
 
         Args:
@@ -234,13 +237,13 @@ class VDSAPI(BaseClient):
         Returns:
             bool: Успешное выполнение действия.
         '''
-        status = self._request(
+        status = await self._request(
             'POST', f'/servers/{server_id}/action',
             json={'action': action}
         )
         return status.is_success
 
-    def clone(self, server_id: int) -> dict:
+    async def clone(self, server_id: int) -> dict:
         '''Клонировать сервер.
 
         Args:
@@ -249,12 +252,12 @@ class VDSAPI(BaseClient):
         Returns:
             dict: Объект сервера.
         '''
-        server = self._request(
+        server = await self._request(
             'POST', f'/servers/{server_id}/clone'
         )
         return server.json()
 
-    def get_statistics(self, server_id: int, date_from: datetime | str, date_to: datetime | str) -> dict:
+    async def get_statistics(self, server_id: int, date_from: datetime | str, date_to: datetime | str) -> dict:
         '''Получить статистику сервера.
 
         Args:
@@ -273,56 +276,56 @@ class VDSAPI(BaseClient):
             params['date_from'] = date_from.isoformat()
         if isinstance(date_to, datetime):
             params['date_to'] = date_to.isoformat()
-        stats = self._request(
+        stats = await self._request(
             'GET', f'/servers/{server_id}/statistics'
         )
         return stats.json()
 
-    def get_os_list(self) -> dict:
+    async def get_os_list(self) -> dict:
         '''Получить список всех операционных систем.
 
         Returns:
             dict: Объект со списком ОС.
         '''
-        os_array = self._request(
+        os_array = await self._request(
             'GET', '/os/servers'
         )
         return os_array.json()
 
-    def get_presets(self) -> dict:
+    async def get_presets(self) -> dict:
         '''Получить список всех тарифов.
 
         Returns:
             dict: Объект со списком тарифов.
         '''
-        presets = self._request(
+        presets = await self._request(
             'GET', '/presets/servers'
         )
         return presets.json()
 
-    def get_configurators(self) -> dict:
+    async def get_configurators(self) -> dict:
         '''Получить список всеъ конфигураторов серверов.
 
         Returns:
             dict: Объект со списком конфигураторов.
         '''
-        confs = self._request(
+        confs = await self._request(
             'GET', '/configurator/servers'
         )
         return confs.json()
 
-    def get_softwares(self) -> dict:
+    async def get_softwares(self) -> dict:
         '''Получить список ПО из маркетплейса.
 
         Returns:
             dict: Объект со списком ПО из маркетплейса.
         '''
-        softwares = self._request(
+        softwares = await self._request(
             'GET', '/software/servers'
         )
         return softwares.json()
 
-    def set_boot_mode(self, server_id: int, boot_mode: str) -> bool:
+    async def set_boot_mode(self, server_id: int, boot_mode: str) -> bool:
         '''Установка типа загрузки ОС сервера.
         После смены типа загрузки, сервер будет перезапущен.
 
@@ -336,13 +339,13 @@ class VDSAPI(BaseClient):
         Returns:
             bool: Тип загрузки изменён?
         '''
-        status = self._request(
+        status = await self._request(
             'POST', f'/servers/{server_id}/boot-mode',
             json={'boot_mode': boot_mode}
         )
         return status.is_success
 
-    def set_nat_mode(self, server_id: int, nat_mode: str) -> bool:
+    async def set_nat_mode(self, server_id: int, nat_mode: str) -> bool:
         '''Установка правила маршрутизации трафика сервера.
 
         Args:
@@ -355,13 +358,13 @@ class VDSAPI(BaseClient):
         Returns:
             bool: Правила маршрутизации изменены?
         '''
-        status = self._request(
+        status = await self._request(
             'POST', f'/servers/{server_id}/local-networks/nat-mode',
             json={'nat_mode': nat_mode}
         )
         return status.is_success
 
-    def get_server_ips(self, server_id: int) -> dict:
+    async def get_server_ips(self, server_id: int) -> dict:
         '''Получить список IP-адресов сервера.
 
         Args:
@@ -370,12 +373,12 @@ class VDSAPI(BaseClient):
         Returns:
             dict: Объект со спиком IP-адресов сервера.
         '''
-        ips = self._request(
+        ips = await self._request(
             'GET', f'/servers/{server_id}/ips'
         )
         return ips.json()
 
-    def add_server_ip(self, server_id: int, type: str, ptr: str) -> dict:
+    async def add_server_ip(self, server_id: int, type: str, ptr: str) -> dict:
         '''Добавление IP-адреса сервера.
 
         Args:
@@ -386,13 +389,13 @@ class VDSAPI(BaseClient):
         Returns:
             dict: Объект с новым IP-адресом сервера.
         '''
-        new_ip = self._request(
+        new_ip = await self._request(
             'POST', f'/servers/{server_id}/ips',
             json={'type': type, 'ptr': ptr}
         )
         return new_ip.json()
 
-    def delete_server_ip(self, server_id: int, ip: IPAddress | str) -> bool:
+    async def delete_server_ip(self, server_id: int, ip: IPAddress | str) -> bool:
         '''Удаление IP-адреса сервера.
 
         Args:
@@ -402,13 +405,13 @@ class VDSAPI(BaseClient):
         Returns:
             bool: IP-адрес удалён?
         '''
-        status = self._request(
+        status = await self._request(
             'DELETE', f'/servers/{server_id}/ips',
             json={'ip': str(ip)}
         )
         return status.is_success
 
-    def update_server_ip(self, server_id: int, ip: IPAddress | str, ptr: str) -> dict:
+    async def update_server_ip(self, server_id: int, ip: IPAddress | str, ptr: str) -> dict:
         '''Добавление IP-адреса сервера.
 
         Args:
@@ -419,13 +422,13 @@ class VDSAPI(BaseClient):
         Returns:
             dict: Объект с новым IP-адресом сервера.
         '''
-        updated_ip = self._request(
+        updated_ip = await self._request(
             'PATCH', f'/servers/{server_id}/ips',
             json={'ip': ip, 'ptr': ptr}
         )
         return updated_ip.json()
 
-    def get_logs(self, server_id: int, limit: int = 100, offset: int = 0, order: str = 'asc') -> dict:
+    async def get_logs(self, server_id: int, limit: int = 100, offset: int = 0, order: str = 'asc') -> dict:
         '''Получить логи сервера.
 
         Args:
@@ -442,13 +445,13 @@ class VDSAPI(BaseClient):
             'offset': offset,
             'order': order
         }
-        logs = self._request(
+        logs = await self._request(
             'GET', f'/servers/{server_id}/logs',
             params=params
         )
         return logs.json()
 
-    def get_server_disks(self, server_id: int) -> dict:
+    async def get_server_disks(self, server_id: int) -> dict:
         '''Получить список дисков сервера.
 
         Args:
@@ -457,12 +460,12 @@ class VDSAPI(BaseClient):
         Returns:
             dict: Объект со списком дисков сервера.
         '''
-        disks = self._request(
+        disks = await self._request(
             'GET', f'/servers/{server_id}/disks'
         )
         return disks.json()
 
-    def create_server_disk(self, server_id: int, size: int) -> dict:
+    async def create_server_disk(self, server_id: int, size: int) -> dict:
         '''Создать диск сервера.
 
         Args:
@@ -474,13 +477,13 @@ class VDSAPI(BaseClient):
         '''
         if size not in range(5120, 512001, 5120):
             raise ValueError('"size" вне допустимых пределах!')
-        disk = self._request(
+        disk = await self._request(
             'POST', f'/servers/{server_id}/disks',
             json={'size': size}
         )
         return disk.json()
 
-    def get_server_disk(self, server_id: int, disk_id: int) -> dict:
+    async def get_server_disk(self, server_id: int, disk_id: int) -> dict:
         '''Получить диск сервера.
 
         Args:
@@ -490,12 +493,12 @@ class VDSAPI(BaseClient):
         Returns:
             dict: Объект диска сервера.
         '''
-        disk = self._request(
+        disk = await self._request(
             'GET', f'/servers/{server_id}/disks/{disk_id}'
         )
         return disk.json()
 
-    def update_server_disk(self, server_id: int, disk_id: int, size: int) -> dict:
+    async def update_server_disk(self, server_id: int, disk_id: int, size: int) -> dict:
         '''Изменить параметры диска сервера.
 
         Args:
@@ -508,13 +511,13 @@ class VDSAPI(BaseClient):
         '''
         if size not in range(5120, 512001, 5120):
             raise ValueError('"size" вне допустимых пределах!')
-        disk = self._request(
+        disk = await self._request(
             'PATCH', f'/servers/{server_id}/disks/{disk_id}',
             json={'size': size}
         )
         return disk.json()
 
-    def delete_server_disk(self, server_id: int, disk_id: int) -> bool:
+    async def delete_server_disk(self, server_id: int, disk_id: int) -> bool:
         '''Удалить сервер диска.
 
         Args:
@@ -524,12 +527,12 @@ class VDSAPI(BaseClient):
         Returns:
             bool: Диск сервера удалён?
         '''
-        status = self._request(
+        status = await self._request(
             'DELETE', f'/servers/{server_id}/disks/{disk_id}'
         )
         return status.is_success
 
-    def get_autobackup_settings(self, server_id: int, disk_id: int) -> dict:
+    async def get_autobackup_settings(self, server_id: int, disk_id: int) -> dict:
         '''Получить настройка автобэкапов диска сервера.
 
         Args:
@@ -539,12 +542,12 @@ class VDSAPI(BaseClient):
         Returns:
             dict: Объект настроек автобэкапа.
         '''
-        settings = self._request(
+        settings = await self._request(
             'GET', f'/servers/{server_id}/disks/{disk_id}/auto-backups'
         )
         return settings.json()
 
-    def change_autobackup_settings(
+    async def change_autobackup_settings(
         self, server_id: int, disk_id: int, is_enabled: bool,
         interval: str | None = None, creation_start_at: date | str | None = None,
         copy_count: int | None = None, day_of_week: int | None = None
@@ -588,24 +591,27 @@ class VDSAPI(BaseClient):
                 else:
                     data['creation_start_at'] = creation_start_at
             if copy_count not in range(1, 100):
-                raise ValueError('"copy_count" должен быть числом в интервале 1-99!')
+                raise ValueError(
+                    '"copy_count" должен быть числом в интервале 1-99!')
             else:
                 data['copy_count'] = copy_count
             if interval == 'week':
                 if not day_of_week:
-                    raise ValueError('При значении "interval": "week", "day_of_week" обязателен!')
+                    raise ValueError(
+                        'При значении "interval": "week", "day_of_week" обязателен!')
                 else:
                     if day_of_week not in range(1, 8):
-                        raise ValueError('"day_of_week" число в интервале 1-7!')
+                        raise ValueError(
+                            '"day_of_week" число в интервале 1-7!')
                     else:
                         data['day_of_week'] = day_of_week
-        settings = self._request(
+        settings = await self._request(
             'PATCH', f'/servers/{server_id}/disks/{disk_id}/auto-backups',
             json=data
         )
         return settings.json()
 
-    def make_server_disk_backup(
+    async def make_server_disk_backup(
         self, server_id: int, disk_id: int, comment: str | None = None
     ) -> dict:
         '''Создание бэкапа диска сервера.
@@ -618,13 +624,13 @@ class VDSAPI(BaseClient):
         Returns:
             dict: Объект бэкапа.
         '''
-        backup = self._request(
+        backup = await self._request(
             'POST', f'/servers/{server_id}/disks/{disk_id}/backups',
             json={'comment': comment} if comment else {}
         )
         return backup.json()
 
-    def get_server_disk_backups(self, server_id: int, disk_id: int) -> dict:
+    async def get_server_disk_backups(self, server_id: int, disk_id: int) -> dict:
         '''Получить список бэкапов диска сервера.
 
         Args:
@@ -634,12 +640,12 @@ class VDSAPI(BaseClient):
         Returns:
             dict: Объект со списком бэкапов диска.
         '''
-        backups = self._request(
+        backups = await self._request(
             'GET', f'/servers/{server_id}/disks/{disk_id}/backups'
         )
         return backups.json()
 
-    def change_server_disk_backup(
+    async def change_server_disk_backup(
         self, server_id: int, disk_id: int, backup_id: int, comment: str
     ) -> dict:
         '''Изменение бэкапа диска сервера.
@@ -653,13 +659,13 @@ class VDSAPI(BaseClient):
         Returns:
             dict: Объект бэкапа диска.
         '''
-        backup = self._request(
+        backup = await self._request(
             'PATCH', f'/servers/{server_id}/disks/{disk_id}/backups/{backup_id}',
             json={'comment': comment}
         )
         return backup.json()
 
-    def delete_server_disk_backup(
+    async def delete_server_disk_backup(
         self, server_id: int, disk_id: int, backup_id: int
     ) -> bool:
         '''Удаление бэкапа диска сервера.
@@ -672,12 +678,12 @@ class VDSAPI(BaseClient):
         Returns:
             bool: Бэкап удалён?
         '''
-        status = self._request(
+        status = await self._request(
             'DELETE', f'/servers/{server_id}/disks/{disk_id}/backups/{backup_id}'
         )
         return status.is_success
 
-    def get_server_disk_backup(
+    async def get_server_disk_backup(
         self, server_id: int, disk_id: int, backup_id: int
     ) -> dict:
         '''Получить бэкап диска сервера.
@@ -690,12 +696,12 @@ class VDSAPI(BaseClient):
         Returns:
             dict: Объект бэкапа диска.
         '''
-        backup = self._request(
+        backup = await self._request(
             'GET', f'/servers/{server_id}/disks/{disk_id}/backups/{backup_id}'
         )
         return backup.json()
 
-    def make_server_disk_backup_action(
+    async def make_server_disk_backup_action(
         self, server_id: int, disk_id: int, backup_id: int, action: str
     ) -> bool:
         '''Выполнить действие над бэкапом диска сервера.
@@ -712,7 +718,7 @@ class VDSAPI(BaseClient):
         Returns:
             dict: Объект бэкапа диска.
         '''
-        backup = self._request(
+        backup = await self._request(
             'POST', f'/servers/{server_id}/disks/{disk_id}/backups/{backup_id}',
             json={'action': action}
         )

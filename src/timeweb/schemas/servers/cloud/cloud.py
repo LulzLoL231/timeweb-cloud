@@ -147,6 +147,7 @@ class VDS(BaseModel):
     vnc_pass: str = Field(None, description='Пароль от VNC')
     networks: VDSNetwork = Field(..., description='Список сетей сервера.')
     disks: list[VDSDisk] = Field(..., description='Список дисков сервера.')
+    created_at: datetime = Field(..., description='Дата создания сервера.')
 
 
 class VDSArray(ResponseWithMeta):
