@@ -41,7 +41,7 @@ print(account_status)
  - [x] Образы
  - [ ] Проекты
  - [x] Токены API
- - [ ] Kubernetes
+ - [x] Kubernetes
  - [x] S3-хранилище
  - [x] SSH-ключи
 

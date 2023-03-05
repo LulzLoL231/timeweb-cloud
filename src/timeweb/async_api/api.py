@@ -10,6 +10,7 @@ from .dbs import DatabasesAPI
 from .tokens import TokensAPI
 from .images import ImagesAPI
 from .dedics import DedicsAPI
+from .k8s import KubernetesAPI
 from .account import AccountAPI
 from .ssh_keys import SSHKeysAPI
 from .balancers import BalancersAPI
@@ -47,6 +48,7 @@ class AsyncTimeweb:
         dbs (DatabasesAPI): API для работы с базами данных.
         servers (Servers): API для работы с серверами.
         balancers (BalancersAPI): API для работы с балансировщиками.
+        k8s (KubernetesAPI): API для работы с Kubernetes.
     '''
 
     def __init__(self, token: str, client: AsyncClient | None = None):
@@ -65,3 +67,4 @@ class AsyncTimeweb:
         self.dbs = DatabasesAPI(token, client)
         self.servers = Servers(token, client)
         self.balancers = BalancersAPI(token, client)
+        self.k8s = KubernetesAPI(token, client)
