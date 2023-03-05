@@ -38,8 +38,12 @@ class KubernetesAPI(BaseClient):
         Returns:
             schemas.ClustersResponse: Список кластеров.
         '''
+        params = {
+            'limit': limit,
+            'offset': offset
+        }
         clusters = self._request(
-            'GET', '/k8s/clusters'
+            'GET', '/k8s/clusters', params=params
         )
         return schemas.ClustersResponse(**clusters.json())
 
@@ -330,8 +334,13 @@ class KubernetesAPI(BaseClient):
         Returns:
             schemas.NodesResponse: Список нод.
         '''
+        params = {
+            'limit': limit,
+            'offset': offset
+        }
         nodes = self._request(
-            'GET', f'/k8s/clusters/{cluster_id}/groups/{group_id}/nodes'
+            'GET', f'/k8s/clusters/{cluster_id}/groups/{group_id}/nodes',
+            params=params
         )
         return schemas.NodesResponse(**nodes.json())
 
