@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 '''Модели для работы с S3 пользователями'''
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from ..base import ResponseWithMeta, BaseResponse
+from ..base import ResponseWithMeta, BaseResponse, BaseData
 
 
-class User(BaseModel):
+class User(BaseData):
     '''Модель пользователя S3-хранилища'''
     id: int = Field(..., description='ID пользователя')
     access_key: str = Field(..., description='Ключ доступа пользователя')

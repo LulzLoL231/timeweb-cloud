@@ -4,9 +4,9 @@ from enum import Enum
 from datetime import datetime
 from ipaddress import IPv4Address
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from ..base import ResponseWithMeta, BaseResponse
+from ..base import ResponseWithMeta, BaseResponse, BaseData
 
 
 class DBType(str, Enum):
@@ -32,7 +32,7 @@ class DBStatus(str, Enum):
     NO_PAID = 'no_paid'
 
 
-class DBDiskStats(BaseModel):
+class DBDiskStats(BaseData):
     '''Статистика диска'''
     size: int = Field(..., description='Размер (в Кб) диска базы данных.')
     used: int = Field(
@@ -40,7 +40,7 @@ class DBDiskStats(BaseModel):
     )
 
 
-class DBConfigParameters(BaseModel):
+class DBConfigParameters(BaseData):
     '''Параметры конфигурации Базы данных'''
     auto_increment_increment: str | None = Field(
         None, description='Интервал между значениями столбцов с атрибутом.'
@@ -98,7 +98,7 @@ class DBConfigParameters(BaseModel):
     )
 
 
-class Database(BaseModel):
+class Database(BaseData):
     """Database model."""
     id: int = Field(
         ..., description='Уникальный идентификатор для каждого экземпляра базы данных'
@@ -106,7 +106,8 @@ class Database(BaseModel):
     created_at: datetime = Field(..., description='Дата создания базы данных')
     account_id: str = Field(..., description='Идентификатор пользователя')
     login: str = Field(..., description='Логин для подключения к базе данных.')
-    password: str = Field(..., description='Пароль для подключения к базе данных.')
+    password: str = Field(...,
+                          description='Пароль для подключения к базе данных.')
     name: str = Field(..., description='Имя базы данных.')
     host: str = Field(..., description='Хост базы данных.')
     type: DBType = Field(..., description='Тип базы данных.')

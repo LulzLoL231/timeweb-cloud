@@ -2,12 +2,12 @@
 from enum import Enum
 from ipaddress import IPv4Address
 
-from pydantic import Field, BaseModel
+from pydantic import Field
 
-from ..base import BaseResponse
+from ..base import BaseResponse, BaseData
 
 
-class RestrictionsStatus(BaseModel):
+class RestrictionsStatus(BaseData):
     is_enabled: bool = Field(..., description='Включены ли ограничения.')
 
 
@@ -22,7 +22,7 @@ class AddIPStatus(str, Enum):
     CONFLICT = 'conflict'
 
 
-class AddedIP(BaseModel):
+class AddedIP(BaseData):
     '''Статус добавленного IP адреса.
 
     Attributes:
@@ -30,7 +30,8 @@ class AddedIP(BaseModel):
         status (AddIPStatus): Статус добавления IP адреса.
     '''
     value: IPv4Address = Field(..., description='IP адрес.')
-    status: AddIPStatus = Field(..., description='Статус добавления IP адреса.')
+    status: AddIPStatus = Field(...,
+                                description='Статус добавления IP адреса.')
 
 
 class AddIP(BaseResponse):
@@ -39,7 +40,8 @@ class AddIP(BaseResponse):
     Attributes:
         ips (list[AddedIP]): Статус добавленного IP адреса.
     '''
-    ips: list[AddedIP] = Field(..., description='Статус добавленного IP адреса.')
+    ips: list[AddedIP] = Field(...,
+                               description='Статус добавленного IP адреса.')
 
 
 class RemoveIPStatus(str, Enum):
@@ -53,7 +55,7 @@ class RemoveIPStatus(str, Enum):
     NOT_FOUND = 'not_found'
 
 
-class RemovedIP(BaseModel):
+class RemovedIP(BaseData):
     '''Статус удаленного IP адреса.
 
     Attributes:
@@ -61,7 +63,8 @@ class RemovedIP(BaseModel):
         status (RemoveIPStatus): Статус удаления IP адреса.
     '''
     value: IPv4Address = Field(..., description='IP адрес.')
-    status: RemoveIPStatus = Field(..., description='Статус удаления IP адреса.')
+    status: RemoveIPStatus = Field(...,
+                                   description='Статус удаления IP адреса.')
 
 
 class RemoveIP(BaseResponse):
@@ -70,4 +73,5 @@ class RemoveIP(BaseResponse):
     Attributes:
         ips (list[RemovedIP]): Статус удаленного IP адреса.
     '''
-    ips: list[RemovedIP] = Field(..., description='Статус удаленного IP адреса.')
+    ips: list[RemovedIP] = Field(...,
+                                 description='Статус удаленного IP адреса.')

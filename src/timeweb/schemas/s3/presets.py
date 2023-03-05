@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 '''Модели для работы с S3 тарифами'''
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from ..base import ResponseWithMeta
+from ..base import ResponseWithMeta, BaseData
 
 
-class Preset(BaseModel):
+class Preset(BaseData):
     '''Модель тарифа S3-хранилища'''
     id: int = Field(..., description='ID тарифа')
     description: str = Field(..., description='Описание тарифа')

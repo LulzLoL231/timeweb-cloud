@@ -2,12 +2,12 @@
 from decimal import Decimal
 from datetime import datetime
 
-from pydantic import Field, BaseModel
+from pydantic import Field
 
-from ..base import BaseResponse
+from ..base import BaseResponse, BaseData
 
 
-class Finances(BaseModel):
+class Finances(BaseData):
     '''Платежная информация
 
     Attributes:

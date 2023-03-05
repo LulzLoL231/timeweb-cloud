@@ -6,10 +6,10 @@ from enum import Enum
 from datetime import datetime
 from ipaddress import IPv4Address, IPv6Address
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
 from ...time_utils import Period
-from ...base import ResponseWithMeta, BaseResponse
+from ...base import ResponseWithMeta, BaseResponse, BaseData
 
 
 class ServerStatus(str, Enum):
@@ -20,7 +20,7 @@ class ServerStatus(str, Enum):
     OFF = 'off'
 
 
-class DedicatedServer(BaseModel):
+class DedicatedServer(BaseData):
     '''Выделенный сервер'''
     id: int = Field(..., description='UID выделенного сервера.')
     cpu_description: str = Field(..., description='Описание CPU.')
@@ -50,7 +50,8 @@ class DedicatedServer(BaseModel):
     vnc_pass: str | None = Field(
         None, description='Пароль для доступа к VNC-консоли.'
     )
-    status: ServerStatus = Field(..., description='Статус выделенного сервера.')
+    status: ServerStatus = Field(...,
+                                 description='Статус выделенного сервера.')
     os_id: int | None = Field(
         None, description='UID операционной системы.'
     )

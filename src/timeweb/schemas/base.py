@@ -1,10 +1,24 @@
 # -*- coding: utf-8 -*-
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, Extra
 
 
-class BaseResponse(BaseModel):
+class BaseData(BaseModel):
+    '''Базовая модель данных'''
+    class Config:
+        use_enum_values = True
+        orm_mode = True
+        extra = Extra.allow
+        validate_assignment = True
+        allow_mutation = False
+        allow_population_by_field_name = True
+
+    def __repr__(self) -> str:
+        return str(self.dict())
+
+
+class BaseResponse(BaseData):
     '''Базовая модель ответа'''
     response_id: UUID | None = Field(
         None, description=('В большинстве случае в ответе будет содержаться '
@@ -17,7 +31,7 @@ class BaseResponse(BaseModel):
     )
 
 
-class BaseMeta(BaseModel):
+class BaseMeta(BaseData):
     '''Базовая модель мета-данных'''
     total: int | None = Field(
         None, description='Общее количество элементов в коллекции.'

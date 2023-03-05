@@ -3,9 +3,9 @@
 from enum import Enum
 from datetime import datetime
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from ..base import ResponseWithMeta
+from ..base import ResponseWithMeta, BaseData
 
 
 class ObjectType(str, Enum):
@@ -14,13 +14,13 @@ class ObjectType(str, Enum):
     DIRECTORY = 'directory'
 
 
-class ObjectOwner(BaseModel):
+class ObjectOwner(BaseData):
     '''Модель владельца объекта'''
     id: str = Field(..., description='ID владельца')
     display_name: str = Field(..., description='Имя владельца')
 
 
-class Object(BaseModel):
+class Object(BaseData):
     '''Модель объекта'''
     key: str = Field(..., description='Название объекта')
     last_modified: datetime = Field(

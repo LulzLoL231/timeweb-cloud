@@ -3,9 +3,9 @@
 from enum import Enum
 from datetime import datetime
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from ..base import ResponseWithMeta
+from ..base import ResponseWithMeta, BaseData
 
 
 class DomainStatus(str, Enum):
@@ -15,7 +15,7 @@ class DomainStatus(str, Enum):
     SSL_RE_RELEASE_ERROR = 'ssl_re_release_error'
 
 
-class Domain(BaseModel):
+class Domain(BaseData):
     '''Модель SSL поддомена'''
     id: int = Field(..., description='ID поддомена')
     subdomain: str = Field(..., description='Поддомен')
@@ -43,7 +43,7 @@ class DomainAddStatus(str, Enum):
     FAILED = 'failed'
 
 
-class DomainAdd(BaseModel):
+class DomainAdd(BaseData):
     '''Модель добавления поддомена'''
     subdomain: str = Field(..., description='Поддомен')
     status: DomainAddStatus = Field(..., description='Результат добавления')
