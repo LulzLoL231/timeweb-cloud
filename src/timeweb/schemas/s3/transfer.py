@@ -2,9 +2,9 @@
 '''Модели для работы с S3 трансфером'''
 from enum import Enum
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from ..base import ResponseWithMeta
+from ..base import ResponseWithMeta, BaseData
 
 
 class TransferStatus(str, Enum):
@@ -14,7 +14,7 @@ class TransferStatus(str, Enum):
     FAILED = 'failed'
 
 
-class TransferError(BaseModel):
+class TransferError(BaseData):
     '''Модель ошибки трансфера
 
     Note:
@@ -25,7 +25,7 @@ class TransferError(BaseModel):
     try_count: int = Field(..., description='Количество попыток.', alias='try')
 
 
-class Transfer(BaseModel):
+class Transfer(BaseData):
     '''Модель трансфера'''
     status: TransferStatus = Field(..., description='Статус трансфера')
     tries: int = Field(..., description='Количество попыток')

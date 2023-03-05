@@ -3,12 +3,12 @@
 from uuid import UUID
 from datetime import datetime
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from ..base import ResponseWithMeta, BaseResponse
+from ..base import ResponseWithMeta, BaseResponse, BaseData
 
 
-class APIKey(BaseModel):
+class APIKey(BaseData):
     '''Модель API токена'''
     id: UUID = Field(..., description='Уникальный идентификатор токена.')
     created_at: datetime = Field(

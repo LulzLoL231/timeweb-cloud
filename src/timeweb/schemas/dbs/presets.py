@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 '''Модели для работы с тарифами баз данных'''
-from pydantic import BaseModel, Field
+from pydantic import Field
 
 from .dbs import DBType
-from ..base import ResponseWithMeta
+from ..base import ResponseWithMeta, BaseData
 
 
-class Preset(BaseModel):
+class Preset(BaseData):
     '''Тариф базы данных'''
     id: int = Field(..., description='ID тарифа.')
     description: str = Field(..., description='Описание тарифа.')
@@ -15,7 +15,8 @@ class Preset(BaseModel):
     )
     cpu: int = Field(..., description='Количество CPU.')
     ram: int = Field(..., description='Количество RAM (Гб).')
-    disk: int = Field(..., description='Количество дискового пространства (Гб).')
+    disk: int = Field(...,
+                      description='Количество дискового пространства (Гб).')
     type: DBType = Field(..., description='Тип базы данных.')
     price: int = Field(..., description='Цена тарифа.')
     location: str = Field(...,

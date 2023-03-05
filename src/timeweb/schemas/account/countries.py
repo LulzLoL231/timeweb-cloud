@@ -2,12 +2,12 @@
 from enum import Enum
 from typing import Dict
 
-from pydantic import Field, BaseModel
+from pydantic import Field
 
-from ..base import BaseResponse
+from ..base import BaseResponse, BaseData
 
 
-class RestrictionsStatus(BaseModel):
+class RestrictionsStatus(BaseData):
     is_enabled: bool = Field(..., description='Включены ли ограничения.')
 
 
@@ -35,15 +35,17 @@ class AddAccessCountriesStatus(str, Enum):
     CONFLICT = 'conflict'
 
 
-class AddedCountries(BaseModel):
+class AddedCountries(BaseData):
     '''Статус добавленния страны.
 
     Attributes:
         value (str): Код страны в формате Alpha-2 ISO 3166-1.
         status (AddAccessCountriesStatus): Статус добавления страны.
     '''
-    value: str = Field(..., description='Код страны в формате Alpha-2 ISO 3166-1.')
-    status: AddAccessCountriesStatus = Field(..., description='Статус добавления страны.')
+    value: str = Field(...,
+                       description='Код страны в формате Alpha-2 ISO 3166-1.')
+    status: AddAccessCountriesStatus = Field(...,
+                                             description='Статус добавления страны.')
 
 
 class AddAccessCountries(BaseResponse):
@@ -68,15 +70,17 @@ class RemoveAccessCountriesStatus(str, Enum):
     NOT_FOUND = 'not_found'
 
 
-class RemovedCountries(BaseModel):
+class RemovedCountries(BaseData):
     '''Статус удаления страны.
 
     Attributes:
         value (str): Код страны в формате Alpha-2 ISO 3166-1.
         status (RemoveAccessCountriesStatus): Статус удаления страны.
     '''
-    value: str = Field(..., description='Код страны в формате Alpha-2 ISO 3166-1.')
-    status: AddAccessCountriesStatus = Field(..., description='Статус удаления страны.')
+    value: str = Field(...,
+                       description='Код страны в формате Alpha-2 ISO 3166-1.')
+    status: AddAccessCountriesStatus = Field(...,
+                                             description='Статус удаления страны.')
 
 
 class RemoveAccessCountries(BaseResponse):

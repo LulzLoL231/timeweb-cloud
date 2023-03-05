@@ -4,9 +4,9 @@ from enum import Enum
 from datetime import datetime
 from ipaddress import IPv4Address, IPv6Address
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from ..base import ResponseWithMeta, BaseResponse
+from ..base import ResponseWithMeta, BaseResponse, BaseData
 
 
 class Protocol(str, Enum):
@@ -31,16 +31,17 @@ class BalancerStatus(str, Enum):
     NO_PAID = 'no_paid'
 
 
-class BalancerRule(BaseModel):
+class BalancerRule(BaseData):
     '''Правило балансировщика'''
     id: int = Field(..., description='UID правила')
-    balancer_proto: Protocol = Field(..., description='Протокол балансировщика')
+    balancer_proto: Protocol = Field(...,
+                                     description='Протокол балансировщика')
     balancer_port: int = Field(..., description='Порт балансировщика')
     server_proto: Protocol = Field(..., description='Протокол сервера')
     server_port: int = Field(..., description='Порт сервера')
 
 
-class Balancer(BaseModel):
+class Balancer(BaseData):
     '''Балансировщик'''
     id: int = Field(..., description='UID балансировщика')
     algo: BalancerAlgorithm = Field(
@@ -65,7 +66,8 @@ class Balancer(BaseModel):
     proto: Protocol = Field(..., description='Протокол балансировщика.')
     rise: int = Field(..., description='Порог количества успешных проверок.')
     preset_id: int = Field(..., description='UID тарифа балансировщика.')
-    is_ssl: bool = Field(..., description='Требуется ли перенаправление на SSL.')
+    is_ssl: bool = Field(...,
+                         description='Требуется ли перенаправление на SSL.')
     status: BalancerStatus = Field(..., description='Статус балансировщика.')
     is_sticky: bool = Field(..., description='Сохраняется ли сессия.')
     timeout: int = Field(..., description='Таймаут ответа балансировщика.')
@@ -87,7 +89,8 @@ class BalancerResponse(BaseResponse):
 
 class BalancersResponse(ResponseWithMeta):
     '''Ответ со списком балансировщиков'''
-    balancers: list[Balancer] = Field(..., description='Список балансировщиков.')
+    balancers: list[Balancer] = Field(...,
+                                      description='Список балансировщиков.')
 
 
 class BalancerRuleResponse(BaseResponse):
@@ -97,7 +100,8 @@ class BalancerRuleResponse(BaseResponse):
 
 class BalancerRulesResponse(ResponseWithMeta):
     '''Ответ со списком правил балансировщика'''
-    rules: list[BalancerRule] = Field(..., description='Список правил балансировщика.')
+    rules: list[BalancerRule] = Field(...,
+                                      description='Список правил балансировщика.')
 
 
 class BalancerIPsResponse(ResponseWithMeta):

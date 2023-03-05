@@ -4,9 +4,9 @@ from uuid import UUID
 from enum import Enum
 from datetime import datetime
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from ..base import ResponseWithMeta, BaseResponse
+from ..base import ResponseWithMeta, BaseResponse, BaseData
 
 
 class ImageStatus(str, Enum):
@@ -16,7 +16,7 @@ class ImageStatus(str, Enum):
     FAILED = 'failed'
 
 
-class Image(BaseModel):
+class Image(BaseData):
     '''Модель образа'''
     id: UUID | str = Field(..., description='Уникальный идентификатор образа.')
     status: ImageStatus = Field(..., description='Статус образа.')
@@ -57,7 +57,7 @@ class URLStatus(str, Enum):
     ALREADY_EXISTS = 'already_exists'
 
 
-class Download(BaseModel):
+class Download(BaseData):
     '''Модель ссылки на загрузку'''
     id: UUID | str = Field(..., description='Уникальный идентификатор ссылки.')
     created_at: datetime = Field(

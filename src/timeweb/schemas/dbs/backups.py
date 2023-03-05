@@ -3,9 +3,9 @@
 from enum import Enum
 from datetime import datetime
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from ..base import ResponseWithMeta, BaseResponse
+from ..base import ResponseWithMeta, BaseResponse, BaseData
 
 
 class BackupStatus(str, Enum):
@@ -25,7 +25,7 @@ class BackupType(str, Enum):
     AUTO = 'auto'
 
 
-class Backup(BaseModel):
+class Backup(BaseData):
     '''Бэкап базы данных'''
     id: int = Field(..., description='ID бэкапа.')
     name: str = Field(..., description='Имя бэкапа.')

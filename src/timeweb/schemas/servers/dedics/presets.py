@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 '''Модели для работы с тарифами выделенных серверов'''
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from ...base import ResponseWithMeta
+from ...base import ResponseWithMeta, BaseData
 
 
-class DedicatedCPU(BaseModel):
+class DedicatedCPU(BaseData):
     '''CPU выделенного сервера'''
     description: str = Field(..., description='Описание характеристик.')
     description_short: str = Field(
@@ -14,20 +14,20 @@ class DedicatedCPU(BaseModel):
     count: int = Field(..., description='Количество ядер CPU.')
 
 
-class DedicatedDisk(BaseModel):
+class DedicatedDisk(BaseData):
     '''Диск выделенного сервера'''
     description: str = Field(..., description='Описание характеристик.')
     count: int = Field(..., description='Количество дисков.')
 
 
-class DedicatedMemory(BaseModel):
+class DedicatedMemory(BaseData):
     '''Память выделенного сервера'''
     description: str = Field(..., description='Описание характеристик.')
     count: int = Field(..., description='Количество памяти.')
     size: int = Field(..., description='Размер памяти (Мб).')
 
 
-class DedicatedServerPreset(BaseModel):
+class DedicatedServerPreset(BaseData):
     '''Тариф выделенного сервера'''
     id: int = Field(..., description='UID тарифа.')
     description: str = Field(..., description='Описание тарифа.')

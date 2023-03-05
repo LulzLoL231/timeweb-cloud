@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 '''Модели для работы с доп. услугами выделенных серверов'''
 from enum import Enum
-from pydantic import BaseModel, Field
+from pydantic import Field
 
 from ...time_utils import Period
-from ...base import ResponseWithMeta
+from ...base import ResponseWithMeta, BaseData
 
 
 class ServicePeriods(Enum):
@@ -17,13 +17,14 @@ class ServicePeriods(Enum):
     FOREVER = 'forever'
 
 
-class DedicatedServerService(BaseModel):
+class DedicatedServerService(BaseData):
     '''Доп. услуга выделенного сервера'''
     id: int = Field(..., description='UID доп. услуги.')
     price: int = Field(..., description='Цена доп. услуги в рублях.')
     period: ServicePeriods = Field(..., description='Период доп. услуги.')
     description: str = Field(..., description='Описание доп. услуги.')
-    short_description: str = Field(..., description='Краткое описание доп. услуги.')
+    short_description: str = Field(...,
+                                   description='Краткое описание доп. услуги.')
     name: str = Field(..., description='Название доп. услуги.')
 
 

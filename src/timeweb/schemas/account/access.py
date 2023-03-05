@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from ipaddress import IPv4Address
 
-from pydantic import Field, BaseModel
+from pydantic import Field
 
-from ..base import BaseResponse
+from ..base import BaseResponse, BaseData
 
 
-class WhiteList(BaseModel):
+class WhiteList(BaseData):
     '''Список разрешенных IP адресов и стран.
 
     Attributes:

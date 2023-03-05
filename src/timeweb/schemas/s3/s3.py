@@ -2,9 +2,9 @@
 '''Модели для работы с S3'''
 from enum import Enum
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from ..base import ResponseWithMeta, BaseResponse
+from ..base import ResponseWithMeta, BaseResponse, BaseData
 
 
 class BucketStatus(str, Enum):
@@ -20,13 +20,13 @@ class BucketType(str, Enum):
     PUBLIC = 'public'
 
 
-class BucketDiskStats(BaseModel):
+class BucketDiskStats(BaseData):
     '''Статистика диска S3-хранилища'''
     used: int = Field(..., description='Использовано места (в Кб)')
     size: int = Field(..., description='Всего места (в Кб)')
 
 
-class Bucket(BaseModel):
+class Bucket(BaseData):
     '''Модель S3-хранилища'''
     id: int = Field(..., description='ID хранилища')
     name: str = Field(..., description='Имя хранилища')
@@ -44,7 +44,8 @@ class Bucket(BaseModel):
     location: str = Field(..., description='Регион хранилища')
     hostname: str = Field(..., description='Хост хранилища')
     access_key: str = Field(..., description='Ключ доступа к хранилищу')
-    secret_key: str = Field(..., description='Секретный ключ доступа к хранилищу')
+    secret_key: str = Field(...,
+                            description='Секретный ключ доступа к хранилищу')
 
 
 class BucketResponse(BaseResponse):

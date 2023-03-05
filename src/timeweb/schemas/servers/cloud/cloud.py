@@ -4,9 +4,9 @@ from enum import Enum
 from datetime import datetime
 from ipaddress import IPv4Address, IPv6Address
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from ...base import ResponseWithMeta, BaseResponse
+from ...base import ResponseWithMeta, BaseResponse, BaseData
 
 
 class OSNames(str, Enum):
@@ -23,14 +23,14 @@ class OSNames(str, Enum):
     Windows = 'windows'
 
 
-class VDSOS(BaseModel):
+class VDSOS(BaseData):
     '''Модель ОС сервера'''
     id: int = Field(..., description='UID ОС')
     name: OSNames = Field(..., description='Тип ОС')
     version: str | None = Field(None, description='Версия ОС')
 
 
-class Software(BaseModel):
+class Software(BaseData):
     '''ПО из маркетплейса'''
     id: int = Field(..., description='UID ПО')
     name: str = Field(..., description='Название ПО')
@@ -84,7 +84,7 @@ class NetworkIPsType(str, Enum):
     IPv6 = 'ipv6'
 
 
-class NetworkIPs(BaseModel):
+class NetworkIPs(BaseData):
     '''Список IP-адресов сети.'''
     type: NetworkIPsType = Field(..., description='Тип IP-адреса сети')
     ip: IPv4Address | IPv6Address = Field(..., description='IP-адрес')
@@ -92,23 +92,23 @@ class NetworkIPs(BaseModel):
     is_main: bool = Field(..., description='Сеть основная?')
 
 
-class VDSNetwork(BaseModel):
+class VDSNetwork(BaseData):
     '''Список сетей сервера.'''
     type: NetworkType = Field(..., description='Тип сети')
-    nat_mode: NATMode = Field(
-        ..., description='Тип преобразования сетевых адресов.'
+    nat_mode: NATMode | None = Field(
+        None, description='Тип преобразования сетевых адресов.'
     )
     bandwidth: int | None = Field(None, description='Пропускная способность')
     ips: list[NetworkIPs] | None = Field(
         None, description='Список IP-адресов сети'
     )
-    is_ddos_guard: bool = Field(
-        default=...,
+    is_ddos_guard: bool | None = Field(
+        default=None,
         description='Подключена ли DDoS-защита. Только для публичных сетей'
     )
 
 
-class VDSDisk(BaseModel):
+class VDSDisk(BaseData):
     '''Список дисков сервера.'''
     id: int = Field(..., description='UID диска')
     size: int = Field(..., description='Размер в Мб')
@@ -120,7 +120,7 @@ class VDSDisk(BaseModel):
     status: str = Field(..., description='Статус диска')
 
 
-class VDS(BaseModel):
+class VDS(BaseData):
     '''Модель облачного сервера'''
     id: int = Field(..., description='UID сервера')
     name: str = Field(..., description='Имя сервера')
@@ -145,7 +145,8 @@ class VDS(BaseModel):
     ram: int = Field(..., description='Размер RAM в Мб')
     avatar_id: str | None = Field(None, description='UID аватара')
     vnc_pass: str = Field(None, description='Пароль от VNC')
-    networks: VDSNetwork = Field(..., description='Список сетей сервера.')
+    networks: list[VDSNetwork] = Field(...,
+                                       description='Список сетей сервера.')
     disks: list[VDSDisk] = Field(..., description='Список дисков сервера.')
     created_at: datetime = Field(..., description='Дата создания сервера.')
 

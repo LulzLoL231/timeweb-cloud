@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 
-from pydantic import Field, BaseModel
+from pydantic import Field
 
-from ..base import BaseResponse
+from ..base import BaseResponse, BaseData
 
 
-class CompanyInfo(BaseModel):
+class CompanyInfo(BaseData):
     '''Информация о компании.
 
     Attributes:
@@ -17,7 +17,7 @@ class CompanyInfo(BaseModel):
     name: str = Field(..., description='Название компании.')
 
 
-class Status(BaseModel):
+class Status(BaseData):
     '''Статус аккаунта.
 
     Attributes:

@@ -3,18 +3,18 @@
 from uuid import UUID
 from datetime import datetime
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from ..base import ResponseWithMeta, BaseResponse
+from ..base import ResponseWithMeta, BaseResponse, BaseData
 
 
-class Server(BaseModel):
+class Server(BaseData):
     '''Модель сервера'''
     id: UUID = Field(..., description='Уникальный идентификатор сервера.')
     name: str = Field(..., description='Название сервера.')
 
 
-class SSHKey(BaseModel):
+class SSHKey(BaseData):
     '''Модель SSH ключа'''
     id: UUID = Field(..., description='Уникальный идентификатор SSH ключа.')
     name: str = Field(..., description='Название SSH ключа.')
