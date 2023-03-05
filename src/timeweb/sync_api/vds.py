@@ -78,9 +78,9 @@ class VDSAPI(BaseClient):
         return status.is_success
 
     def create(
-        self, name: str, os_id: int, is_ddos_guard: bool,
-        bandwidth: int, preset_id: int | None = None,
-        configurator: dict[str, int] | None = None,
+        self, name: str, is_ddos_guard: bool, bandwidth: int,
+        os_id: int | None = None, preset_id: int | None = None,
+        configurator: dict[str, int] | None = None, image_id: int | None = None,
         software_id: int | None = None, avatar_id: str | None = None,
         comment: str | None = None, ssh_keys_ids: list[int] | None = None,
         is_local_network: bool | None = None
@@ -89,9 +89,10 @@ class VDSAPI(BaseClient):
 
         Args:
             name (str): Имя сервера.
-            os_id (int): UID ОС сервера.
             is_ddos_guard (bool): Защита от DDOS.
             bandwidth (int): Пропускная способность.
+            os_id (int | None, optional): UID ОС сервера. Defaults to None.
+            image_id (int | None, optional): UID образа. Defaults to None.
             preset_id (int | None, optional): UID тарифа. Defaults to None.
             configurator (dict[str, int] | None, optional): Объект конфигуратора. Defaults to None.
             software_id (int | None, optional): UID ПО сервера. Defaults to None.
@@ -129,10 +130,16 @@ class VDSAPI(BaseClient):
                 raise ValueError(
                     'В объекте configurator отсутствуют необходимые значения!'
                 )
+        if os_id and image_id:
+            raise ValueError('Нельзя одновременно использовать "os_id" и "image_id"!')
         server_param = {
-            'name': name, 'os_id': os_id,
+            'name': name,
             'is_ddos_guard': is_ddos_guard, 'bandwidth': bandwidth
         }
+        if os_id:
+            server_param['os_id'] = os_id
+        if image_id:
+            server_param['image_id'] = image_id
         if preset_id:
             server_param['preset_id'] = preset_id
         if configurator:

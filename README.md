@@ -44,6 +44,7 @@ print(account_status)
  - [x] Kubernetes
  - [x] S3-хранилище
  - [x] SSH-ключи
+ - [ ] Почта
 
 ## Etag
 Etag - это уникальный идентификатор, который используется для проверки изменений в API. Он будет использоваться чтобы определять текущею версию Swagger API, т.к. сейчас Swagger API Timeweb Cloud не имеет версионности и/или changelog'а. Получается он из запроса к спецификации OpenAPI по ссылке https://timeweb.cloud/api-docs-data/bundle.json. Сервер сам его возвращает и мы пока операемся на него. В будущем, когда/если Swagger API Timeweb Cloud будет иметь версионность и/или changelog, будем опираться на их версию Swagger API.
