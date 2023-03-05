@@ -41,3 +41,8 @@ class BaseMeta(BaseData):
 class ResponseWithMeta(BaseResponse):
     '''Модель ответа с мета-данными'''
     meta: BaseMeta | None = Field(None, description='Мета-данные.')
+
+
+class BaseDelete(BaseData):
+    '''Модель с хэшом для удаления объекта'''
+    hash: str
