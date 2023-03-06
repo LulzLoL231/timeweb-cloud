@@ -5,3 +5,4 @@
 dedics - выделенные сервера.
 cloud - виртуальные сервера.'''
 from . import dedics
+from . import cloud

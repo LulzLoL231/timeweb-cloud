@@ -140,7 +140,7 @@ class DatabasesAPI(BaseClient):
         '''Удалить БД.
 
         Args:
-            db_id (int): UID балансировщика.
+            db_id (int): UID базы данных.
 
         Returns:
             bool | schemas.DatabaseDelete: Успешность удаления. Или хэш для подтверждения.

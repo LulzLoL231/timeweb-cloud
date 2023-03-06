@@ -8,7 +8,8 @@
 
 Документация: https://timeweb.cloud/api-docs#tag/Oblachnye-servery'''
 import logging
-from datetime import datetime, date
+import warnings
+from datetime import datetime, date, timedelta
 from ipaddress import IPv4Address, IPv6Address
 
 from httpx import Client
@@ -63,19 +64,54 @@ class VDSAPI(BaseClient):
         )
         return schemas.VDSResponse(**vds.json())
 
-    def delete(self, server_id: int) -> bool:
-        '''Удаление сервера.
+    def delete(self, server_id: int) -> bool | schemas.VDSDelete:
+        '''Удалить облачный сервер.
 
         Args:
-            server_id (int): UID сервера.
+            server_id (int): UID облачного сервера.
 
         Returns:
-            bool: Сервер удалён?
+            bool | schemas.VDSDelete: Успешность удаления. Или хэш для подтверждения.
         '''
         status = self._request(
             'DELETE', f'/servers/{server_id}'
         )
-        return status.is_success
+        if status.status_code == 204:
+            return True
+        elif status.status_code == 200:
+            return schemas.VDSDelete(**status.json())
+        else:
+            return False
+
+    def confirm_delete(self, server_id: int, hash: str, code: str) -> bool:
+        '''Подтвердить удаление облачный сервера.
+
+        Args:
+            server_id (int): UID облачного сервера.
+            hash (str): Хэш подтверждения удаление из `self.delete`.
+            code (str): Код подтверждения удаления.
+
+        Returns:
+            bool: БД удалена?
+        '''
+        params = {
+            'hash': hash,
+            'code': code
+        }
+        status = self._request(
+            'DELETE', f'/servers/{server_id}',
+            params=params
+        )
+        if status.status_code == 204 and status.elapsed > timedelta(seconds=2):
+            return True
+        else:
+            if status.status_code == 204:
+                warnings.warn(
+                    'API слишком быстро подтвердил удаление. '
+                    'Возможно он врёт. Проверьте хэш!'
+                )
+                return True
+            return False
 
     def create(
         self, name: str, is_ddos_guard: bool, bandwidth: int,

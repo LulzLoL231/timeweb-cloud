@@ -2,5 +2,5 @@
 # flake8: noqa
 '''Модели для работы с облачными серверами'''
 from .cloud import (
-    VDS, VDSArray, VDSResponse
+    VDS, VDSArray, VDSResponse, VDSDelete
 )
