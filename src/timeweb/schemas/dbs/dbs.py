@@ -6,7 +6,7 @@ from ipaddress import IPv4Address
 
 from pydantic import Field
 
-from ..base import ResponseWithMeta, BaseResponse, BaseData
+from ..base import ResponseWithMeta, BaseResponse, BaseData, BaseDelete
 
 
 class DBType(str, Enum):
@@ -140,3 +140,8 @@ class DBArray(ResponseWithMeta):
 class DatabaseResponse(BaseResponse):
     """Response with database."""
     db: Database = Field(..., description='База данных.')
+
+
+class DatabaseDelete(BaseResponse):
+    '''Ответ с хэшом для подтверждения удаления БД'''
+    database_delete: BaseDelete
