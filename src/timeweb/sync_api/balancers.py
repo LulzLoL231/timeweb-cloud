@@ -5,6 +5,8 @@
 
 Документация: https://timeweb.cloud/api-docs#tag/Balansirovshiki'''
 import logging
+import warnings
+from datetime import timedelta
 from ipaddress import IPv4Address, IPv6Address
 
 from httpx import Client
@@ -176,19 +178,56 @@ class BalancersAPI(BaseClient):
         )
         return schemas.BalancerResponse(**balancer.json())
 
-    def delete(self, balancer_id: int) -> bool:
+    def delete(self, balancer_id: int) -> bool | schemas.BalancerDelete:
         '''Удалить балансировщик.
 
         Args:
             balancer_id (int): UID балансировщика.
 
         Returns:
-            bool: Успешность удаления.
+            bool | schemas.BalancerDelete: Успешность удаления. Или хэш для подтверждения.
         '''
-        self._request(
+        status = self._request(
             'DELETE', f'/balancers/{balancer_id}'
         )
-        return True
+        if status.status_code == 204:
+            return True
+        elif status.status_code == 200:
+            return schemas.BalancerDelete(**status.json())
+        else:
+            return False
+
+    def confirm_delete(
+        self, balancer_id: int, hash: str, code: str
+    ) -> bool:
+        '''Подтвердить удаление балансировщика.
+
+        Args:
+            balancer_id (int): UID балансировщика.
+            hash (str): Хэш подтверждения удаление из `self.delete`.
+            code (str): Код для подтверждения удаления.
+
+        Returns:
+            bool: Балансировщик удалён?
+        '''
+        params = {
+            'hash': hash,
+            'code': code
+        }
+        status = self._request(
+            'DELETE', f'/balancers/{balancer_id}',
+            params=params
+        )
+        if status.status_code == 204 and status.elapsed > timedelta(seconds=2):
+            return True
+        else:
+            if status.status_code == 204:
+                warnings.warn(
+                    'API слишком быстро подтвердил удаление. '
+                    'Возможно он врёт. Проверьте хэш!'
+                )
+                return True
+            return False
 
     def get_balancer_ips(self, balancer_id: int) -> schemas.BalancerIPsResponse:
         '''Получить IP балансировщика.

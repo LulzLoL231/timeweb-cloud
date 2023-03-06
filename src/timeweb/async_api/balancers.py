@@ -5,6 +5,8 @@
 
 Документация: https://timeweb.cloud/api-docs#tag/Balansirovshiki'''
 import logging
+import warnings
+from datetime import timedelta
 from ipaddress import IPv4Address, IPv6Address
 
 from httpx import AsyncClient
@@ -176,19 +178,46 @@ class BalancersAPI(BaseAsyncClient):
         )
         return schemas.BalancerResponse(**balancer.json())
 
-    async def delete(self, balancer_id: int) -> bool:
+    async def delete(self, balancer_id: int) -> bool | schemas.BalancerDelete:
         '''Удалить балансировщик.
 
         Args:
             balancer_id (int): UID балансировщика.
 
         Returns:
-            bool: Успешность удаления.
+            bool | schemas.BalancerDelete: Успешность удаления. Или хэш для подтверждения.
         '''
-        await self._request(
+        status = await self._request(
             'DELETE', f'/balancers/{balancer_id}'
         )
-        return True
+        if status.status_code == 204:
+            return True
+        elif status.status_code == 200:
+            return schemas.BalancerDelete(**status.json())
+        else:
+            return False
+
+    async def confirm_delete(
+        self, balancer_id: int, hash: str, code: str
+    ) -> bool:
+        params = {
+            'hash': hash,
+            'code': code
+        }
+        status = await self._request(
+            'DELETE', f'/balancers/{balancer_id}',
+            params=params
+        )
+        if status.status_code == 204 and status.elapsed > timedelta(seconds=2):
+            return True
+        else:
+            if status.status_code == 204:
+                warnings.warn(
+                    'API слишком быстро подтвердил удаление. '
+                    'Возможно он врёт. Проверьте хэш!'
+                )
+                return True
+            return False
 
     async def get_balancer_ips(self, balancer_id: int) -> schemas.BalancerIPsResponse:
         '''Получить IP балансировщика.

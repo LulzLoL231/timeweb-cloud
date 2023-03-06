@@ -8,7 +8,8 @@
 
 Документация: https://timeweb.cloud/api-docs#tag/Oblachnye-servery'''
 import logging
-from datetime import datetime, date
+import warnings
+from datetime import datetime, date, timedelta
 from ipaddress import IPv4Address, IPv6Address
 
 from httpx import AsyncClient
@@ -63,24 +64,59 @@ class VDSAPI(BaseAsyncClient):
         )
         return schemas.VDSResponse(**vds.json())
 
-    async def delete(self, server_id: int) -> bool:
-        '''Удаление сервера.
+    async def delete(self, server_id: int) -> bool | schemas.VDSDelete:
+        '''Удалить облачный сервер.
 
         Args:
-            server_id (int): UID сервера.
+            server_id (int): UID облачного сервера.
 
         Returns:
-            bool: Сервер удалён?
+            bool | schemas.VDSDelete: Успешность удаления. Или хэш для подтверждения.
         '''
         status = await self._request(
             'DELETE', f'/servers/{server_id}'
         )
-        return status.is_success
+        if status.status_code == 204:
+            return True
+        elif status.status_code == 200:
+            return schemas.VDSDelete(**status.json())
+        else:
+            return False
+
+    async def confirm_delete(self, server_id: int, hash: str, code: str) -> bool:
+        '''Подтвердить удаление облачный сервера.
+
+        Args:
+            server_id (int): UID облачного сервера.
+            hash (str): Хэш подтверждения удаление из `self.delete`.
+            code (str): Код подтверждения удаления.
+
+        Returns:
+            bool: БД удалена?
+        '''
+        params = {
+            'hash': hash,
+            'code': code
+        }
+        status = await self._request(
+            'DELETE', f'/servers/{server_id}',
+            params=params
+        )
+        if status.status_code == 204 and status.elapsed > timedelta(seconds=2):
+            return True
+        else:
+            if status.status_code == 204:
+                warnings.warn(
+                    'API слишком быстро подтвердил удаление. '
+                    'Возможно он врёт. Проверьте хэш!'
+                )
+                return True
+            return False
 
     async def create(
-        self, name: str, os_id: int, is_ddos_guard: bool,
-        bandwidth: int, preset_id: int | None = None,
-        configurator: dict[str, int] | None = None,
+        self, name: str, is_ddos_guard: bool, bandwidth: int,
+        os_id: int | None = None, preset_id: int | None = None,
+        configurator: dict[str, int] | None = None, image_id: int | None = None,
         software_id: int | None = None, avatar_id: str | None = None,
         comment: str | None = None, ssh_keys_ids: list[int] | None = None,
         is_local_network: bool | None = None
@@ -89,9 +125,10 @@ class VDSAPI(BaseAsyncClient):
 
         Args:
             name (str): Имя сервера.
-            os_id (int): UID ОС сервера.
             is_ddos_guard (bool): Защита от DDOS.
             bandwidth (int): Пропускная способность.
+            os_id (int | None, optional): UID ОС сервера. Defaults to None.
+            image_id (int | None, optional): UID образа. Defaults to None.
             preset_id (int | None, optional): UID тарифа. Defaults to None.
             configurator (dict[str, int] | None, optional): Объект конфигуратора. Defaults to None.
             software_id (int | None, optional): UID ПО сервера. Defaults to None.
@@ -107,14 +144,11 @@ class VDSAPI(BaseAsyncClient):
             schemas.VDSResponse: Созданный облачный сервер.
         '''
         if not configurator and not preset_id:
-            raise ValueError(
-                'Обязательно нужно указать configurator или preset_id!')
+            raise ValueError('Обязательно нужно указать configurator или preset_id!')
         if configurator and preset_id:
-            raise ValueError(
-                'Нельзя указать одновременно configurator и preset_id!')
+            raise ValueError('Нельзя указать одновременно configurator и preset_id!')
         if bandwidth not in range(100, 1100, 100):
-            raise ValueError(
-                'Указаный bandwidth не подходит, только число от 100 до 1000 с шагом 100!')
+            raise ValueError('Указаный bandwidth не подходит, только число от 100 до 1000 с шагом 100!')
         if len(name) > 255:
             raise ValueError('name не может превышать 255 символов!')
         if comment and len(comment) > 255:
@@ -132,10 +166,16 @@ class VDSAPI(BaseAsyncClient):
                 raise ValueError(
                     'В объекте configurator отсутствуют необходимые значения!'
                 )
+        if os_id and image_id:
+            raise ValueError('Нельзя одновременно использовать "os_id" и "image_id"!')
         server_param = {
-            'name': name, 'os_id': os_id,
+            'name': name,
             'is_ddos_guard': is_ddos_guard, 'bandwidth': bandwidth
         }
+        if os_id:
+            server_param['os_id'] = os_id
+        if image_id:
+            server_param['image_id'] = image_id
         if preset_id:
             server_param['preset_id'] = preset_id
         if configurator:
@@ -591,18 +631,15 @@ class VDSAPI(BaseAsyncClient):
                 else:
                     data['creation_start_at'] = creation_start_at
             if copy_count not in range(1, 100):
-                raise ValueError(
-                    '"copy_count" должен быть числом в интервале 1-99!')
+                raise ValueError('"copy_count" должен быть числом в интервале 1-99!')
             else:
                 data['copy_count'] = copy_count
             if interval == 'week':
                 if not day_of_week:
-                    raise ValueError(
-                        'При значении "interval": "week", "day_of_week" обязателен!')
+                    raise ValueError('При значении "interval": "week", "day_of_week" обязателен!')
                 else:
                     if day_of_week not in range(1, 8):
-                        raise ValueError(
-                            '"day_of_week" число в интервале 1-7!')
+                        raise ValueError('"day_of_week" число в интервале 1-7!')
                     else:
                         data['day_of_week'] = day_of_week
         settings = await self._request(

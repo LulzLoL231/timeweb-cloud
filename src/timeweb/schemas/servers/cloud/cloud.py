@@ -6,7 +6,7 @@ from ipaddress import IPv4Address, IPv6Address
 
 from pydantic import Field
 
-from ...base import ResponseWithMeta, BaseResponse, BaseData
+from ...base import ResponseWithMeta, BaseResponse, BaseData, BaseDelete
 
 
 class OSNames(str, Enum):
@@ -159,3 +159,8 @@ class VDSArray(ResponseWithMeta):
 class VDSResponse(BaseResponse):
     '''Ответ с сервером'''
     server: VDS = Field(..., description='Облачный сервер')
+
+
+class VDSDelete(BaseResponse):
+    '''Ответ с хэшом для подтверждения удаления облачного сервера.'''
+    server_delete: BaseDelete

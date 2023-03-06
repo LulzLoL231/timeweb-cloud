@@ -6,7 +6,7 @@ from ipaddress import IPv4Address, IPv6Address
 
 from pydantic import Field
 
-from ..base import ResponseWithMeta, BaseResponse, BaseData
+from ..base import ResponseWithMeta, BaseResponse, BaseData, BaseDelete
 
 
 class Protocol(str, Enum):
@@ -107,3 +107,8 @@ class BalancerRulesResponse(ResponseWithMeta):
 class BalancerIPsResponse(ResponseWithMeta):
     '''Ответ со списком IP адресов балансировщика'''
     ips: list[str | IPv4Address | IPv6Address] = Field(..., description='Список IP адресов балансировщика.')
+
+
+class BalancerDelete(BaseResponse):
+    '''Ответ с хэшом для подтверждения удаления балансировщика'''
+    balancer_delete: BaseDelete

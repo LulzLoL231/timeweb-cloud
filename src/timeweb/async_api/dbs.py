@@ -8,6 +8,8 @@ DBaaS обеспечивает полностью автоматизирован
 
 Документация: https://timeweb.cloud/api-docs#tag/Bazy-dannyh'''
 import logging
+import warnings
+from datetime import timedelta
 
 from httpx import AsyncClient
 
@@ -134,19 +136,54 @@ class DatabasesAPI(BaseAsyncClient):
         )
         return schemas.DatabaseResponse(**db.json())
 
-    async def delete(self, db_id: int) -> bool:
-        '''Удалить базу данных.
+    async def delete(self, db_id: int) -> bool | schemas.DatabaseDelete:
+        '''Удалить БД.
 
         Args:
-            db_id (int): ID базы данных.
+            db_id (int): UID балансировщика.
 
         Returns:
-            bool: True, если база данных успешно удалена.
+            bool | schemas.DatabaseDelete: Успешность удаления. Или хэш для подтверждения.
         '''
-        await self._request(
+        status = await self._request(
             'DELETE', f'/dbs/{db_id}'
         )
-        return True
+        if status.status_code == 204:
+            return True
+        elif status.status_code == 200:
+            return schemas.DatabaseDelete(**status.json())
+        else:
+            return False
+
+    async def confirm_delete(self, db_id: int, hash: str, code: str) -> bool:
+        '''Подтвердить удаление БД.
+
+        Args:
+            db_id (int): UID базы данных.
+            hash (str): Хэш подтверждения удаление из `self.delete`.
+            code (str): Код подтверждения удаления.
+
+        Returns:
+            bool: БД удалена?
+        '''
+        params = {
+            'hash': hash,
+            'code': code
+        }
+        status = await self._request(
+            'DELETE', f'/dbs/{db_id}',
+            params=params
+        )
+        if status.status_code == 204 and status.elapsed > timedelta(seconds=2):
+            return True
+        else:
+            if status.status_code == 204:
+                warnings.warn(
+                    'API слишком быстро подтвердил удаление. '
+                    'Возможно он врёт. Проверьте хэш!'
+                )
+                return True
+            return False
 
     async def get_backups(
         self, db_id: int, limit: int = 100, offset: int = 0

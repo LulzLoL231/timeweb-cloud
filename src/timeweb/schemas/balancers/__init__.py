@@ -8,5 +8,6 @@ from .balancers import (
     Balancer, BalancerRule, BalancerStatus,
     BalancerAlgorithm, Protocol, BalancerResponse,
     BalancersResponse, BalancerRuleResponse,
-    BalancerRulesResponse, BalancerIPsResponse
+    BalancerRulesResponse, BalancerIPsResponse,
+    BalancerDelete
 )

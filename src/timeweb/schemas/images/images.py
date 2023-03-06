@@ -14,6 +14,7 @@ class ImageStatus(str, Enum):
     NEW = 'new'
     CREATED = 'created'
     FAILED = 'failed'
+    DELETED = 'deleted'
 
 
 class Image(BaseData):
@@ -22,14 +23,18 @@ class Image(BaseData):
     status: ImageStatus = Field(..., description='Статус образа.')
     created_at: datetime = Field(...,
                                  description='Дата и время создания образа.')
+    deleted_at: datetime | None = None
+    size: int = Field(..., description='Размер образа в мегабайтах.')
+    name: str
     description: str = Field(..., description='Описание образа.')
     disk_id: int = Field(
         ..., description='Идентификатор связанного с образом диска.'
     )
-    size: int = Field(..., description='Размер образа в мегабайтах.')
     location: str | None = Field(
         None, description='Локация, в которой создан образ'
     )
+    os: str
+    progress: int
 
 
 class ImagesArray(ResponseWithMeta):
@@ -67,6 +72,7 @@ class Download(BaseData):
     type: URLType = Field(..., description='Тип ссылки.')
     url: str = Field(..., description='Ссылка на скачивание.')
     status: URLStatus = Field(..., description='Статус создания.')
+    progress: int
 
 
 class DownloadsArray(ResponseWithMeta):

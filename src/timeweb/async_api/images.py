@@ -28,35 +28,50 @@ class ImagesAPI(BaseAsyncClient):
         super().__init__(token, client)
         self.log = logging.getLogger('timeweb')
 
-    async def get_images(self, limit: int = 100, offset: int = 0) -> schemas.ImagesArray:
+    async def get_images(
+        self, limit: int = 100, offset: int = 0, with_deleted: bool = False
+    ) -> schemas.ImagesArray:
         '''Получение списка образов.
 
         Args:
             limit (int, optional): Количество элементов на странице. Defaults to 100.
             offset (int, optional): Смещение от начала списка. Defaults to 0.
+            with_deleted (bool, optional): Вернуть в том числе и удалённые? Default to False.
 
         Returns:
             ImagesArray: Список образов.
         '''
         images = await self._request(
             'GET', 'images',
-            params={'limit': limit, 'offset': offset}
+            params={
+                'limit': limit, 'offset': offset, 'with_deleted': with_deleted
+            }
         )
         return schemas.ImagesArray(**images.json())
 
-    async def create(self, description: str, disk_id: int) -> schemas.ImageResponse:
+    async def create(
+        self, name: str = '', description: str = '', disk_id: int | None = None
+    ) -> schemas.ImageResponse:
         '''Создание образа.
 
         Args:
-            description (str): Описание образа.
-            disk_id (int): Идентификатор диска, для которого создается образ
+            name (str, optional): Имя образа. Defaults to "".
+            description (str, optional): Описание образа. Defaults to "".
+            disk_id (int | None, optional): Идентификатор диска, для которого создается образ. Defaults to None.
 
         Returns:
             ImageResponse: Информация о созданном образе.
         '''
+        data: dict[str, str | int] = {}
+        if name:
+            data['name'] = name
+        if description:
+            data['description'] = description
+        if disk_id:
+            data['disk_id'] = disk_id
         image = await self._request(
             'POST', 'images',
-            json={'description': description, 'disk_id': disk_id}
+            json=data
         )
         return schemas.ImageResponse(**image.json())
 
