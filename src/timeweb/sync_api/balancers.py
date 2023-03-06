@@ -200,6 +200,16 @@ class BalancersAPI(BaseClient):
     def confirm_delete(
         self, balancer_id: int, hash: str, code: str
     ) -> bool:
+        '''Подтвердить удаление балансировщика.
+
+        Args:
+            balancer_id (int): UID балансировщика.
+            hash (str): Хэш подтверждения удаление из `self.delete`.
+            code (str): Код для подтверждения удаления.
+
+        Returns:
+            bool: Балансировщик удалён?
+        '''
         params = {
             'hash': hash,
             'code': code
