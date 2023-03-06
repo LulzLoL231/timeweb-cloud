@@ -4,7 +4,7 @@ from enum import Enum
 
 from pydantic import Field
 
-from ..base import ResponseWithMeta, BaseResponse, BaseData
+from ..base import ResponseWithMeta, BaseResponse, BaseData, BaseDelete
 
 
 class BucketStatus(str, Enum):
@@ -56,3 +56,8 @@ class BucketResponse(BaseResponse):
 class BucketArray(ResponseWithMeta):
     '''Модель ответа со списком S3-хранилищ'''
     buckets: list[Bucket]
+
+
+class BucketDelete(BaseResponse):
+    '''Ответ с хэшом для подтверждения удаления S3-хранилища'''
+    bucket_delete: BaseDelete

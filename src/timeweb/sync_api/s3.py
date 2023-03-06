@@ -6,6 +6,8 @@ S3-хранилище — это универсальное объектное �
 
 Документация: https://timeweb.cloud/api-docs#tag/S3-hranilishe'''
 import logging
+import warnings
+from datetime import timedelta
 
 from httpx import Client
 
@@ -51,13 +53,54 @@ class BucketsAPI(BaseClient):
         )
         return schemas.BucketResponse(**bucket.json())
 
-    def delete(self, bucket_id: int) -> bool:
-        '''Удаление S3-хранилища
+    def delete(self, bucket_id: int) -> bool | schemas.BucketDelete:
+        '''Удалить S3-хранилище.
+
         Args:
-            bucket_id (int): ID хранилища.
+            bucket_id (int): UID хранилища.
+
+        Returns:
+            bool | schemas.BucketDelete: Успешность удаления. Или хэш для подтверждения.
         '''
-        self._request('DELETE', f'/storages/buckets/{bucket_id}')
-        return True
+        status = self._request(
+            'DELETE', f'/storages/buckets/{bucket_id}'
+        )
+        if status.status_code == 204:
+            return True
+        elif status.status_code == 200:
+            return schemas.BucketDelete(**status.json())
+        else:
+            return False
+
+    def confirm_delete(self, bucket_id: int, hash: str, code: str) -> bool:
+        '''Подтвердить удаление S3-хранилища.
+
+        Args:
+            bucket_id (int): UID хранилища.
+            hash (str): Хэш подтверждения удаление из `self.delete`.
+            code (str): Код подтверждения удаления.
+
+        Returns:
+            bool: Хранилище удалено?
+        '''
+        params = {
+            'hash': hash,
+            'code': code
+        }
+        status = self._request(
+            'DELETE', f'/storages/buckets/{bucket_id}',
+            params=params
+        )
+        if status.status_code == 204 and status.elapsed > timedelta(seconds=2):
+            return True
+        else:
+            if status.status_code == 204:
+                warnings.warn(
+                    'API слишком быстро подтвердил удаление. '
+                    'Возможно он врёт. Проверьте хэш!'
+                )
+                return True
+            return False
 
     def update(
         self, bucket_id: int, preset_id: int | None = None,
