@@ -5,6 +5,7 @@ import logging
 from httpx import Client
 
 from .vds import VDSAPI
+from .mail import MailAPI
 from .s3 import BucketsAPI
 from .dbs import DatabasesAPI
 from .tokens import TokensAPI
@@ -14,6 +15,7 @@ from .k8s import KubernetesAPI
 from .domains import DomainsAPI
 from .account import AccountAPI
 from .ssh_keys import SSHKeysAPI
+from .projects import ProjectsAPI
 from .balancers import BalancersAPI
 
 
@@ -50,6 +52,8 @@ class Timeweb:
         balancers (BalancersAPI): API для работы с балансировщиками.
         k8s (KubernetesAPI): API для работы с Kubernetes.
         domains (DomainsAPI): API для работы с доменами.
+        mail (MailAPI): API для работы с почтой.
+        projects (ProjectsAPI): API для работы с проектами.
     '''
 
     def __init__(self, token: str, client: Client | None = None):
@@ -70,3 +74,5 @@ class Timeweb:
         self.balancers = BalancersAPI(token, client)
         self.k8s = KubernetesAPI(token, client)
         self.domains = DomainsAPI(token, client)
+        self.mail = MailAPI(token, client)
+        self.projects = ProjectsAPI(token, client)
