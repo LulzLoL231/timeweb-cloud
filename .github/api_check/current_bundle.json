@@ -43,6 +43,10 @@
       "description": "Образы — это полная копия вашего облачного сервера в формате `Qcow2`, со всеми настройками операционной системы, программного обеспечения и всем содержимым сервера. </br></br> Подробнее об образах в нашей <a href='https://timeweb.cloud/docs/cloud-servers/manage-servers/server-images' target='_blank'>базе знаний</a>."
     },
     {
+      "name": "Почта",
+      "description": "В Timeweb Cloud доступна инфраструктура готовых почтовых серверов. Вы можете создавать и настраивать неограниченное число ящиков на своих доменах. <br><br> Подробнее о сервисе почты в нашей <a href='https://timeweb.cloud/docs/mail' target='_blank'>базе знаний</a>."
+    },
+    {
       "name": "Проекты",
       "description": "Проекты позволяют организовать ваши ресурсы в группы, соответствующие вашему стилю работы. Вы можете группировать ресурсы (например, облачные и выделенные серверы, балансировщики нагрузки, базы данных и т.д.) таким образом, чтобы они соответствовали приложениям, которые вы размещаете в облаке."
     },
@@ -261,14 +265,38 @@
           "Образы"
         ],
         "summary": "Получение списка образов",
-        "operationId": "Получение_списка_образов_api_v1__account__images_get",
         "description": "Чтобы получить список образов, отправьте GET запрос на `/api/v1/images`",
+        "operationId": "Получение_списка_образов_api_v1__account__images_get",
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "type": "integer",
+              "default": 100
+            },
+            "name": "limit",
+            "in": "query"
           },
           {
-            "$ref": "#/components/parameters/offset"
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "offset",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "With Deleted",
+              "type": "boolean",
+              "default": false
+            },
+            "name": "with_deleted",
+            "in": "query"
           }
         ],
         "responses": {
@@ -295,55 +323,70 @@
                   ]
                 },
                 "example": {
-                  "response_id": "51227247-ab99-44a5-b715-fedd2c785f01",
+                  "response_id": "0d93c867-6507-402c-8970-26db85dda2f9",
                   "meta": {
                     "total": 5
                   },
                   "images": [
                     {
-                      "id": "bb19e26f-9e86-4e25-b088-d31fb5bba2c0",
+                      "id": "a167c301-6c83-46b1-8376-62e1584ee84a",
                       "status": "new",
-                      "created_at": "2023-01-23T16:02:42.403980",
-                      "size": 4194304,
-                      "description": "image of vds disk",
-                      "disk_id": 360780,
-                      "location": "ru-1"
-                    },
-                    {
-                      "id": "8f824456-648b-4c90-99b2-8aeaf846650f",
-                      "status": "new",
-                      "created_at": "2023-01-23T16:02:42.404004",
-                      "size": 4194304,
-                      "description": "image of vds disk",
-                      "disk_id": 528461,
-                      "location": "ru-1"
-                    },
-                    {
-                      "id": "f50c38bd-173b-4781-af47-7569b0281551",
-                      "status": "new",
-                      "created_at": "2023-01-23T16:02:42.404023",
-                      "size": 8388608,
-                      "description": "image of vds disk",
-                      "disk_id": 910049,
-                      "location": "ru-1"
-                    },
-                    {
-                      "id": "6ac97819-1b61-45b5-b2d3-b91f5f040ae4",
-                      "status": "new",
-                      "created_at": "2023-01-23T16:02:42.404041",
+                      "created_at": "2023-03-01T12:35:18.866362",
                       "size": 33554432,
-                      "description": "image of vds disk",
-                      "disk_id": 719304,
-                      "location": "ru-1"
+                      "name": "image a167c301-6c83-46b1-8376-62e1584ee84a",
+                      "description": "description of image a167c301-6c83-46b1-8376-62e1584ee84a",
+                      "disk_id": 389372,
+                      "location": "ru-1",
+                      "os": "ubuntu",
+                      "progress": 0
                     },
                     {
-                      "id": "a1eed085-b10d-406f-a716-c956261bd018",
+                      "id": "f6500d74-5e25-49d6-b68a-f85c03d6e9ed",
                       "status": "new",
-                      "created_at": "2023-01-23T16:02:42.404059",
+                      "created_at": "2023-03-01T12:35:18.866724",
                       "size": 1048576,
-                      "description": "image of vds disk",
-                      "disk_id": 335859,
-                      "location": "ru-1"
+                      "name": "image f6500d74-5e25-49d6-b68a-f85c03d6e9ed",
+                      "description": "description of image f6500d74-5e25-49d6-b68a-f85c03d6e9ed",
+                      "disk_id": 583657,
+                      "location": "ru-1",
+                      "os": "ubuntu",
+                      "progress": 0
+                    },
+                    {
+                      "id": "705fe3c0-3881-40d7-b703-af3e202c90f7",
+                      "status": "new",
+                      "created_at": "2023-03-01T12:35:18.866872",
+                      "size": 1048576,
+                      "name": "image 705fe3c0-3881-40d7-b703-af3e202c90f7",
+                      "description": "description of image 705fe3c0-3881-40d7-b703-af3e202c90f7",
+                      "disk_id": 785637,
+                      "location": "ru-1",
+                      "os": "ubuntu",
+                      "progress": 0
+                    },
+                    {
+                      "id": "d2989fc3-153e-4091-bcd7-17014b13aa28",
+                      "status": "new",
+                      "created_at": "2023-03-01T12:35:18.867039",
+                      "size": 4194304,
+                      "name": "image d2989fc3-153e-4091-bcd7-17014b13aa28",
+                      "description": "description of image d2989fc3-153e-4091-bcd7-17014b13aa28",
+                      "disk_id": 382507,
+                      "location": "ru-1",
+                      "os": "ubuntu",
+                      "progress": 0
+                    },
+                    {
+                      "id": "bd648c7a-0908-4765-a103-b47fc5fc1c49",
+                      "status": "new",
+                      "created_at": "2023-03-01T12:35:18.867180",
+                      "size": 4194304,
+                      "name": "image bd648c7a-0908-4765-a103-b47fc5fc1c49",
+                      "description": "description of image bd648c7a-0908-4765-a103-b47fc5fc1c49",
+                      "disk_id": 453383,
+                      "location": "ru-1",
+                      "os": "ubuntu",
+                      "progress": 0
                     }
                   ]
                 }
@@ -400,7 +443,7 @@
           "Образы"
         ],
         "summary": "Создание образа",
-        "description": "Чтобы создать образ, отправьте POST запрос в `/api/v1/images`, задав необходимые атрибуты. Образ будет создан с использованием предоставленной информации. \n\n Тело ответа будет содержать объект JSON с информацией о созданном образе.\n\n",
+        "description": "Чтобы создать образ, отправьте POST запрос в `/api/v1/images`, задав необходимые атрибуты. Образ будет создан с использованием предоставленной информации. \n\n Тело ответа будет содержать объект JSON с информацией о созданном образе.",
         "operationId": "Создание_образа_api_v1__account__images_post",
         "parameters": [],
         "requestBody": {
@@ -437,15 +480,18 @@
                   ]
                 },
                 "example": {
-                  "response_id": "ecbf298d-1b65-46a4-bfbd-f256163f7ddc",
+                  "response_id": "23e1ea78-edac-4289-a7b1-048ce8465b90",
                   "image": {
-                    "id": "05c0b0eb-0571-4ef8-98d1-39861aaf47ae",
+                    "id": "a7a4d6f2-420e-4e62-94ae-f017f40530ac",
                     "status": "new",
-                    "created_at": "2023-01-23T16:02:42.403862",
-                    "size": 4194304,
-                    "description": "image of vds disk",
-                    "disk_id": 691780,
-                    "location": "ru-1"
+                    "created_at": "2023-03-01T12:35:18.866026",
+                    "size": 16777216,
+                    "name": "image a7a4d6f2-420e-4e62-94ae-f017f40530ac",
+                    "description": "description of image a7a4d6f2-420e-4e62-94ae-f017f40530ac",
+                    "disk_id": 113957,
+                    "location": "ru-1",
+                    "os": "ubuntu",
+                    "progress": 0
                   }
                 }
               }
@@ -542,15 +588,18 @@
                   ]
                 },
                 "example": {
-                  "response_id": "5029d42e-6e4e-4268-8cdc-0906bee034d8",
+                  "response_id": "5d783163-01d5-44bc-965c-b10c00b6df94",
                   "image": {
-                    "id": "6b63f111-f787-4c08-8603-821346e3980c",
+                    "id": "b4b72a82-c7a8-4e6a-97e9-46975bb3f7a4",
                     "status": "new",
-                    "created_at": "2023-01-23T16:02:42.404138",
-                    "size": 33554432,
-                    "description": "image of vds disk",
-                    "disk_id": 625724,
-                    "location": "ru-1"
+                    "created_at": "2023-03-01T12:35:18.867599",
+                    "size": 1048576,
+                    "name": "image b4b72a82-c7a8-4e6a-97e9-46975bb3f7a4",
+                    "description": "description of image b4b72a82-c7a8-4e6a-97e9-46975bb3f7a4",
+                    "disk_id": 356431,
+                    "location": "ru-1",
+                    "os": "ubuntu",
+                    "progress": 0
                   }
                 }
               }
@@ -576,31 +625,31 @@
           {
             "lang": "cURL",
             "label": "cURL",
-            "source": "curl -X GET \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/images/e2d0e7f5-6ecb-411c-89c7-8ad0337e9564\""
+            "source": "curl -X GET \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/images/5ec5a284-20d8-47b8-8dce-ed0787cd54e9\""
           },
           {
             "lang": "JavaScript",
-            "source": "fetch('https://api.timeweb.cloud/api/v1/images/e2d0e7f5-6ecb-411c-89c7-8ad0337e9564', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+            "source": "fetch('https://api.timeweb.cloud/api/v1/images/5ec5a284-20d8-47b8-8dce-ed0787cd54e9', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
           },
           {
             "lang": "Node",
-            "source": "const axios = require('axios');\n\nconst response = await axios.get('https://api.timeweb.cloud/api/v1/images/e2d0e7f5-6ecb-411c-89c7-8ad0337e9564', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+            "source": "const axios = require('axios');\n\nconst response = await axios.get('https://api.timeweb.cloud/api/v1/images/5ec5a284-20d8-47b8-8dce-ed0787cd54e9', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
           },
           {
             "lang": "Python",
-            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.get('https://api.timeweb.cloud/api/v1/images/e2d0e7f5-6ecb-411c-89c7-8ad0337e9564', headers=headers)"
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.get('https://api.timeweb.cloud/api/v1/images/5ec5a284-20d8-47b8-8dce-ed0787cd54e9', headers=headers)"
           },
           {
             "lang": "PHP",
-            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/images/e2d0e7f5-6ecb-411c-89c7-8ad0337e9564');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/images/5ec5a284-20d8-47b8-8dce-ed0787cd54e9');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
           },
           {
             "lang": "Go",
-            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"GET\", \"https://api.timeweb.cloud/api/v1/images/e2d0e7f5-6ecb-411c-89c7-8ad0337e9564\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"GET\", \"https://api.timeweb.cloud/api/v1/images/5ec5a284-20d8-47b8-8dce-ed0787cd54e9\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
           },
           {
             "lang": "Java",
-            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/images/e2d0e7f5-6ecb-411c-89c7-8ad0337e9564\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"GET\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/images/5ec5a284-20d8-47b8-8dce-ed0787cd54e9\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"GET\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
           }
         ]
       },
@@ -609,7 +658,7 @@
           "Образы"
         ],
         "summary": "Удаление образа",
-        "description": "Чтобы удалить образ, отправьте запрос DELETE в `/api/v1/images/{image_id}`.\n",
+        "description": "Чтобы удалить образ, отправьте запрос DELETE в `/api/v1/images/{image_id}`.",
         "operationId": "Удаление_образа_api_v1__account__images__image_id__delete",
         "parameters": [
           {
@@ -645,31 +694,31 @@
           {
             "lang": "cURL",
             "label": "cURL",
-            "source": "curl -X DELETE \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/images/afac63ab-10bf-4b96-94ff-c7c01780808c\""
+            "source": "curl -X DELETE \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/images/16979f28-c002-434a-9d56-6a58fc412ed4\""
           },
           {
             "lang": "JavaScript",
-            "source": "fetch('https://api.timeweb.cloud/api/v1/images/afac63ab-10bf-4b96-94ff-c7c01780808c', {\n    method: 'DELETE',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+            "source": "fetch('https://api.timeweb.cloud/api/v1/images/16979f28-c002-434a-9d56-6a58fc412ed4', {\n    method: 'DELETE',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
           },
           {
             "lang": "Node",
-            "source": "const axios = require('axios');\n\nconst response = await axios.delete('https://api.timeweb.cloud/api/v1/images/afac63ab-10bf-4b96-94ff-c7c01780808c', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+            "source": "const axios = require('axios');\n\nconst response = await axios.delete('https://api.timeweb.cloud/api/v1/images/16979f28-c002-434a-9d56-6a58fc412ed4', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
           },
           {
             "lang": "Python",
-            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.delete('https://api.timeweb.cloud/api/v1/images/afac63ab-10bf-4b96-94ff-c7c01780808c', headers=headers)"
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.delete('https://api.timeweb.cloud/api/v1/images/16979f28-c002-434a-9d56-6a58fc412ed4', headers=headers)"
           },
           {
             "lang": "PHP",
-            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/images/afac63ab-10bf-4b96-94ff-c7c01780808c');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/images/16979f28-c002-434a-9d56-6a58fc412ed4');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
           },
           {
             "lang": "Go",
-            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"DELETE\", \"https://api.timeweb.cloud/api/v1/images/afac63ab-10bf-4b96-94ff-c7c01780808c\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"DELETE\", \"https://api.timeweb.cloud/api/v1/images/16979f28-c002-434a-9d56-6a58fc412ed4\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
           },
           {
             "lang": "Java",
-            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/images/afac63ab-10bf-4b96-94ff-c7c01780808c\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"DELETE\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/images/16979f28-c002-434a-9d56-6a58fc412ed4\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"DELETE\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
           }
         ]
       },
@@ -678,8 +727,8 @@
           "Образы"
         ],
         "summary": "Обновление информации о образе",
-        "operationId": "Обновление_информации_о_образе_api_v1__account__images__image_id__patch",
         "description": "Чтобы обновить только определенные атрибуты образа, отправьте запрос PATCH в `/api/v1/images/{image_id}`.",
+        "operationId": "Обновление_информации_о_образе_api_v1__account__images__image_id__patch",
         "parameters": [
           {
             "description": "Идентификатор образа",
@@ -727,15 +776,18 @@
                   ]
                 },
                 "example": {
-                  "response_id": "cdd3a425-802d-4e12-9603-ee5b4a3c06cb",
+                  "response_id": "31882ba6-fab2-45c0-b141-9bfbdfbd6486",
                   "image": {
-                    "id": "5d32183e-0750-4a75-9230-6917dedc6be4",
+                    "id": "b8f42279-f95b-42de-aa9c-fd83a51fd921",
                     "status": "new",
-                    "created_at": "2023-01-23T16:02:42.404209",
-                    "size": 1048576,
-                    "description": "image of vds disk",
-                    "disk_id": 549332,
-                    "location": "ru-1"
+                    "created_at": "2023-03-01T12:35:18.867790",
+                    "size": 2097152,
+                    "name": "image b8f42279-f95b-42de-aa9c-fd83a51fd921",
+                    "description": "description of image b8f42279-f95b-42de-aa9c-fd83a51fd921",
+                    "disk_id": 389715,
+                    "location": "ru-1",
+                    "os": "ubuntu",
+                    "progress": 0
                   }
                 }
               }
@@ -761,31 +813,31 @@
           {
             "lang": "cURL",
             "label": "cURL",
-            "source": "curl -X PATCH \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"description\": \"\\u041e\\u043f\\u0438\\u0441\\u0430\\u043d\\u0438\\u0435 \\u043e\\u0431\\u0440\\u0430\\u0437\\u0430\"}' \\\n -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/images/3e2f0b6b-64d4-428d-9a37-707c17d091d2\""
+            "source": "curl -X PATCH \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"name\": \"\\u0418\\u043c\\u044f \\u043e\\u0431\\u0440\\u0430\\u0437\\u0430\", \"description\": \"\\u041e\\u043f\\u0438\\u0441\\u0430\\u043d\\u0438\\u0435 \\u043e\\u0431\\u0440\\u0430\\u0437\\u0430\"}' \\\n -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/images/a41537a0-bdf0-4240-b0b0-c118febac6bb\""
           },
           {
             "lang": "JavaScript",
-            "source": "fetch('https://api.timeweb.cloud/api/v1/images/3e2f0b6b-64d4-428d-9a37-707c17d091d2', {\n    method: 'PATCH',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    },\n    // body: '{\"description\": \"\\\\u041e\\\\u043f\\\\u0438\\\\u0441\\\\u0430\\\\u043d\\\\u0438\\\\u0435 \\\\u043e\\\\u0431\\\\u0440\\\\u0430\\\\u0437\\\\u0430\"}',\n    body: JSON.stringify({\n        'description': '\\u041E\\u043F\\u0438\\u0441\\u0430\\u043D\\u0438\\u0435 \\u043E\\u0431\\u0440\\u0430\\u0437\\u0430'\n    })\n});"
+            "source": "fetch('https://api.timeweb.cloud/api/v1/images/a41537a0-bdf0-4240-b0b0-c118febac6bb', {\n    method: 'PATCH',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    },\n    // body: '{\"name\": \"\\\\u0418\\\\u043c\\\\u044f \\\\u043e\\\\u0431\\\\u0440\\\\u0430\\\\u0437\\\\u0430\", \"description\": \"\\\\u041e\\\\u043f\\\\u0438\\\\u0441\\\\u0430\\\\u043d\\\\u0438\\\\u0435 \\\\u043e\\\\u0431\\\\u0440\\\\u0430\\\\u0437\\\\u0430\"}',\n    body: JSON.stringify({\n        'name': '\\u0418\\u043C\\u044F \\u043E\\u0431\\u0440\\u0430\\u0437\\u0430',\n        'description': '\\u041E\\u043F\\u0438\\u0441\\u0430\\u043D\\u0438\\u0435 \\u043E\\u0431\\u0440\\u0430\\u0437\\u0430'\n    })\n});"
           },
           {
             "lang": "Node",
-            "source": "const axios = require('axios');\n\nconst response = await axios.patch(\n    'https://api.timeweb.cloud/api/v1/images/3e2f0b6b-64d4-428d-9a37-707c17d091d2',\n    // '{\"description\": \"\\\\u041e\\\\u043f\\\\u0438\\\\u0441\\\\u0430\\\\u043d\\\\u0438\\\\u0435 \\\\u043e\\\\u0431\\\\u0440\\\\u0430\\\\u0437\\\\u0430\"}',\n    {\n        'description': '\\u041E\\u043F\\u0438\\u0441\\u0430\\u043D\\u0438\\u0435 \\u043E\\u0431\\u0440\\u0430\\u0437\\u0430'\n    },\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n        }\n    }\n);"
+            "source": "const axios = require('axios');\n\nconst response = await axios.patch(\n    'https://api.timeweb.cloud/api/v1/images/a41537a0-bdf0-4240-b0b0-c118febac6bb',\n    // '{\"name\": \"\\\\u0418\\\\u043c\\\\u044f \\\\u043e\\\\u0431\\\\u0440\\\\u0430\\\\u0437\\\\u0430\", \"description\": \"\\\\u041e\\\\u043f\\\\u0438\\\\u0441\\\\u0430\\\\u043d\\\\u0438\\\\u0435 \\\\u043e\\\\u0431\\\\u0440\\\\u0430\\\\u0437\\\\u0430\"}',\n    {\n        'name': '\\u0418\\u043C\\u044F \\u043E\\u0431\\u0440\\u0430\\u0437\\u0430',\n        'description': '\\u041E\\u043F\\u0438\\u0441\\u0430\\u043D\\u0438\\u0435 \\u043E\\u0431\\u0440\\u0430\\u0437\\u0430'\n    },\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n        }\n    }\n);"
           },
           {
             "lang": "Python",
-            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    # Already added when you pass json=\n    # 'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\njson_data = {\n    'description': 'Описание образа',\n}\n\nresponse = requests.patch(\n    'https://api.timeweb.cloud/api/v1/images/3e2f0b6b-64d4-428d-9a37-707c17d091d2',\n    headers=headers,\n    json=json_data,\n)"
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    # Already added when you pass json=\n    # 'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\njson_data = {\n    'name': 'Имя образа',\n    'description': 'Описание образа',\n}\n\nresponse = requests.patch(\n    'https://api.timeweb.cloud/api/v1/images/a41537a0-bdf0-4240-b0b0-c118febac6bb',\n    headers=headers,\n    json=json_data,\n)"
           },
           {
             "lang": "PHP",
-            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/images/3e2f0b6b-64d4-428d-9a37-707c17d091d2');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\ncurl_setopt($ch, CURLOPT_POSTFIELDS, '{\"description\": \"\\\\u041e\\\\u043f\\\\u0438\\\\u0441\\\\u0430\\\\u043d\\\\u0438\\\\u0435 \\\\u043e\\\\u0431\\\\u0440\\\\u0430\\\\u0437\\\\u0430\"}');\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/images/a41537a0-bdf0-4240-b0b0-c118febac6bb');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\ncurl_setopt($ch, CURLOPT_POSTFIELDS, '{\"name\": \"\\\\u0418\\\\u043c\\\\u044f \\\\u043e\\\\u0431\\\\u0440\\\\u0430\\\\u0437\\\\u0430\", \"description\": \"\\\\u041e\\\\u043f\\\\u0438\\\\u0441\\\\u0430\\\\u043d\\\\u0438\\\\u0435 \\\\u043e\\\\u0431\\\\u0440\\\\u0430\\\\u0437\\\\u0430\"}');\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
           },
           {
             "lang": "Go",
-            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n\t\"strings\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\tvar data = strings.NewReader(`{\"description\": \"\\u041e\\u043f\\u0438\\u0441\\u0430\\u043d\\u0438\\u0435 \\u043e\\u0431\\u0440\\u0430\\u0437\\u0430\"}`)\n\treq, err := http.NewRequest(\"PATCH\", \"https://api.timeweb.cloud/api/v1/images/3e2f0b6b-64d4-428d-9a37-707c17d091d2\", data)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n\t\"strings\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\tvar data = strings.NewReader(`{\"name\": \"\\u0418\\u043c\\u044f \\u043e\\u0431\\u0440\\u0430\\u0437\\u0430\", \"description\": \"\\u041e\\u043f\\u0438\\u0441\\u0430\\u043d\\u0438\\u0435 \\u043e\\u0431\\u0440\\u0430\\u0437\\u0430\"}`)\n\treq, err := http.NewRequest(\"PATCH\", \"https://api.timeweb.cloud/api/v1/images/a41537a0-bdf0-4240-b0b0-c118febac6bb\", data)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
           },
           {
             "lang": "Java",
-            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.io.OutputStreamWriter;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/images/3e2f0b6b-64d4-428d-9a37-707c17d091d2\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"PATCH\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\thttpConn.setDoOutput(true);\n\t\tOutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());\n\t\twriter.write(\"{\\\"description\\\": \\\"\\\\u041e\\\\u043f\\\\u0438\\\\u0441\\\\u0430\\\\u043d\\\\u0438\\\\u0435 \\\\u043e\\\\u0431\\\\u0440\\\\u0430\\\\u0437\\\\u0430\\\"}\");\n\t\twriter.flush();\n\t\twriter.close();\n\t\thttpConn.getOutputStream().close();\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.io.OutputStreamWriter;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/images/a41537a0-bdf0-4240-b0b0-c118febac6bb\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"PATCH\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\thttpConn.setDoOutput(true);\n\t\tOutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());\n\t\twriter.write(\"{\\\"name\\\": \\\"\\\\u0418\\\\u043c\\\\u044f \\\\u043e\\\\u0431\\\\u0440\\\\u0430\\\\u0437\\\\u0430\\\", \\\"description\\\": \\\"\\\\u041e\\\\u043f\\\\u0438\\\\u0441\\\\u0430\\\\u043d\\\\u0438\\\\u0435 \\\\u043e\\\\u0431\\\\u0440\\\\u0430\\\\u0437\\\\u0430\\\"}\");\n\t\twriter.flush();\n\t\twriter.close();\n\t\thttpConn.getOutputStream().close();\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
           }
         ]
       }
@@ -797,7 +849,7 @@
         ],
         "summary": "Получение информации о ссылках на скачивание образов",
         "description": "Чтобы получить информацию о ссылках на скачивание образов, отправьте запрос GET в `/api/v1/images/{image_id}/download-url`.",
-        "operationId": "Получение_информации_о_ссылках_на_скачивание_образов_api_v1__account__images__image_id__download-url_get",
+        "operationId": "Получение_информации_о_ссылках_на_скачивание_образов_api_v1__account__images__image_id__download_url_get",
         "parameters": [
           {
             "description": "Идентификатор образа",
@@ -811,10 +863,24 @@
             "in": "path"
           },
           {
-            "$ref": "#/components/parameters/limit"
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "type": "integer",
+              "default": 100
+            },
+            "name": "limit",
+            "in": "query"
           },
           {
-            "$ref": "#/components/parameters/offset"
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "offset",
+            "in": "query"
           }
         ],
         "responses": {
@@ -841,18 +907,19 @@
                   ]
                 },
                 "example": {
-                  "response_id": "20532d9b-689d-45ab-bd39-1d0aeca63d83",
+                  "response_id": "0325bcbb-bdef-4a3d-bd81-1b4805826591",
                   "meta": {
                     "total": 1
                   },
                   "downloads": [
                     {
-                      "id": "5624d71f-53f5-4532-ad07-58008642d9f8",
-                      "created_at": "2023-01-23T16:02:42.404536",
-                      "image": "6b600372-0b54-4913-8b90-278721c841bf",
+                      "id": "47114b82-04b4-4299-86fe-615a8b84d687",
+                      "created_at": "2023-03-01T12:35:18.868802",
+                      "image": "6790556f-8ea0-41ee-9659-595360c0f8a9",
                       "type": "timeweb",
-                      "url": "https://example.com/5624d71f-53f5-4532-ad07-58008642d9f8",
-                      "status": "finished"
+                      "url": "https://example.com/47114b82-04b4-4299-86fe-615a8b84d687",
+                      "status": "finished",
+                      "progress": 100
                     }
                   ]
                 }
@@ -879,31 +946,31 @@
           {
             "lang": "cURL",
             "label": "cURL",
-            "source": "curl -X GET \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/images/24d93470-ba69-4cca-acfe-56eefae3e755/download-url\""
+            "source": "curl -X GET \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/images/74861597-dab9-4b60-9e0a-e45d11be506e/download_url\""
           },
           {
             "lang": "JavaScript",
-            "source": "fetch('https://api.timeweb.cloud/api/v1/images/24d93470-ba69-4cca-acfe-56eefae3e755/download-url', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+            "source": "fetch('https://api.timeweb.cloud/api/v1/images/74861597-dab9-4b60-9e0a-e45d11be506e/download_url', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
           },
           {
             "lang": "Node",
-            "source": "const axios = require('axios');\n\nconst response = await axios.get('https://api.timeweb.cloud/api/v1/images/24d93470-ba69-4cca-acfe-56eefae3e755/download-url', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+            "source": "const axios = require('axios');\n\nconst response = await axios.get('https://api.timeweb.cloud/api/v1/images/74861597-dab9-4b60-9e0a-e45d11be506e/download_url', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
           },
           {
             "lang": "Python",
-            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.get(\n    'https://api.timeweb.cloud/api/v1/images/24d93470-ba69-4cca-acfe-56eefae3e755/download-url',\n    headers=headers,\n)"
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.get(\n    'https://api.timeweb.cloud/api/v1/images/74861597-dab9-4b60-9e0a-e45d11be506e/download_url',\n    headers=headers,\n)"
           },
           {
             "lang": "PHP",
-            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/images/24d93470-ba69-4cca-acfe-56eefae3e755/download-url');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/images/74861597-dab9-4b60-9e0a-e45d11be506e/download_url');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
           },
           {
             "lang": "Go",
-            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"GET\", \"https://api.timeweb.cloud/api/v1/images/24d93470-ba69-4cca-acfe-56eefae3e755/download-url\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"GET\", \"https://api.timeweb.cloud/api/v1/images/74861597-dab9-4b60-9e0a-e45d11be506e/download_url\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
           },
           {
             "lang": "Java",
-            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/images/24d93470-ba69-4cca-acfe-56eefae3e755/download-url\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"GET\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/images/74861597-dab9-4b60-9e0a-e45d11be506e/download_url\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"GET\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
           }
         ]
       },
@@ -913,7 +980,7 @@
         ],
         "summary": "Создание ссылки на скачивание образа",
         "description": "Чтобы создать ссылку на скачивание образа, отправьте запрос POST в `/api/v1/images/{image_id}/download-url`.",
-        "operationId": "Создание_ссылки_на_скачивание_образа_api_v1__account__images__image_id__download-url_post",
+        "operationId": "Создание_ссылки_на_скачивание_образа_api_v1__account__images__image_id__download_url_post",
         "parameters": [
           {
             "description": "Идентификатор образа",
@@ -961,14 +1028,15 @@
                   ]
                 },
                 "example": {
-                  "response_id": "fc4d0272-c64b-4713-961f-950e95a95a25",
+                  "response_id": "bf220862-7ef9-4dea-896a-a9ac52fadecf",
                   "download": {
-                    "id": "e3c1e42c-46c9-45f4-ab85-2656038de934",
-                    "created_at": "2023-01-23T16:02:42.404285",
-                    "image": "3cc8026d-164d-4f5f-a740-dda3b237f051",
+                    "id": "b4c9d29f-3bc6-4c8a-a7da-e099330759d0",
+                    "created_at": "2023-03-01T12:35:18.868012",
+                    "image": "3c793ff3-b413-465c-b929-a962accee2c3",
                     "type": "timeweb",
-                    "url": "https://example.com/e3c1e42c-46c9-45f4-ab85-2656038de934",
-                    "status": "finished"
+                    "url": "https://example.com/b4c9d29f-3bc6-4c8a-a7da-e099330759d0",
+                    "status": "finished",
+                    "progress": 100
                   }
                 }
               }
@@ -994,7 +1062,7 @@
                   "status_code": 409,
                   "error_code": "file_already_exists_on_remote",
                   "message": "File with name my_image_from_timeweb.qcow2 already exists on remote",
-                  "response_id": "b695c39c-f640-4f61-8c8e-89f1e7bf607c"
+                  "response_id": "97a9a766-b678-41be-986c-6c8531a10329"
                 }
               }
             }
@@ -1010,31 +1078,31 @@
           {
             "lang": "cURL",
             "label": "cURL",
-            "source": "curl -X POST \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/images/70ca39d3-4712-4127-bd80-0897749b71aa/download-url\""
+            "source": "curl -X POST \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/images/499528a7-d886-40af-bf04-672c60b97800/download_url\""
           },
           {
             "lang": "JavaScript",
-            "source": "fetch('https://api.timeweb.cloud/api/v1/images/70ca39d3-4712-4127-bd80-0897749b71aa/download-url', {\n    method: 'POST',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+            "source": "fetch('https://api.timeweb.cloud/api/v1/images/499528a7-d886-40af-bf04-672c60b97800/download_url', {\n    method: 'POST',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
           },
           {
             "lang": "Node",
-            "source": "const axios = require('axios');\n\nconst response = await axios.post(\n    'https://api.timeweb.cloud/api/v1/images/70ca39d3-4712-4127-bd80-0897749b71aa/download-url',\n    '',\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n        }\n    }\n);"
+            "source": "const axios = require('axios');\n\nconst response = await axios.post(\n    'https://api.timeweb.cloud/api/v1/images/499528a7-d886-40af-bf04-672c60b97800/download_url',\n    '',\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n        }\n    }\n);"
           },
           {
             "lang": "Python",
-            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.post(\n    'https://api.timeweb.cloud/api/v1/images/70ca39d3-4712-4127-bd80-0897749b71aa/download-url',\n    headers=headers,\n)"
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.post(\n    'https://api.timeweb.cloud/api/v1/images/499528a7-d886-40af-bf04-672c60b97800/download_url',\n    headers=headers,\n)"
           },
           {
             "lang": "PHP",
-            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/images/70ca39d3-4712-4127-bd80-0897749b71aa/download-url');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/images/499528a7-d886-40af-bf04-672c60b97800/download_url');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
           },
           {
             "lang": "Go",
-            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"POST\", \"https://api.timeweb.cloud/api/v1/images/70ca39d3-4712-4127-bd80-0897749b71aa/download-url\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"POST\", \"https://api.timeweb.cloud/api/v1/images/499528a7-d886-40af-bf04-672c60b97800/download_url\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
           },
           {
             "lang": "Java",
-            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/images/70ca39d3-4712-4127-bd80-0897749b71aa/download-url\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"POST\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/images/499528a7-d886-40af-bf04-672c60b97800/download_url\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"POST\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
           }
         ]
       }
@@ -1046,7 +1114,7 @@
         ],
         "summary": "Получение информации о ссылке на скачивание образа",
         "description": "Чтобы получить информацию о ссылке на скачивание образа, отправьте запрос GET в `/api/v1/images/{image_id}/download-url/{image_url_id}`.",
-        "operationId": "Получение_информации_о_ссылке_на_скачивание_образа_api_v1__account__images__image_id__download-url__image_url_id__get",
+        "operationId": "Получение_информации_о_ссылке_на_скачивание_образа_api_v1__account__images__image_id__download_url__image_url_id__get",
         "parameters": [
           {
             "description": "Идентификатор образа",
@@ -1095,14 +1163,15 @@
                   ]
                 },
                 "example": {
-                  "response_id": "b43a6a66-7651-4a6c-b42e-b5f7de3c2548",
+                  "response_id": "7f6582eb-5d16-4f3d-be9e-a43edc81ec27",
                   "download": {
-                    "id": "7947a048-1852-4d7c-a120-ca7a7635b9fd",
-                    "created_at": "2023-01-23T16:02:42.404446",
-                    "image": "f8bde7d3-410a-42c2-8d2e-fed3df3ee9db",
+                    "id": "6d227f26-40d5-4e64-9999-d86a24b74808",
+                    "created_at": "2023-03-01T12:35:18.868361",
+                    "image": "347fcf6a-9da5-4fc6-afcb-635150d621af",
                     "type": "timeweb",
-                    "url": "https://example.com/7947a048-1852-4d7c-a120-ca7a7635b9fd",
-                    "status": "finished"
+                    "url": "https://example.com/6d227f26-40d5-4e64-9999-d86a24b74808",
+                    "status": "finished",
+                    "progress": 100
                   }
                 }
               }
@@ -1128,31 +1197,31 @@
           {
             "lang": "cURL",
             "label": "cURL",
-            "source": "curl -X GET \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/images/5fe53fef-54a8-4a01-9ba7-bccb1cfe3a78/download-url/ea50348f-f312-4b17-b035-3b3e6b92122a\""
+            "source": "curl -X GET \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/images/924b3ddf-d1cf-445a-b9b6-77dbe1eae123/download_url/bc956a81-d171-4928-aeaf-dbbd1d3335aa\""
           },
           {
             "lang": "JavaScript",
-            "source": "fetch('https://api.timeweb.cloud/api/v1/images/5fe53fef-54a8-4a01-9ba7-bccb1cfe3a78/download-url/ea50348f-f312-4b17-b035-3b3e6b92122a', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+            "source": "fetch('https://api.timeweb.cloud/api/v1/images/924b3ddf-d1cf-445a-b9b6-77dbe1eae123/download_url/bc956a81-d171-4928-aeaf-dbbd1d3335aa', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
           },
           {
             "lang": "Node",
-            "source": "const axios = require('axios');\n\nconst response = await axios.get('https://api.timeweb.cloud/api/v1/images/5fe53fef-54a8-4a01-9ba7-bccb1cfe3a78/download-url/ea50348f-f312-4b17-b035-3b3e6b92122a', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+            "source": "const axios = require('axios');\n\nconst response = await axios.get('https://api.timeweb.cloud/api/v1/images/924b3ddf-d1cf-445a-b9b6-77dbe1eae123/download_url/bc956a81-d171-4928-aeaf-dbbd1d3335aa', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
           },
           {
             "lang": "Python",
-            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.get(\n    'https://api.timeweb.cloud/api/v1/images/5fe53fef-54a8-4a01-9ba7-bccb1cfe3a78/download-url/ea50348f-f312-4b17-b035-3b3e6b92122a',\n    headers=headers,\n)"
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.get(\n    'https://api.timeweb.cloud/api/v1/images/924b3ddf-d1cf-445a-b9b6-77dbe1eae123/download_url/bc956a81-d171-4928-aeaf-dbbd1d3335aa',\n    headers=headers,\n)"
           },
           {
             "lang": "PHP",
-            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/images/5fe53fef-54a8-4a01-9ba7-bccb1cfe3a78/download-url/ea50348f-f312-4b17-b035-3b3e6b92122a');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/images/924b3ddf-d1cf-445a-b9b6-77dbe1eae123/download_url/bc956a81-d171-4928-aeaf-dbbd1d3335aa');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
           },
           {
             "lang": "Go",
-            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"GET\", \"https://api.timeweb.cloud/api/v1/images/5fe53fef-54a8-4a01-9ba7-bccb1cfe3a78/download-url/ea50348f-f312-4b17-b035-3b3e6b92122a\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"GET\", \"https://api.timeweb.cloud/api/v1/images/924b3ddf-d1cf-445a-b9b6-77dbe1eae123/download_url/bc956a81-d171-4928-aeaf-dbbd1d3335aa\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
           },
           {
             "lang": "Java",
-            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/images/5fe53fef-54a8-4a01-9ba7-bccb1cfe3a78/download-url/ea50348f-f312-4b17-b035-3b3e6b92122a\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"GET\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/images/924b3ddf-d1cf-445a-b9b6-77dbe1eae123/download_url/bc956a81-d171-4928-aeaf-dbbd1d3335aa\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"GET\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
           }
         ]
       },
@@ -1162,7 +1231,7 @@
         ],
         "summary": "Удаление ссылки на образ",
         "description": "Чтобы удалить ссылку на образ, отправьте DELETE запрос в `/api/v1/images/{image_id}/download-url/{image_url_id}`.",
-        "operationId": "Удаление_ссылки_на_образ_api_v1__account__images__image_id__download-url__image_url_id__delete",
+        "operationId": "Удаление_ссылки_на_образ_api_v1__account__images__image_id__download_url__image_url_id__delete",
         "parameters": [
           {
             "description": "Идентификатор образа",
@@ -1208,31 +1277,31 @@
           {
             "lang": "cURL",
             "label": "cURL",
-            "source": "curl -X DELETE \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/images/a2416ca3-422b-46af-b070-52997737b6f3/download-url/67b74779-769d-401f-90ad-ca39e52f6510\""
+            "source": "curl -X DELETE \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/images/198ccc12-4766-4c50-9644-8a1b169599fb/download_url/295d1568-cfb6-4e27-99a8-8b673f62d914\""
           },
           {
             "lang": "JavaScript",
-            "source": "fetch('https://api.timeweb.cloud/api/v1/images/a2416ca3-422b-46af-b070-52997737b6f3/download-url/67b74779-769d-401f-90ad-ca39e52f6510', {\n    method: 'DELETE',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+            "source": "fetch('https://api.timeweb.cloud/api/v1/images/198ccc12-4766-4c50-9644-8a1b169599fb/download_url/295d1568-cfb6-4e27-99a8-8b673f62d914', {\n    method: 'DELETE',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
           },
           {
             "lang": "Node",
-            "source": "const axios = require('axios');\n\nconst response = await axios.delete('https://api.timeweb.cloud/api/v1/images/a2416ca3-422b-46af-b070-52997737b6f3/download-url/67b74779-769d-401f-90ad-ca39e52f6510', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+            "source": "const axios = require('axios');\n\nconst response = await axios.delete('https://api.timeweb.cloud/api/v1/images/198ccc12-4766-4c50-9644-8a1b169599fb/download_url/295d1568-cfb6-4e27-99a8-8b673f62d914', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
           },
           {
             "lang": "Python",
-            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.delete(\n    'https://api.timeweb.cloud/api/v1/images/a2416ca3-422b-46af-b070-52997737b6f3/download-url/67b74779-769d-401f-90ad-ca39e52f6510',\n    headers=headers,\n)"
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.delete(\n    'https://api.timeweb.cloud/api/v1/images/198ccc12-4766-4c50-9644-8a1b169599fb/download_url/295d1568-cfb6-4e27-99a8-8b673f62d914',\n    headers=headers,\n)"
           },
           {
             "lang": "PHP",
-            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/images/a2416ca3-422b-46af-b070-52997737b6f3/download-url/67b74779-769d-401f-90ad-ca39e52f6510');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/images/198ccc12-4766-4c50-9644-8a1b169599fb/download_url/295d1568-cfb6-4e27-99a8-8b673f62d914');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
           },
           {
             "lang": "Go",
-            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"DELETE\", \"https://api.timeweb.cloud/api/v1/images/a2416ca3-422b-46af-b070-52997737b6f3/download-url/67b74779-769d-401f-90ad-ca39e52f6510\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"DELETE\", \"https://api.timeweb.cloud/api/v1/images/198ccc12-4766-4c50-9644-8a1b169599fb/download_url/295d1568-cfb6-4e27-99a8-8b673f62d914\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
           },
           {
             "lang": "Java",
-            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/images/a2416ca3-422b-46af-b070-52997737b6f3/download-url/67b74779-769d-401f-90ad-ca39e52f6510\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"DELETE\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/images/198ccc12-4766-4c50-9644-8a1b169599fb/download_url/295d1568-cfb6-4e27-99a8-8b673f62d914\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"DELETE\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
           }
         ]
       }
@@ -1689,6 +1758,39 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Объект JSON c ключом `balancer_delete`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "balancer_delete": {
+                          "$ref": "#/components/schemas/delete-service-response"
+                        }
+                      },
+                      "required": [
+                        "balancer_delete"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
           "204": {
             "description": "Балансировщик успешно удален."
           },
@@ -2940,6 +3042,39 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Объект JSON c ключом `database_delete`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "database_delete": {
+                          "$ref": "#/components/schemas/delete-service-response"
+                        }
+                      },
+                      "required": [
+                        "database_delete"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
           "204": {
             "description": "База данных успешно удалена."
           },
@@ -4598,6 +4733,39 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Объект JSON c ключом `cluster_delete`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "cluster_delete": {
+                          "$ref": "#/components/schemas/delete-service-response"
+                        }
+                      },
+                      "required": [
+                        "cluster_delete"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
           "204": {
             "description": "Кластер удален"
           },
@@ -6483,7 +6651,7 @@
       },
       "post": {
         "summary": "Создание сервера",
-        "description": "Чтобы создать сервер, отправьте POST запрос в `api/v1/servers`, задав необходимые атрибуты. Обязательно должен присутствовать один из параметров `configuration` или `preset_id`.\n\nCервер будет создан с использованием предоставленной информации. Тело ответа будет содержать объект JSON с информацией о созданном сервере.\n\n",
+        "description": "Чтобы создать сервер, отправьте POST запрос в `api/v1/servers`, задав необходимые атрибуты. Обязательно должен присутствовать один из параметров `configuration` или `preset_id`, а также `image_id` или `os_id`.\n\nCервер будет создан с использованием предоставленной информации. Тело ответа будет содержать объект JSON с информацией о созданном сервере.\n\n",
         "x-codeSamples": [
           {
             "lang": "cURL",
@@ -6723,6 +6891,39 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Объект JSON c ключом `server_delete`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "server_delete": {
+                          "$ref": "#/components/schemas/delete-service-response"
+                        }
+                      },
+                      "required": [
+                        "server_delete"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
           "204": {
             "description": "Успешное удаление сервера"
           },
@@ -6947,6 +7148,104 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/conflict"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "tags": [
+          "Облачные серверы"
+        ]
+      }
+    },
+    "/api/v1/servers/{server_id}/clone": {
+      "post": {
+        "summary": "Клонирование сервера",
+        "description": "Чтобы клонировать сервер, отправьте POST запрос на `/api/v1/servers/{server_id}/clone`.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/server-id"
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X POST \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  -d '{}' \"https://api.timeweb.cloud/api/v1/servers/123/clone\""
+          },
+          {
+            "lang": "JavaScript",
+            "source": "fetch('https://api.timeweb.cloud/api/v1/servers/123/clone', {\n    method: 'POST',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    },\n    body: JSON.stringify({})\n});"
+          },
+          {
+            "lang": "Node",
+            "source": "const axios = require('axios');\n\nconst response = await axios.post(\n    'https://api.timeweb.cloud/api/v1/servers/123/clone',\n    {},\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n        }\n    }\n);"
+          },
+          {
+            "lang": "Python",
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    # Already added when you pass json=\n    # 'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\njson_data = {}\n\nresponse = requests.post('https://api.timeweb.cloud/api/v1/servers/123/clone', headers=headers, json=json_data)"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/servers/123/clone');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\ncurl_setopt($ch, CURLOPT_POSTFIELDS, '{}');\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n\t\"strings\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\tvar data = strings.NewReader(`{}`)\n\treq, err := http.NewRequest(\"POST\", \"https://api.timeweb.cloud/api/v1/servers/123/clone\", data)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.io.OutputStreamWriter;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/servers/123/clone\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"POST\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\thttpConn.setDoOutput(true);\n\t\tOutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());\n\t\twriter.write(\"{}\");\n\t\twriter.flush();\n\t\twriter.close();\n\t\thttpConn.getOutputStream().close();\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Объект JSON c ключом `server`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "server": {
+                          "$ref": "#/components/schemas/vds"
+                        }
+                      },
+                      "required": [
+                        "server"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
           },
           "409": {
             "$ref": "#/components/responses/conflict"
@@ -9050,6 +9349,225 @@
                       },
                       "required": [
                         "auto_backups_settings"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "tags": [
+          "Облачные серверы"
+        ]
+      }
+    },
+    "/api/v1/servers/{server_id}/disks/{disk_id}/backups": {
+      "post": {
+        "summary": "Создание бэкапа диска сервера",
+        "description": "Чтобы создать бэкап диска сервера, отправьте POST запрос на `/api/v1/servers/{server_id}/disks/{disk_id}/backups`.\n\n Тело ответа будет представлять собой объект JSON с ключом `backup`.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/server-id"
+          },
+          {
+            "$ref": "#/components/parameters/disk-id"
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X POST \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n -d '{ \"comment\": \"comment\"}' \\\n \"https://api.timeweb.cloud/api/v1/servers/123456/disks/456321/backups\""
+          },
+          {
+            "lang": "JavaScript",
+            "source": "fetch('https://api.timeweb.cloud/api/v1/servers/123456/disks/456321/backups', {\n    method: 'POST',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    },\n    // body: '{ \"comment\": \"comment\"}',\n    body: JSON.stringify({\n        'comment': 'comment'\n    })\n});"
+          },
+          {
+            "lang": "Node",
+            "source": "const axios = require('axios');\n\nconst response = await axios.post(\n    'https://api.timeweb.cloud/api/v1/servers/123456/disks/456321/backups',\n    // '{ \"comment\": \"comment\"}',\n    {\n        'comment': 'comment'\n    },\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n        }\n    }\n);"
+          },
+          {
+            "lang": "Python",
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\njson_data = {\n    'comment': 'comment',\n}\n\nresponse = requests.post('https://api.timeweb.cloud/api/v1/servers/123456/disks/456321/backups', headers=headers, json=json_data)"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/servers/123456/disks/456321/backups');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\ncurl_setopt($ch, CURLOPT_POSTFIELDS, '{ \"comment\": \"comment\"}');\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n\t\"strings\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\tvar data = strings.NewReader(`{ \"comment\": \"comment\"}`)\n\treq, err := http.NewRequest(\"POST\", \"https://api.timeweb.cloud/api/v1/servers/123456/disks/456321/backups\", data)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.io.OutputStreamWriter;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/servers/123456/disks/456321/backups\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"POST\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\thttpConn.setDoOutput(true);\n\t\tOutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());\n\t\twriter.write(\"{ \\\"comment\\\": \\\"comment\\\"}\");\n\t\twriter.flush();\n\t\twriter.close();\n\t\thttpConn.getOutputStream().close();\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "comment": {
+                    "type": "string",
+                    "description": "Комментарий к бэкапу.",
+                    "example": "comment"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Объект JSON c ключом `backup`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "backup": {
+                          "$ref": "#/components/schemas/server-backup"
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "tags": [
+          "Облачные серверы"
+        ]
+      },
+      "get": {
+        "summary": "Получение списка бэкапов диска сервера",
+        "description": "Чтобы получить бэкапов диска сервера, отправьте GET запрос на `/api/v1/servers/{server_id}/disks/{disk_id}/backups`.\n\n Тело ответа будет представлять собой объект JSON с ключом `backups`.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/server-id"
+          },
+          {
+            "$ref": "#/components/parameters/disk-id"
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X GET \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/servers/123431/disks/123321/backups\""
+          },
+          {
+            "lang": "JavaScript",
+            "source": "fetch('https://api.timeweb.cloud/api/v1/servers/123431/disks/123321/backups', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+          },
+          {
+            "lang": "Node",
+            "source": "const axios = require('axios');\n\nconst response = await axios.get('https://api.timeweb.cloud/api/v1/servers/123431/disks/123321/backups', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+          },
+          {
+            "lang": "Python",
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.get('https://api.timeweb.cloud/api/v1/servers/123431/disks/123321/backups', headers=headers)"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/servers/123431/disks/123321/backups');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"GET\", \"https://api.timeweb.cloud/api/v1/servers/123431/disks/123321/backups\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/servers/123431/disks/123321/backups\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"GET\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Объект JSON c ключом `backups`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "meta": {
+                          "$ref": "#/components/schemas/meta"
+                        },
+                        "backups": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/server-backup"
+                          }
+                        }
+                      },
+                      "required": [
+                        "backups",
+                        "meta"
                       ]
                     },
                     {
@@ -12327,6 +12845,39 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Объект JSON c ключом `bucket_delete`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "bucket_delete": {
+                          "$ref": "#/components/schemas/delete-service-response"
+                        }
+                      },
+                      "required": [
+                        "bucket_delete"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
           "204": {
             "description": "Хранилище успешно удалено"
           },
@@ -15303,6 +15854,986 @@
         },
         "tags": [
           "Аккаунт"
+        ]
+      }
+    },
+    "/api/v1/mail": {
+      "get": {
+        "summary": "Получение списка почтовых ящиков аккаунта",
+        "description": "Чтобы получить список почтовых ящиков аккаунта, отправьте GET запрос на `/api/v1/mail`.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/search"
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X GET \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/mail\""
+          },
+          {
+            "lang": "JavaScript",
+            "source": "fetch('https://api.timeweb.cloud/api/v1/mail', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+          },
+          {
+            "lang": "Node",
+            "source": "const axios = require('axios');\n\nconst response = await axios.get('https://api.timeweb.cloud/api/v1/mail', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+          },
+          {
+            "lang": "Python",
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.get('https://api.timeweb.cloud/api/v1/mail', headers=headers)"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/mail');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"GET\", \"https://api.timeweb.cloud/api/v1/mail\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/mail\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"GET\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ответ будет представлять собой объект JSON c ключом `mailboxes`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "meta": {
+                          "$ref": "#/components/schemas/meta"
+                        },
+                        "mailboxes": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/mailbox"
+                          }
+                        }
+                      },
+                      "required": [
+                        "meta",
+                        "mailboxes"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "tags": [
+          "Почта"
+        ]
+      }
+    },
+    "/api/v1/mail/quota": {
+      "get": {
+        "summary": "Получение квоты почты аккаунта",
+        "description": "Чтобы получить квоту почты аккаунта, отправьте GET запрос на `/api/v1/mail/quota`.",
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X GET \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/mail/quota\""
+          },
+          {
+            "lang": "JavaScript",
+            "source": "fetch('https://api.timeweb.cloud/api/v1/mail/quota', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+          },
+          {
+            "lang": "Node",
+            "source": "const axios = require('axios');\n\nconst response = await axios.get('https://api.timeweb.cloud/api/v1/mail/quota', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+          },
+          {
+            "lang": "Python",
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.get('https://api.timeweb.cloud/api/v1/mail/quota', headers=headers)"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/mail/quota');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"GET\", \"https://api.timeweb.cloud/api/v1/mail/quota\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/mail/quota\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"GET\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ответ будет представлять собой объект JSON c ключом `quota`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "quota": {
+                          "$ref": "#/components/schemas/quota"
+                        }
+                      },
+                      "required": [
+                        "quota"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "tags": [
+          "Почта"
+        ]
+      },
+      "patch": {
+        "summary": "Изменение квоты почты аккаунта",
+        "description": "Чтобы получить инфомацию по квоте почты аккаунта, отправьте GET запрос на `/api/v1/mail/quota`.",
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X PATCH \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  -d '{\"total\": 1024}' \\\n  \"https://api.timeweb.cloud/api/v1/mail/quota\""
+          },
+          {
+            "lang": "JavaScript",
+            "source": "fetch('https://api.timeweb.cloud/api/v1/mail/quota', {\n    method: 'PATCH',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    },\n    // body: '{\"total\": 1024}',\n    body: JSON.stringify({\n        'total': 1024\n    })\n});"
+          },
+          {
+            "lang": "Node",
+            "source": "const axios = require('axios');\n\nconst response = await axios.patch(\n    'https://api.timeweb.cloud/api/v1/mail/quota',\n    // '{\"total\": 1024}',\n    {\n        'total': 1024\n    },\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n        }\n    }\n);"
+          },
+          {
+            "lang": "Python",
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    # Already added when you pass json=\n    # 'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\njson_data = {\n    'total': 1024,\n}\n\nresponse = requests.patch('https://api.timeweb.cloud/api/v1/mail/quota', headers=headers, json=json_data)"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/mail/quota');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\ncurl_setopt($ch, CURLOPT_POSTFIELDS, '{\"total\": 1024}');\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n\t\"strings\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\tvar data = strings.NewReader(`{\"total\": 1024}`)\n\treq, err := http.NewRequest(\"PATCH\", \"https://api.timeweb.cloud/api/v1/mail/quota\", data)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.io.OutputStreamWriter;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/mail/quota\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"PATCH\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\thttpConn.setDoOutput(true);\n\t\tOutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());\n\t\twriter.write(\"{\\\"total\\\": 1024}\");\n\t\twriter.flush();\n\t\twriter.close();\n\t\thttpConn.getOutputStream().close();\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "total": {
+                    "type": "number",
+                    "description": "Общее количество места на почте (в Мб.)",
+                    "example": 6144
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Ответ будет представлять собой объект JSON c ключом `quota`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "quota": {
+                          "$ref": "#/components/schemas/quota"
+                        }
+                      },
+                      "required": [
+                        "quota"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "tags": [
+          "Почта"
+        ]
+      }
+    },
+    "/api/v1/mail/domains/{domain}": {
+      "get": {
+        "summary": "Получение списка почтовых ящиков домена",
+        "description": "Чтобы получить список почтовых ящиков домена, отправьте GET запрос на `/api/v1/mail/domains/{domain}`.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/domain"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/search"
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X GET \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/mail/domains/{domain}\""
+          },
+          {
+            "lang": "JavaScript",
+            "source": "fetch('https://api.timeweb.cloud/api/v1/mail/domains/{domain}', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+          },
+          {
+            "lang": "Node",
+            "source": "const axios = require('axios');\n\nconst response = await axios.get('https://api.timeweb.cloud/api/v1/mail/domains/{domain}', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+          },
+          {
+            "lang": "Python",
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.get('https://api.timeweb.cloud/api/v1/mail/domains/{domain}', headers=headers)"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/mail/domains/{domain}');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"GET\", \"https://api.timeweb.cloud/api/v1/mail/domains/{domain}\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/mail/domains/{domain}\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"GET\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ответ будет представлять собой объект JSON c ключом `mailboxes`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "meta": {
+                          "$ref": "#/components/schemas/meta"
+                        },
+                        "mailboxes": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/mailbox"
+                          }
+                        }
+                      },
+                      "required": [
+                        "meta",
+                        "mailboxes"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "tags": [
+          "Почта"
+        ]
+      },
+      "post": {
+        "summary": "Создание почтового ящика",
+        "description": "Чтобы создать почтовый ящик, отправьте POST запрос на `/api/v1/mail/domains/{domain}`.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/domain"
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X POST \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  -d '{\"mailbox\": \"mail\", \"password\": \"zHas2-\"}' \\\n  \"https://api.timeweb.cloud/api/v1/mail/domains/{domain}\""
+          },
+          {
+            "lang": "JavaScript",
+            "source": "fetch('https://api.timeweb.cloud/api/v1/mail/domains/{domain}', {\n    method: 'POST',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    },\n    // body: '{\"mailbox\": \"mail\", \"password\": \"zHas2-\"}',\n    body: JSON.stringify({\n        'mailbox': 'mail',\n        'password': 'zHas2-'\n    })\n});"
+          },
+          {
+            "lang": "Node",
+            "source": "const axios = require('axios');\n\nconst response = await axios.post(\n    'https://api.timeweb.cloud/api/v1/mail/domains/{domain}',\n    // '{\"mailbox\": \"mail\", \"password\": \"zHas2-\"}',\n    {\n        'mailbox': 'mail',\n        'password': 'zHas2-'\n    },\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n        }\n    }\n);"
+          },
+          {
+            "lang": "Python",
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    # Already added when you pass json=\n    # 'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\njson_data = {\n    'mailbox': 'mail',\n    'password': 'zHas2-',\n}\n\nresponse = requests.post('https://api.timeweb.cloud/api/v1/mail/domains/{domain}', headers=headers, json=json_data)"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/mail/domains/{domain}');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\ncurl_setopt($ch, CURLOPT_POSTFIELDS, '{\"mailbox\": \"mail\", \"password\": \"zHas2-\"}');\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n\t\"strings\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\tvar data = strings.NewReader(`{\"mailbox\": \"mail\", \"password\": \"zHas2-\"}`)\n\treq, err := http.NewRequest(\"POST\", \"https://api.timeweb.cloud/api/v1/mail/domains/{domain}\", data)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.io.OutputStreamWriter;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/mail/domains/{domain}\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"POST\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\thttpConn.setDoOutput(true);\n\t\tOutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());\n\t\twriter.write(\"{\\\"mailbox\\\": \\\"mail\\\", \\\"password\\\": \\\"zHas2-\\\"}\");\n\t\twriter.flush();\n\t\twriter.close();\n\t\thttpConn.getOutputStream().close();\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "mailbox": {
+                    "type": "string",
+                    "description": "Название почтового ящика",
+                    "example": "mailbox"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Пароль почтового ящика",
+                    "example": "zfAsl-"
+                  },
+                  "comment": {
+                    "type": "string",
+                    "description": "Комментарий почтового ящика",
+                    "example": "some comment"
+                  }
+                },
+                "required": [
+                  "mailbox",
+                  "password"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Ответ будет представлять собой объект JSON c ключом `mailbox`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "mailbox": {
+                          "$ref": "#/components/schemas/mailbox"
+                        }
+                      },
+                      "required": [
+                        "mailbox"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "tags": [
+          "Почта"
+        ]
+      }
+    },
+    "/api/v1/mail/domains/{domain}/info": {
+      "get": {
+        "summary": "Получение почтовой информации о домене",
+        "description": "Чтобы получить почтовую информацию о домене, отправьте GET запрос на `/api/v1/mail/domains/{domain}/info`.",
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X GET \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/info\""
+          },
+          {
+            "lang": "JavaScript",
+            "source": "fetch('https://api.timeweb.cloud/api/v1/mail/domains/{domain}/info', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+          },
+          {
+            "lang": "Node",
+            "source": "const axios = require('axios');\n\nconst response = await axios.get('https://api.timeweb.cloud/api/v1/mail/domains/{domain}/info', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+          },
+          {
+            "lang": "Python",
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.get('https://api.timeweb.cloud/api/v1/mail/domains/{domain}/info', headers=headers)"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/mail/domains/{domain}/info');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"GET\", \"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/info\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/info\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"GET\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/domain"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ответ будет представлять собой объект JSON c ключом `domain_info`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "domain_info": {
+                          "$ref": "#/components/schemas/domain-info"
+                        }
+                      },
+                      "required": [
+                        "domain_info"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "tags": [
+          "Почта"
+        ]
+      },
+      "patch": {
+        "summary": "Изменение почтовой информации о домене",
+        "description": "Чтобы изменить почтовую информацию о домене, отправьте PATCH запрос на `/api/v1/mail/domains/{domain}/info`.",
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X PATCH \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  -d '{\"email\": \"test@timeweb.ru\"}' \\\n  \"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/info\""
+          },
+          {
+            "lang": "JavaScript",
+            "source": "fetch('https://api.timeweb.cloud/api/v1/mail/domains/{domain}/info', {\n    method: 'PATCH',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    },\n    // body: '{\"email\": \"test@timeweb.ru\"}',\n    body: JSON.stringify({\n        'email': 'test@timeweb.ru'\n    })\n});"
+          },
+          {
+            "lang": "Node",
+            "source": "const axios = require('axios');\n\nconst response = await axios.patch(\n    'https://api.timeweb.cloud/api/v1/mail/domains/{domain}/info',\n    // '{\"email\": \"test@timeweb.ru\"}',\n    {\n        'email': 'test@timeweb.ru'\n    },\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n        }\n    }\n);"
+          },
+          {
+            "lang": "Python",
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    # Already added when you pass json=\n    # 'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\njson_data = {\n    'email': 'test@timeweb.ru',\n}\n\nresponse = requests.patch('https://api.timeweb.cloud/api/v1/mail/domains/{domain}/info', headers=headers, json=json_data)"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/mail/domains/{domain}/info');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\ncurl_setopt($ch, CURLOPT_POSTFIELDS, '{\"email\": \"test@timeweb.ru\"}');\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n\t\"strings\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\tvar data = strings.NewReader(`{\"email\": \"test@timeweb.ru\"}`)\n\treq, err := http.NewRequest(\"PATCH\", \"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/info\", data)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.io.OutputStreamWriter;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/info\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"PATCH\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\thttpConn.setDoOutput(true);\n\t\tOutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());\n\t\twriter.write(\"{\\\"email\\\": \\\"test@timeweb.ru\\\"}\");\n\t\twriter.flush();\n\t\twriter.close();\n\t\thttpConn.getOutputStream().close();\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/domain"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Адрес для сбора почты с ошибочных ящиков",
+                    "example": "test@timeweb.ru"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Ответ будет представлять собой объект JSON c ключом `domain_info`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "domain_info": {
+                          "$ref": "#/components/schemas/domain-info"
+                        }
+                      },
+                      "required": [
+                        "domain_info"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "tags": [
+          "Почта"
+        ]
+      }
+    },
+    "/api/v1/mail/domains/{domain}/mailboxes/{mailbox}": {
+      "get": {
+        "summary": "Получение почтового ящика",
+        "description": "Чтобы получить почтовый ящик, отправьте GET запрос на `/api/v1/mail/domains/{domain}/mailboxes/{mailbox}`.",
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X GET \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  \"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}\""
+          },
+          {
+            "lang": "JavaScript",
+            "source": "fetch('https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+          },
+          {
+            "lang": "Node",
+            "source": "const axios = require('axios');\n\nconst response = await axios.get('https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}', {\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+          },
+          {
+            "lang": "Python",
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.get('https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}', headers=headers)"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"GET\", \"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"GET\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/domain"
+          },
+          {
+            "$ref": "#/components/parameters/mailbox"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ответ будет представлять собой объект JSON c ключом `mailbox`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "mailbox": {
+                          "$ref": "#/components/schemas/mailbox"
+                        }
+                      },
+                      "required": [
+                        "mailbox"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "tags": [
+          "Почта"
+        ]
+      },
+      "patch": {
+        "summary": "Изменение почтового ящика",
+        "description": "Чтобы изменить почтовый ящик, отправьте PATCH запрос на `/api/v1/mail/domains/{domain}/mailboxes/{mailbox}`.",
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X PATCH \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n  -d '{\"comment\": \"new comment\", \\\n \"password\": \"new password\", }' \\\n  \"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}\""
+          },
+          {
+            "lang": "JavaScript",
+            "source": "fetch('https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}', {\n    method: 'PATCH',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    },\n    body: '{\"comment\": \"new comment\",  \"password\": \"new password\", }'\n});"
+          },
+          {
+            "lang": "Node",
+            "source": "const axios = require('axios');\n\nconst response = await axios.patch(\n    'https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}',\n    '{\"comment\": \"new comment\",  \"password\": \"new password\", }',\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n        }\n    }\n);"
+          },
+          {
+            "lang": "Python",
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\ndata = '{\"comment\": \"new comment\",  \"password\": \"new password\", }'\n\nresponse = requests.patch(\n    'https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}',\n    headers=headers,\n    data=data,\n)"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\ncurl_setopt($ch, CURLOPT_POSTFIELDS, '{\"comment\": \"new comment\",  \"password\": \"new password\", }');\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n\t\"strings\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\tvar data = strings.NewReader(`{\"comment\": \"new comment\",  \"password\": \"new password\", }`)\n\treq, err := http.NewRequest(\"PATCH\", \"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}\", data)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.io.OutputStreamWriter;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"PATCH\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\thttpConn.setDoOutput(true);\n\t\tOutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());\n\t\twriter.write(\"{\\\"comment\\\": \\\"new comment\\\",  \\\"password\\\": \\\"new password\\\", }\");\n\t\twriter.flush();\n\t\twriter.close();\n\t\thttpConn.getOutputStream().close();\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/domain"
+          },
+          {
+            "$ref": "#/components/parameters/mailbox"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/update-mailbox"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Ответ будет представлять собой объект JSON c ключом `mailbox`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "mailbox": {
+                          "$ref": "#/components/schemas/mailbox"
+                        }
+                      },
+                      "required": [
+                        "mailbox"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "response_id": {
+                          "$ref": "#/components/schemas/response_id"
+                        }
+                      },
+                      "required": [
+                        "response_id"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "tags": [
+          "Почта"
+        ]
+      },
+      "delete": {
+        "summary": "Удаление почтового ящика",
+        "description": "Чтобы удалить почтовый ящик, отправьте DELETE запрос на `/api/v1/mail/domains/{domain}/mailboxes/{mailbox}`.",
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X PATCH \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $TIMEWEB_CLOUD_TOKEN\" \\\n \"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}\""
+          },
+          {
+            "lang": "JavaScript",
+            "source": "fetch('https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}', {\n    method: 'PATCH',\n    headers: {\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n    }\n});"
+          },
+          {
+            "lang": "Node",
+            "source": "const axios = require('axios');\n\nconst response = await axios.patch(\n    'https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}',\n    '',\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': 'Bearer $TIMEWEB_CLOUD_TOKEN'\n        }\n    }\n);"
+          },
+          {
+            "lang": "Python",
+            "source": "import os\nimport requests\n\nTIMEWEB_CLOUD_TOKEN = os.getenv('TIMEWEB_CLOUD_TOKEN')\n\nheaders = {\n    'Content-Type': 'application/json',\n    'Authorization': f'Bearer {TIMEWEB_CLOUD_TOKEN}',\n}\n\nresponse = requests.patch('https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}', headers=headers)"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n$ch = curl_init();\ncurl_setopt($ch, CURLOPT_URL, 'https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type' => 'application/json',\n    'Authorization' => 'Bearer $TIMEWEB_CLOUD_TOKEN',\n]);\n\n$response = curl_exec($ch);\n\ncurl_close($ch);\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"io/ioutil\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc main() {\n\tclient := &http.Client{}\n\treq, err := http.NewRequest(\"PATCH\", \"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\treq.Header.Set(\"Content-Type\", \"application/json\")\n\treq.Header.Set(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\")\n\tresp, err := client.Do(req)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer resp.Body.Close()\n\tbodyText, err := ioutil.ReadAll(resp.Body)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfmt.Printf(\"%s\\n\", bodyText)\n}\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.io.IOException;\nimport java.io.InputStream;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.Scanner;\n\nclass Main {\n\n\tpublic static void main(String[] args) throws IOException {\n\t\tURL url = new URL(\"https://api.timeweb.cloud/api/v1/mail/domains/{domain}/mailboxes/{mailbox}\");\n\t\tHttpURLConnection httpConn = (HttpURLConnection) url.openConnection();\n\t\thttpConn.setRequestMethod(\"PATCH\");\n\n\t\thttpConn.setRequestProperty(\"Content-Type\", \"application/json\");\n\t\thttpConn.setRequestProperty(\"Authorization\", \"Bearer $TIMEWEB_CLOUD_TOKEN\");\n\n\t\tInputStream responseStream = httpConn.getResponseCode() / 100 == 2\n\t\t\t\t? httpConn.getInputStream()\n\t\t\t\t: httpConn.getErrorStream();\n\t\tScanner s = new Scanner(responseStream).useDelimiter(\"\\\\A\");\n\t\tString response = s.hasNext() ? s.next() : \"\";\n\t\tSystem.out.println(response);\n\t}\n}\n"
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/domain"
+          },
+          {
+            "$ref": "#/components/parameters/mailbox"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Успешное удаление почтового ящика"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "tags": [
+          "Почта"
         ]
       }
     },
@@ -18531,7 +20062,26 @@
         "enum": [
           "new",
           "created",
-          "failed"
+          "failed",
+          "deleted"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "OS": {
+        "title": "OS",
+        "enum": [
+          "centos",
+          "almalinux",
+          "debian",
+          "bitrix",
+          "ubuntu",
+          "brainycp",
+          "archlinux",
+          "astralinux",
+          "windows",
+          "custom_os",
+          "other"
         ],
         "type": "string",
         "description": "An enumeration."
@@ -18542,9 +20092,13 @@
           "id",
           "status",
           "created_at",
+          "deleted_at",
           "size",
+          "name",
           "description",
-          "disk_id"
+          "disk_id",
+          "os",
+          "progress"
         ],
         "type": "object",
         "properties": {
@@ -18567,10 +20121,21 @@
             "description": "Дата и время создания",
             "format": "date-time"
           },
+          "deleted_at": {
+            "title": "Deleted At",
+            "type": "string",
+            "description": "Дата и время удаления",
+            "format": "date-time"
+          },
           "size": {
             "title": "Size",
             "type": "integer",
             "description": "Размер в мегабайтах"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Имя образа"
           },
           "description": {
             "title": "Description",
@@ -18586,6 +20151,19 @@
             "title": "Location",
             "type": "string",
             "description": "Локация, в которой создан образ"
+          },
+          "os": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OS"
+              }
+            ],
+            "description": "Операционная система образа"
+          },
+          "progress": {
+            "title": "Progress",
+            "type": "integer",
+            "description": "Процент создания образа"
           }
         }
       },
@@ -18658,16 +20236,19 @@
       },
       "ImageInAPI": {
         "title": "ImageInAPI",
-        "required": [
-          "description",
-          "disk_id"
-        ],
         "type": "object",
         "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Имя образа",
+            "default": ""
+          },
           "description": {
             "title": "Description",
             "type": "string",
-            "description": "Описание образа"
+            "description": "Описание образа",
+            "default": ""
           },
           "disk_id": {
             "title": "Disk Id",
@@ -18705,11 +20286,13 @@
       },
       "ImageUpdateAPI": {
         "title": "ImageUpdateAPI",
-        "required": [
-          "description"
-        ],
         "type": "object",
         "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Имя образа"
+          },
           "description": {
             "title": "Description",
             "type": "string",
@@ -18717,6 +20300,7 @@
           }
         },
         "example": {
+          "name": "Имя образа",
           "description": "Описание образа"
         }
       },
@@ -18748,7 +20332,8 @@
           "created_at",
           "image",
           "type",
-          "status"
+          "status",
+          "progress"
         ],
         "type": "object",
         "properties": {
@@ -18791,6 +20376,11 @@
               }
             ],
             "description": "Статус создания"
+          },
+          "progress": {
+            "title": "Progress",
+            "type": "integer",
+            "description": "Прогресс загрузки образа"
           }
         }
       },
@@ -19240,6 +20830,19 @@
           "is_sticky",
           "timeout",
           "is_use_proxy"
+        ]
+      },
+      "delete-service-response": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string",
+            "description": "Хеш, который совместно с кодом авторизации надо будет отправить для удаления.",
+            "example": "15095f25-aac3-4d60-a788-96cb5136f186"
+          }
+        },
+        "required": [
+          "hash"
         ]
       },
       "update-balancer": {
@@ -21263,6 +22866,11 @@
             "description": "Комментарий к выделенному серверу.",
             "example": "Development Server"
           },
+          "created_at": {
+            "type": "string",
+            "description": "Дата создания сервера в формате ISO8061.",
+            "example": "2021-02-25T11:04:15Z"
+          },
           "os": {
             "type": "object",
             "description": "Операционная система сервера.",
@@ -21329,6 +22937,7 @@
             "description": "Локация сервера.",
             "enum": [
               "ru-1",
+              "ru-2",
               "pl-1",
               "kz-1"
             ],
@@ -21560,6 +23169,7 @@
           "software",
           "preset_id",
           "configurator_id",
+          "created_at",
           "location",
           "boot_mode",
           "status",
@@ -21578,7 +23188,7 @@
         "properties": {
           "configuration": {
             "type": "object",
-            "description": "Параметры конфигурации сервера. Нельзя передавать вместе с preset_id",
+            "description": "Параметры конфигурации сервера. Нельзя передавать вместе с `preset_id`",
             "properties": {
               "configurator_id": {
                 "type": "number",
@@ -21610,13 +23220,18 @@
           },
           "is_ddos_guard": {
             "type": "boolean",
-            "description": "Защита от DDoS. Серверу выдается защищенный IP-адрес с защитой уровня L3 / L4. Для включения защиты уровня L7, необходимо создать тикет в техническую поддержку ",
+            "description": "Защита от DDoS. Серверу выдается защищенный IP-адрес с защитой уровня L3 / L4. Для включения защиты уровня L7, необходимо создать тикет в техническую поддержку",
             "example": true
           },
           "os_id": {
             "type": "number",
-            "description": "Уникальный идентификатор операционной системы, которая будет установлена на выделенный сервер.",
+            "description": "Уникальный идентификатор операционной системы, которая будет установлена на облачный сервер. Нельзя передавать вместе с `image_id`",
             "example": 188
+          },
+          "image_id": {
+            "type": "number",
+            "description": "Уникальный идентификатор образа, который будет установлен на облачный сервер. Нельзя передавать вместе с `os_id`",
+            "example": 811
           },
           "software_id": {
             "type": "number",
@@ -21625,7 +23240,7 @@
           },
           "preset_id": {
             "type": "number",
-            "description": "Уникальный идентификатор тарифа сервера. Нельзя передавать вместе с ключом configurator",
+            "description": "Уникальный идентификатор тарифа сервера. Нельзя передавать вместе с ключом `configurator`",
             "example": 81
           },
           "bandwidth": {
@@ -21636,7 +23251,7 @@
           "name": {
             "type": "string",
             "maxLength": 255,
-            "description": "Имя выделенного сервера. Максимальная длина — 255 символов, имя должно быть уникальным.",
+            "description": "Имя облачного сервера. Максимальная длина — 255 символов, имя должно быть уникальным.",
             "example": "name"
           },
           "avatar_id": {
@@ -21647,7 +23262,7 @@
           "comment": {
             "type": "string",
             "maxLength": 255,
-            "description": "Комментарий к выделенному серверу. Максимальная длина — 255 символов.",
+            "description": "Комментарий к облачному серверу. Максимальная длина — 255 символов.",
             "example": "comment"
           },
           "ssh_keys_ids": {
@@ -21666,7 +23281,6 @@
         },
         "required": [
           "is_ddos_guard",
-          "os_id",
           "name",
           "bandwidth"
         ]
@@ -21701,7 +23315,7 @@
           },
           "os_id": {
             "type": "number",
-            "description": "Уникальный идентификатор операционной системы, которая будет установлена на выделенный сервер.",
+            "description": "Уникальный идентификатор операционной системы, которая будет установлена на облачный сервер.",
             "example": 188
           },
           "software_id": {
@@ -21722,7 +23336,7 @@
           "name": {
             "type": "string",
             "maxLength": 255,
-            "description": "Имя выделенного сервера. Максимальная длина — 255 символов, имя должно быть уникальным.",
+            "description": "Имя облачного сервера. Максимальная длина — 255 символов, имя должно быть уникальным.",
             "example": "name"
           },
           "avatar_id": {
@@ -21733,7 +23347,7 @@
           "comment": {
             "type": "string",
             "maxLength": 255,
-            "description": "Комментарий к выделенному серверу. Максимальная длина — 255 символов.",
+            "description": "Комментарий к облачному серверу. Максимальная длина — 255 символов.",
             "example": "comment"
           }
         }
@@ -21921,6 +23535,11 @@
             ],
             "example": "nvme"
           },
+          "is_allowed_local_network": {
+            "type": "boolean",
+            "description": "Есть возможность подключения локальной сети",
+            "example": true
+          },
           "cpu_frequency": {
             "type": "string",
             "description": "Частота процессора.",
@@ -22007,6 +23626,7 @@
         },
         "required": [
           "id",
+          "is_allowed_local_network",
           "location",
           "disk_type",
           "cpu_frequency",
@@ -23145,6 +24765,490 @@
           "status"
         ]
       },
+      "mailbox": {
+        "description": "Почтовый ящик",
+        "type": "object",
+        "properties": {
+          "auto_reply": {
+            "description": "Автоответчик на входящие письма",
+            "type": "object",
+            "properties": {
+              "is_enabled": {
+                "type": "boolean",
+                "description": "Включен ли автоответчик на входящие письма",
+                "example": true
+              },
+              "message": {
+                "type": "string",
+                "description": "Сообщение автоответчика на входящие письма",
+                "example": "some message"
+              },
+              "subject": {
+                "type": "string",
+                "description": "Тема сообщения автоответчика на входящие письма",
+                "example": "some subject"
+              }
+            },
+            "required": [
+              "is_enabled",
+              "message",
+              "subject"
+            ]
+          },
+          "spam_filter": {
+            "description": "Спам-фильтр",
+            "type": "object",
+            "properties": {
+              "is_enabled": {
+                "type": "boolean",
+                "description": "Включен ли спам-фильтр",
+                "example": true
+              },
+              "action": {
+                "type": "string",
+                "description": "Что делать с письмами, которые попадают в спам. \\\n Параметры: \\\n `move_to_directory` - переместить в паку спам; \\\n `forward` - переслать письмо на другой адрес; \\\n `delete` - удалить письмо; \\\n `tag` - пометить письмо;",
+                "enum": [
+                  "move_to_directory",
+                  "forward",
+                  "delete",
+                  "tag"
+                ],
+                "example": "forward"
+              },
+              "forward_to": {
+                "type": "string",
+                "description": "Адрес для пересылки при выбранном действии `forward` из параметра `action`",
+                "example": "test@timeweb.ru"
+              },
+              "white_list": {
+                "type": "array",
+                "description": "Белый список адресов от которых письма не будут попадать в спам",
+                "items": {
+                  "type": "string",
+                  "example": "test@timeweb.ru"
+                }
+              }
+            },
+            "required": [
+              "is_enabled",
+              "action",
+              "forward_to",
+              "white_list"
+            ]
+          },
+          "forwarding_incoming": {
+            "type": "object",
+            "description": "Пересылка входящик писем",
+            "properties": {
+              "is_enabled": {
+                "type": "boolean",
+                "description": "Включена ли пересылка входящик писем",
+                "example": true
+              },
+              "is_delete_messages": {
+                "type": "boolean",
+                "description": "Удалять ли входящие письма",
+                "example": false
+              },
+              "incoming_list": {
+                "type": "array",
+                "description": "Список адресов для пересылки",
+                "items": {
+                  "type": "string",
+                  "example": "test@timeweb.ru"
+                }
+              }
+            },
+            "required": [
+              "is_enabled",
+              "is_delete_messages",
+              "incoming_list"
+            ]
+          },
+          "forwarding_outgoing": {
+            "type": "object",
+            "description": "Пересылка исходящих писем",
+            "properties": {
+              "is_enabled": {
+                "type": "boolean",
+                "description": "Включена ли пересылка исходящих писем",
+                "example": true
+              },
+              "outgoing_to": {
+                "type": "string",
+                "description": "Адрес для пересылки исходящих писем",
+                "example": "test@timeweb.ru"
+              }
+            },
+            "required": [
+              "is_enabled",
+              "outgoing_to"
+            ]
+          },
+          "comment": {
+            "type": "string",
+            "description": "Комментарий к почтовому ящику",
+            "example": "some comment"
+          },
+          "fqdn": {
+            "type": "string",
+            "description": "Домен почты",
+            "example": "timeweb.ru"
+          },
+          "mailbox": {
+            "type": "string",
+            "description": "Название почтового ящика",
+            "example": "mailbox"
+          },
+          "password": {
+            "type": "string",
+            "description": "Пароль почтового ящика",
+            "example": "ps3-1asZa"
+          },
+          "usage_space": {
+            "type": "number",
+            "description": "Использованное место на почтовом ящике (в Мб)",
+            "example": 512
+          },
+          "is_webmail": {
+            "type": "boolean",
+            "description": "Доступен ли Webmail",
+            "example": false
+          },
+          "idn_name": {
+            "type": "string",
+            "description": "IDN домен почтового ящика",
+            "example": "timeweb.ru"
+          },
+          "is_dovecot": {
+            "type": "boolean",
+            "description": "Есть ли доступ через dovecot",
+            "example": false
+          }
+        },
+        "required": [
+          "auto_reply",
+          "spam_filter",
+          "forwarding_incoming",
+          "forwarding_outgoing",
+          "comment",
+          "fqdn",
+          "mailbox",
+          "password",
+          "usage_space",
+          "is_webmail",
+          "idn_name",
+          "is_dovecot"
+        ]
+      },
+      "quota": {
+        "description": "Почтовая квота",
+        "type": "object",
+        "properties": {
+          "total": {
+            "description": "Общее количество места на почте (в Мб.)",
+            "type": "number",
+            "example": 1024
+          },
+          "used": {
+            "description": "Занятое место на почте (в Мб.)",
+            "type": "number",
+            "example": 512
+          }
+        },
+        "required": [
+          "total",
+          "used"
+        ]
+      },
+      "domain-info": {
+        "description": "Почтовая информация о домене",
+        "type": "object",
+        "properties": {
+          "email": {
+            "description": "Адрес для сбора почты с ошибочных ящиков",
+            "type": "string",
+            "example": 1024
+          },
+          "used": {
+            "description": "Использованное место на почте (в Мб.)",
+            "type": "number",
+            "example": 512
+          }
+        },
+        "required": [
+          "email",
+          "used"
+        ]
+      },
+      "auto-reply-is-disabled": {
+        "title": "Если автоответчик выключен",
+        "type": "object",
+        "properties": {
+          "is_enabled": {
+            "type": "true",
+            "description": "Включен ли автоответчик на входящие письма",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Сообщение автоответчика на входящие письма",
+            "example": "some message"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Тема сообщения автоответчика на входящие письма.",
+            "example": "some subject"
+          }
+        },
+        "required": [
+          "is_enabled"
+        ]
+      },
+      "auto-reply-is-enabled": {
+        "title": "Если автоответчик включен",
+        "type": "object",
+        "properties": {
+          "is_enabled": {
+            "type": "boolean",
+            "description": "Включен ли автоответчик на входящие письма",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Сообщение автоответчика на входящие письма. \\\n Если передан параметр `is_enabled`: `false`, то значение передавать нельзя",
+            "example": "some message"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Тема сообщения автоответчика на входящие письма. \\\n Если передан параметр `is_enabled`: `false`, то значение передавать нельзя",
+            "example": "some subject"
+          }
+        }
+      },
+      "spam-filter-is-disabled": {
+        "title": "Если спам-фильтр выключен",
+        "type": "object",
+        "properties": {
+          "is_enabled": {
+            "type": "true",
+            "description": "Включен ли спам-фильтр",
+            "example": true
+          },
+          "action": {
+            "type": "string",
+            "description": "Что делать с письмами, которые попадают в спам. \\\n Параметры: \\\n `move_to_directory` - переместить в паку спам; \\\n `forward` - переслать письмо на другой адрес; \\\n `delete` - удалить письмо; \\\n `tag` - пометить письмо;",
+            "enum": [
+              "move_to_directory",
+              "forward",
+              "delete",
+              "tag"
+            ],
+            "example": "forward"
+          },
+          "forward_to": {
+            "type": "string",
+            "description": "Адрес для пересылки при выбранном действии `forward` из параметра `action`. Не может быть пустым, если `action` выбран `forward`",
+            "example": "test@timeweb.ru"
+          },
+          "white_list": {
+            "type": "array",
+            "description": "Белый список адресов от которых письма не будут попадать в спам",
+            "items": {
+              "type": "string",
+              "example": "test@timeweb.ru"
+            }
+          }
+        },
+        "required": [
+          "is_enabled"
+        ]
+      },
+      "spam-filter-is-enabled": {
+        "title": "Если спам-фильтр включен",
+        "type": "object",
+        "properties": {
+          "is_enabled": {
+            "type": "boolean",
+            "description": "Включен ли спам-фильтр",
+            "example": true
+          },
+          "action": {
+            "type": "string",
+            "description": "Что делать с письмами, которые попадают в спам. \\\n Параметры: \\\n `move_to_directory` - переместить в паку спам; \\\n `forward` - переслать письмо на другой адрес; \\\n `delete` - удалить письмо; \\\n `tag` - пометить письмо; \\\n Если передан параметр `is_enabled`: `false`, то значение передавать нельзя",
+            "enum": [
+              "move_to_directory",
+              "forward",
+              "delete",
+              "tag"
+            ],
+            "example": "forward"
+          },
+          "forward_to": {
+            "type": "string",
+            "description": "Адрес для пересылки при выбранном действии `forward` из параметра `action`. Не может быть пустым, если `action` выбран `forward`. \\\n Если передан параметр `is_enabled`: `false`, то значение передавать нельзя",
+            "example": "test@timeweb.ru"
+          },
+          "white_list": {
+            "type": "array",
+            "description": "Белый список адресов от которых письма не будут попадать в спам. \\\n Если передан параметр `is_enabled`: `false`, то значение передавать нельзя",
+            "items": {
+              "type": "string",
+              "example": "test@timeweb.ru"
+            }
+          }
+        }
+      },
+      "forwarding-incoming-is-disabled": {
+        "title": "Если пересылка входящих выключена",
+        "type": "object",
+        "properties": {
+          "is_enabled": {
+            "type": "true",
+            "description": "Включена ли пересылка входящик писем",
+            "example": true
+          },
+          "is_delete_messages": {
+            "type": "boolean",
+            "description": "Удалять ли входящие письма",
+            "example": false
+          },
+          "incoming_list": {
+            "type": "array",
+            "description": "Список адресов для пересылки. Не должен быть пустым при передачи параметра `is_enabled`: `true`",
+            "items": {
+              "type": "string",
+              "example": "test@timeweb.ru"
+            }
+          }
+        },
+        "required": [
+          "is_enabled"
+        ]
+      },
+      "forwarding-incoming-is-enabled": {
+        "title": "Если пересылка входящих включена",
+        "type": "object",
+        "properties": {
+          "is_enabled": {
+            "type": "boolean",
+            "description": "Включена ли пересылка входящик писем",
+            "example": true
+          },
+          "is_delete_messages": {
+            "type": "boolean",
+            "description": "Удалять ли входящие письма. \\\n Если передан параметр `is_enabled`: `false`, то значение передавать нельзя",
+            "example": false
+          },
+          "incoming_list": {
+            "type": "array",
+            "description": "Список адресов для пересылки. \\\n Если передан параметр `is_enabled`: `false`, то значение передавать нельзя",
+            "items": {
+              "type": "string",
+              "example": "test@timeweb.ru"
+            }
+          }
+        }
+      },
+      "forwarding-outgoing-is-disabled": {
+        "title": "Если пересылка исходящих выключена",
+        "type": "object",
+        "properties": {
+          "is_enabled": {
+            "type": "true",
+            "description": "Включена ли пересылка исходящих писем",
+            "example": true
+          },
+          "outgoing_to": {
+            "type": "string",
+            "description": "Адрес для пересылки исходящих писем",
+            "example": "test@timeweb.ru"
+          }
+        },
+        "required": [
+          "is_enabled"
+        ]
+      },
+      "forwarding-outgoing-is-enabled": {
+        "title": "Если пересылка исходящих выключена",
+        "type": "object",
+        "properties": {
+          "is_enabled": {
+            "type": "boolean",
+            "description": "Включена ли пересылка исходящих писем. \\\n Если передан параметр `is_enabled`: `false`, то значение передавать нельзя",
+            "example": true
+          },
+          "outgoing_to": {
+            "type": "string",
+            "description": "Адрес для пересылки исходящих писем. \\\n Если передан параметр `is_enabled`: `false`, то значение передавать нельзя",
+            "example": "test@timeweb.ru"
+          }
+        }
+      },
+      "update-mailbox": {
+        "description": "Изменение почтового ящика",
+        "type": "object",
+        "properties": {
+          "auto_reply": {
+            "description": "Автоответчик на входящие письма",
+            "type": "object",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/auto-reply-is-disabled"
+              },
+              {
+                "$ref": "#/components/schemas/auto-reply-is-enabled"
+              }
+            ]
+          },
+          "spam_filter": {
+            "description": "Спам-фильтр",
+            "type": "object",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/spam-filter-is-disabled"
+              },
+              {
+                "$ref": "#/components/schemas/spam-filter-is-enabled"
+              }
+            ]
+          },
+          "forwarding_incoming": {
+            "type": "object",
+            "description": "Пересылка входящик писем.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/forwarding-incoming-is-disabled"
+              },
+              {
+                "$ref": "#/components/schemas/forwarding-incoming-is-enabled"
+              }
+            ]
+          },
+          "forwarding_outgoing": {
+            "type": "object",
+            "description": "Пересылка исходящих писем",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/forwarding-outgoing-is-disabled"
+              },
+              {
+                "$ref": "#/components/schemas/forwarding-outgoing-is-enabled"
+              }
+            ]
+          },
+          "comment": {
+            "type": "string",
+            "description": "Комментарий к почтовому ящику",
+            "example": "some comment"
+          },
+          "password": {
+            "type": "string",
+            "description": "Пароль почтового ящика",
+            "example": "ps3-1asZa"
+          }
+        }
+      },
       "domain-payment-period": {
         "description": "Период оплаты (Для доменов в зонах .ru и .рф только 1-3 года).",
         "type": "string",
@@ -24159,7 +26263,7 @@
         }
       },
       "offset": {
-        "description": "Указывает на смещение, относительно начала списка.",
+        "description": "Указывает на смещение относительно начала списка.",
         "in": "query",
         "name": "offset",
         "required": false,
@@ -24330,6 +26434,35 @@
         "schema": {
           "type": "string",
           "format": "uuid"
+        }
+      },
+      "search": {
+        "description": "Поиск почтового ящика по названию",
+        "in": "query",
+        "name": "search",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "domain": {
+        "description": "Полное имя домена",
+        "in": "path",
+        "name": "domain",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "somedomain.ru"
+        }
+      },
+      "mailbox": {
+        "description": "Название почтового ящика",
+        "in": "path",
+        "name": "mailbox",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "mailbox"
         }
       },
       "idn-name": {
