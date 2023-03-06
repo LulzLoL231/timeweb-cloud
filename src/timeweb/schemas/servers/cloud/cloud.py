@@ -88,7 +88,7 @@ class NetworkIPs(BaseData):
     '''Список IP-адресов сети.'''
     type: NetworkIPsType = Field(..., description='Тип IP-адреса сети')
     ip: IPv4Address | IPv6Address = Field(..., description='IP-адрес')
-    ptr: str = Field(..., description='Запись имени узла')
+    ptr: str | None = Field(None, description='Запись имени узла')
     is_main: bool = Field(..., description='Сеть основная?')
 
 

@@ -2,7 +2,7 @@
 import sys
 import logging
 
-from httpx import AsyncClient, Response, HTTPStatusError
+from httpx import AsyncClient, Response, HTTPStatusError, Timeout
 
 from ..errors import exc
 from ..__meta import __version__
@@ -31,7 +31,9 @@ class BaseAsyncClient:
                 'User-Agent': f'timeweb-cloud/{__version__}',
                 'Authorization': f'Bearer {self.token}',
                 'Accept': 'application/json'
-            }, base_url=self.BASE_URL
+            },
+            base_url=self.BASE_URL,
+            timeout=Timeout(30)
         )
         self.client = client or default_client
 
