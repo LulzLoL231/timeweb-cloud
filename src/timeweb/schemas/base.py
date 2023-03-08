@@ -19,7 +19,11 @@ class BaseData(BaseModel):
 
 
 class BaseResponse(BaseData):
-    '''Базовая модель ответа'''
+    '''Базовая модель ответа
+
+    Attributes:
+        response_id (UUID | None): Уникальный идентификатор ответа
+    '''
     response_id: UUID | None = Field(
         None, description=('В большинстве случае в ответе будет содержаться '
                            'уникальный идентификатор ответа в формате UUIDv4, '
@@ -32,17 +36,29 @@ class BaseResponse(BaseData):
 
 
 class BaseMeta(BaseData):
-    '''Базовая модель мета-данных'''
+    '''Базовая модель мета-данных.
+
+    Attributes:
+        total (int | None): Общее количество элементов в коллекции.
+    '''
     total: int | None = Field(
         None, description='Общее количество элементов в коллекции.'
     )
 
 
 class ResponseWithMeta(BaseResponse):
-    '''Модель ответа с мета-данными'''
+    '''Модель ответа с мета-данными.
+
+    Attributes:
+        meta (BaseMeta | None): Мета-данные.
+    '''
     meta: BaseMeta | None = Field(None, description='Мета-данные.')
 
 
 class BaseDelete(BaseData):
-    '''Модель с хэшом для удаления объекта'''
+    '''Модель с хэшом для удаления объекта.
+
+    Attributes:
+        hash (str): Хэш для удаления объекта.
+    '''
     hash: str

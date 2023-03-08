@@ -9,7 +9,17 @@ from ..base import ResponseWithMeta, BaseResponse, BaseData
 
 
 class BackupStatus(str, Enum):
-    '''Статусы бэкапов'''
+    '''Статусы бэкапов
+
+    Attributes:
+        PRECREATE (str): precreate
+        DELETE (str): delete
+        SHUTDOWN (str): shutdown
+        RECOVER (str): recover
+        CREATE (str): create
+        FAIL (str): fail
+        DONE (str): done
+    '''
     PRECREATE = 'precreate'
     DELETE = 'delete'
     SHUTDOWN = 'shutdown'
@@ -20,13 +30,28 @@ class BackupStatus(str, Enum):
 
 
 class BackupType(str, Enum):
-    '''Типы бэкапов'''
+    '''Типы бэкапов
+
+    Attributes:
+        MANUAL (str): manual
+        AUTO (str): auto
+    '''
     MANUAL = 'manual'
     AUTO = 'auto'
 
 
 class Backup(BaseData):
-    '''Бэкап базы данных'''
+    '''Бэкап базы данных
+
+    Attributes:
+        id (int): ID бэкапа.
+        name (str): Имя бэкапа.
+        comment (str | None): Комментарий к бэкапу.
+        created_at (datetime): Дата создания бэкапа.
+        status (BackupStatus): Статус бэкапа.
+        size (int): Размер бэкапа (Мб).
+        type (BackupType): Тип бэкапа.
+    '''
     id: int = Field(..., description='ID бэкапа.')
     name: str = Field(..., description='Имя бэкапа.')
     comment: str | None = Field(
@@ -43,10 +68,18 @@ class Backup(BaseData):
 
 
 class BackupArray(ResponseWithMeta):
-    '''Массив бэкапов'''
+    '''Массив бэкапов
+
+    Attributes:
+        backups (list[Backup]): Массив бэкапов.
+    '''
     backups: list[Backup] = Field(..., description='Массив бэкапов.')
 
 
 class BackupResponse(BaseResponse):
-    '''Бэкап'''
+    '''Бэкап
+
+    Attributes:
+        backup (Backup): Бэкап
+    '''
     backup: Backup = Field(..., description='Бэкап.')
