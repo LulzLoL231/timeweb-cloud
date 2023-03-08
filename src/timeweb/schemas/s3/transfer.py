@@ -17,6 +17,10 @@ class TransferStatus(str, Enum):
 class TransferError(BaseData):
     '''Модель ошибки трансфера
 
+    Attributes:
+        value (str): Текст ошибки
+        try_count (int): Количество попыток.
+
     Note:
         Поле `try` зарезервировано в Python, поэтому используется `try_count`.
         Для получения значения `try`, используйте `obj.json(by_alias=True)` или
@@ -26,7 +30,17 @@ class TransferError(BaseData):
 
 
 class Transfer(BaseData):
-    '''Модель трансфера'''
+    '''Модель трансфера.
+
+    Attributes:
+        status (TransferStatus): Статус трансфера
+        tries (int): Количество попыток
+        total_count (int): Общее количество затронутых объектов.
+        total_size (int): Общий размер затронутых объектов.
+        uploaded_count (int): Количество перемещенных объектов.
+        uploaded_size (int): Размер перемещенных объектов.
+        errors (list[TransferError] | None): Описание ошибки трансфера
+    '''
     status: TransferStatus = Field(..., description='Статус трансфера')
     tries: int = Field(..., description='Количество попыток')
     total_count: int = Field(
@@ -47,5 +61,9 @@ class Transfer(BaseData):
 
 
 class TransferResponse(ResponseWithMeta):
-    '''Модель ответа трансфера'''
+    '''Модель ответа трансфера.
+
+    Attributes:
+        transfer_status (Transfer): Трансфер
+    '''
     transfer_status: Transfer

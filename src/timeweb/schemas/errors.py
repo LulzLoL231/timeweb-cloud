@@ -5,7 +5,13 @@ from .base import BaseResponse
 
 
 class BaseError(BaseResponse):
-    '''Базовая модель ошибки'''
+    '''Базовая модель ошибки.
+
+    Attributes:
+        status_code (int): Короткий числовой идентификатор ошибки.
+        error_code (str): Короткий текстовый идентификатор ошибки.
+        message (str | list[str] | None): Человекочитаемое подробное описание ошибки.
+    '''
     status_code: int = Field(
         ..., description='Короткий числовой идентификатор ошибки.'
     )
