@@ -9,7 +9,7 @@ homepage = "https://github.com/LulzLoL231/timeweb-cloud"
 repository = "https://github.com/LulzLoL231/timeweb-cloud"
 keywords = ["timeweb", "timeweb.cloud", "api", "wrapper"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
@@ -27,13 +27,15 @@ httpx = "^0.23.3"
 pydantic = "^1.10.4"
 isodate = "^0.6.1"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 flake8 = "^6.0.0"
 mypy = "^0.991"
 autopep8 = "^2.0.1"
 bumpver = "^2022.1120"
 typed-argument-parser = "^1.7.2"
 markdown-strings = "^3.3.0"
+pytest = "^7.2.2"
+python-dotenv = "^1.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -54,4 +56,9 @@ push = false
 ]
 "src/timeweb/__meta.py" = [
     "__version__ = '{version}'",
+]
+
+[tool.pytest.ini_options]
+pythonpath = [
+  ".", "src",
 ]
