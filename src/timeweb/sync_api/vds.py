@@ -283,21 +283,23 @@ class VDSAPI(BaseClient):
         )
         return status.is_success
 
-    def clone(self, server_id: int) -> dict:
+    def clone(self, server_id: int) -> schemas.VDS:
         '''Клонировать сервер.
 
         Args:
             server_id (int): UID сервера.
 
         Returns:
-            dict: Объект сервера.
+            schemas.VDS: Объект сервера.
         '''
         server = self._request(
             'POST', f'/servers/{server_id}/clone'
         )
-        return server.json()
+        return schemas.VDS(**server.json())
 
-    def get_statistics(self, server_id: int, date_from: datetime | str, date_to: datetime | str) -> dict:
+    def get_statistics(
+        self, server_id: int, date_from: datetime | str, date_to: datetime | str
+    ) -> schemas.StatsResponse:
         '''Получить статистику сервера.
 
         Args:
@@ -306,7 +308,7 @@ class VDSAPI(BaseClient):
             date_to (datetime | str): Дата конца сбора статистики.
 
         Returns:
-            dict: Объект статистики сервера.
+            schemas.StatsResponse: Объект статистики сервера.
         '''
         params = {
             'date_from': date_from,
@@ -319,51 +321,51 @@ class VDSAPI(BaseClient):
         stats = self._request(
             'GET', f'/servers/{server_id}/statistics'
         )
-        return stats.json()
+        return schemas.StatsResponse(**stats.json())
 
-    def get_os_list(self) -> dict:
+    def get_os_list(self) -> schemas.ServersOSResponse:
         '''Получить список всех операционных систем.
 
         Returns:
-            dict: Объект со списком ОС.
+            schemas.ServersOSResponse: Объект со списком ОС.
         '''
         os_array = self._request(
             'GET', '/os/servers'
         )
-        return os_array.json()
+        return schemas.ServersOSResponse(**os_array.json())
 
-    def get_presets(self) -> dict:
+    def get_presets(self) -> schemas.CloudPresetsResponse:
         '''Получить список всех тарифов.
 
         Returns:
-            dict: Объект со списком тарифов.
+            schemas.CloudPresetsResponse: Объект со списком тарифов.
         '''
         presets = self._request(
             'GET', '/presets/servers'
         )
-        return presets.json()
+        return schemas.CloudPresetsResponse(**presets.json())
 
-    def get_configurators(self) -> dict:
+    def get_configurators(self) -> schemas.ServerConfiguratorsResponse:
         '''Получить список всеъ конфигураторов серверов.
 
         Returns:
-            dict: Объект со списком конфигураторов.
+            schemas.ServerConfiguratorsResponse: Объект со списком конфигураторов.
         '''
         confs = self._request(
             'GET', '/configurator/servers'
         )
-        return confs.json()
+        return schemas.ServerConfiguratorsResponse(**confs.json())
 
-    def get_softwares(self) -> dict:
+    def get_softwares(self) -> schemas.ServersSoftwareResponse:
         '''Получить список ПО из маркетплейса.
 
         Returns:
-            dict: Объект со списком ПО из маркетплейса.
+            schemas.ServersSoftwareResponse: Объект со списком ПО из маркетплейса.
         '''
         softwares = self._request(
             'GET', '/software/servers'
         )
-        return softwares.json()
+        return schemas.ServersSoftwareResponse(**softwares.json())
 
     def set_boot_mode(self, server_id: int, boot_mode: str) -> bool:
         '''Установка типа загрузки ОС сервера.
@@ -404,21 +406,21 @@ class VDSAPI(BaseClient):
         )
         return status.is_success
 
-    def get_server_ips(self, server_id: int) -> dict:
+    def get_server_ips(self, server_id: int) -> schemas.ServerIPsResponse:
         '''Получить список IP-адресов сервера.
 
         Args:
             server_id (int): UID сервера.
 
         Returns:
-            dict: Объект со спиком IP-адресов сервера.
+            schemas.ServerIPsResponse: Объект со спиком IP-адресов сервера.
         '''
         ips = self._request(
             'GET', f'/servers/{server_id}/ips'
         )
-        return ips.json()
+        return schemas.ServerIPsResponse(**ips.json())
 
-    def add_server_ip(self, server_id: int, type: str, ptr: str) -> dict:
+    def add_server_ip(self, server_id: int, type: str, ptr: str) -> schemas.ServerIPResponse:
         '''Добавление IP-адреса сервера.
 
         Args:
@@ -427,13 +429,13 @@ class VDSAPI(BaseClient):
             ptr (str): PTR запись IP-адреса.
 
         Returns:
-            dict: Объект с новым IP-адресом сервера.
+            schemas.ServerIPResponse: Объект с новым IP-адресом сервера.
         '''
         new_ip = self._request(
             'POST', f'/servers/{server_id}/ips',
             json={'type': type, 'ptr': ptr}
         )
-        return new_ip.json()
+        return schemas.ServerIPResponse(**new_ip.json())
 
     def delete_server_ip(self, server_id: int, ip: IPAddress | str) -> bool:
         '''Удаление IP-адреса сервера.
@@ -451,7 +453,9 @@ class VDSAPI(BaseClient):
         )
         return status.is_success
 
-    def update_server_ip(self, server_id: int, ip: IPAddress | str, ptr: str) -> dict:
+    def update_server_ip(
+        self, server_id: int, ip: IPAddress | str, ptr: str
+    ) -> schemas.ServerIPResponse:
         '''Добавление IP-адреса сервера.
 
         Args:
@@ -460,15 +464,18 @@ class VDSAPI(BaseClient):
             ptr (str): PTR запись IP-адреса.
 
         Returns:
-            dict: Объект с новым IP-адресом сервера.
+            schemas.ServerIPResponse: Объект с новым IP-адресом сервера.
         '''
         updated_ip = self._request(
             'PATCH', f'/servers/{server_id}/ips',
             json={'ip': ip, 'ptr': ptr}
         )
-        return updated_ip.json()
+        return schemas.ServerIPResponse(**updated_ip.json())
 
-    def get_logs(self, server_id: int, limit: int = 100, offset: int = 0, order: str = 'asc') -> dict:
+    def get_logs(
+        self, server_id: int, limit: int = 100,
+        offset: int = 0, order: str = 'asc'
+    ) -> schemas.ServerLogsResponse:
         '''Получить логи сервера.
 
         Args:
@@ -478,7 +485,7 @@ class VDSAPI(BaseClient):
             order (str, optional): Сортировка по дате. Defaults to 'asc'.
 
         Returns:
-            dict: Объект со списком логов.
+            schemas.ServerLogsResponse: Объект со списком логов.
         '''
         params = {
             'limit': limit,
@@ -489,23 +496,23 @@ class VDSAPI(BaseClient):
             'GET', f'/servers/{server_id}/logs',
             params=params
         )
-        return logs.json()
+        return schemas.ServerLogsResponse(**logs.json())
 
-    def get_server_disks(self, server_id: int) -> dict:
+    def get_server_disks(self, server_id: int) -> schemas.ServerDisksResponse:
         '''Получить список дисков сервера.
 
         Args:
             server_id (int): UID сервера.
 
         Returns:
-            dict: Объект со списком дисков сервера.
+            schemas.ServerDisksResponse: Объект со списком дисков сервера.
         '''
         disks = self._request(
             'GET', f'/servers/{server_id}/disks'
         )
-        return disks.json()
+        return schemas.ServerDisksResponse(**disks.json())
 
-    def create_server_disk(self, server_id: int, size: int) -> dict:
+    def create_server_disk(self, server_id: int, size: int) -> schemas.ServerDiskResponse:
         '''Создать диск сервера.
 
         Args:
@@ -513,7 +520,7 @@ class VDSAPI(BaseClient):
             size (int): Размер диска. Минимальный 5120, максимальный 512000, шаг 5120.
 
         Returns:
-            dict: Созданный диск сервера.
+            schemas.ServerDiskResponse: Созданный диск сервера.
         '''
         if size not in range(5120, 512001, 5120):
             raise ValueError('"size" вне допустимых пределах!')
@@ -521,9 +528,9 @@ class VDSAPI(BaseClient):
             'POST', f'/servers/{server_id}/disks',
             json={'size': size}
         )
-        return disk.json()
+        return schemas.ServerDiskResponse(**disk.json())
 
-    def get_server_disk(self, server_id: int, disk_id: int) -> dict:
+    def get_server_disk(self, server_id: int, disk_id: int) -> schemas.ServerDiskResponse:
         '''Получить диск сервера.
 
         Args:
@@ -531,14 +538,16 @@ class VDSAPI(BaseClient):
             disk_id (int): UID диска сервера.
 
         Returns:
-            dict: Объект диска сервера.
+            schemas.ServerDiskResponse: Объект диска сервера.
         '''
         disk = self._request(
             'GET', f'/servers/{server_id}/disks/{disk_id}'
         )
-        return disk.json()
+        return schemas.ServerDiskResponse(disk.json())
 
-    def update_server_disk(self, server_id: int, disk_id: int, size: int) -> dict:
+    def update_server_disk(
+        self, server_id: int, disk_id: int, size: int
+    ) -> schemas.ServerDiskResponse:
         '''Изменить параметры диска сервера.
 
         Args:
@@ -547,7 +556,7 @@ class VDSAPI(BaseClient):
             size (int): Размер диска. Минимальный 5120, максимальный 512000, шаг 5120.
 
         Returns:
-            dict: Объект с обновленным диском сервера.
+            schemas.ServerDiskResponse: Объект с обновленным диском сервера.
         '''
         if size not in range(5120, 512001, 5120):
             raise ValueError('"size" вне допустимых пределах!')
@@ -555,7 +564,7 @@ class VDSAPI(BaseClient):
             'PATCH', f'/servers/{server_id}/disks/{disk_id}',
             json={'size': size}
         )
-        return disk.json()
+        return schemas.ServerDiskResponse(**disk.json())
 
     def delete_server_disk(self, server_id: int, disk_id: int) -> bool:
         '''Удалить сервер диска.
@@ -572,7 +581,9 @@ class VDSAPI(BaseClient):
         )
         return status.is_success
 
-    def get_autobackup_settings(self, server_id: int, disk_id: int) -> dict:
+    def get_autobackup_settings(
+        self, server_id: int, disk_id: int
+    ) -> schemas.AutoBackupsResponse:
         '''Получить настройка автобэкапов диска сервера.
 
         Args:
@@ -580,18 +591,18 @@ class VDSAPI(BaseClient):
             disk_id (int): UID диска сервера.
 
         Returns:
-            dict: Объект настроек автобэкапа.
+            schemas.AutoBackupsResponse: Объект настроек автобэкапа.
         '''
         settings = self._request(
             'GET', f'/servers/{server_id}/disks/{disk_id}/auto-backups'
         )
-        return settings.json()
+        return schemas.AutoBackupsResponse(**settings.json())
 
     def change_autobackup_settings(
         self, server_id: int, disk_id: int, is_enabled: bool,
         interval: str | None = None, creation_start_at: date | str | None = None,
         copy_count: int | None = None, day_of_week: int | None = None
-    ) -> dict:
+    ) -> schemas.AutoBackupsResponse:
         '''Изменение настроек автобэкапа диска сервера.
 
         Args:
@@ -611,7 +622,7 @@ class VDSAPI(BaseClient):
             `day_of_week` работает только со значением `interval`: week. Интервал 1-7.
 
         Returns:
-            dict: Объект настроек автобекапов.
+            schemas.AutoBackupsResponse: Объект настроек автобекапов.
         '''
         data: dict[str, bool | str | int] = {
             'is_enabled': is_enabled
@@ -646,11 +657,11 @@ class VDSAPI(BaseClient):
             'PATCH', f'/servers/{server_id}/disks/{disk_id}/auto-backups',
             json=data
         )
-        return settings.json()
+        return schemas.AutoBackupsResponse(**settings.json())
 
     def make_server_disk_backup(
         self, server_id: int, disk_id: int, comment: str | None = None
-    ) -> dict:
+    ) -> schemas.BackupResponse:
         '''Создание бэкапа диска сервера.
 
         Args:
@@ -659,15 +670,17 @@ class VDSAPI(BaseClient):
             comment (str | None, optional): Комментарий к бэкапу. Defaults to None.
 
         Returns:
-            dict: Объект бэкапа.
+            schemas.BackupResponse: Объект бэкапа.
         '''
         backup = self._request(
             'POST', f'/servers/{server_id}/disks/{disk_id}/backups',
             json={'comment': comment} if comment else {}
         )
-        return backup.json()
+        return schemas.BackupResponse(**backup.json())
 
-    def get_server_disk_backups(self, server_id: int, disk_id: int) -> dict:
+    def get_server_disk_backups(
+        self, server_id: int, disk_id: int
+    ) -> schemas.BackupsResponse:
         '''Получить список бэкапов диска сервера.
 
         Args:
@@ -675,16 +688,16 @@ class VDSAPI(BaseClient):
             disk_id (int): UID диска сервера.
 
         Returns:
-            dict: Объект со списком бэкапов диска.
+            schemas.BackupsResponse: Объект со списком бэкапов диска.
         '''
         backups = self._request(
             'GET', f'/servers/{server_id}/disks/{disk_id}/backups'
         )
-        return backups.json()
+        return schemas.BackupsResponse(**backups.json())
 
     def change_server_disk_backup(
         self, server_id: int, disk_id: int, backup_id: int, comment: str
-    ) -> dict:
+    ) -> schemas.BackupResponse:
         '''Изменение бэкапа диска сервера.
 
         Args:
@@ -694,13 +707,13 @@ class VDSAPI(BaseClient):
             comment (str): Комментарий.
 
         Returns:
-            dict: Объект бэкапа диска.
+            schemas.BackupResponse: Объект бэкапа диска.
         '''
         backup = self._request(
             'PATCH', f'/servers/{server_id}/disks/{disk_id}/backups/{backup_id}',
             json={'comment': comment}
         )
-        return backup.json()
+        return schemas.BackupResponse(**backup.json)
 
     def delete_server_disk_backup(
         self, server_id: int, disk_id: int, backup_id: int
@@ -722,7 +735,7 @@ class VDSAPI(BaseClient):
 
     def get_server_disk_backup(
         self, server_id: int, disk_id: int, backup_id: int
-    ) -> dict:
+    ) -> schemas.BackupResponse:
         '''Получить бэкап диска сервера.
 
         Args:
@@ -731,12 +744,12 @@ class VDSAPI(BaseClient):
             backup_id (int): UID бэкапа.
 
         Returns:
-            dict: Объект бэкапа диска.
+            schemas.BackupResponse: Объект бэкапа диска.
         '''
         backup = self._request(
             'GET', f'/servers/{server_id}/disks/{disk_id}/backups/{backup_id}'
         )
-        return backup.json()
+        return schemas.BackupResponse(**backup.json())
 
     def make_server_disk_backup_action(
         self, server_id: int, disk_id: int, backup_id: int, action: str
