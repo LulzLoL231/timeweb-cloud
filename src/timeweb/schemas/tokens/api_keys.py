@@ -22,7 +22,7 @@ class APIKey(BaseData):
         ..., description='Дата и время создания токена.'
     )
     name: str = Field(..., description='Имя токена.')
-    expires_at: datetime | None = Field(
+    expired_at: datetime | None = Field(
         None, description='Дата истечения срока действия токена.'
     )
 
