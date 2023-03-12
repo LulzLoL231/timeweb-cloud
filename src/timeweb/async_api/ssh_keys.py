@@ -88,14 +88,17 @@ class SSHKeysAPI(BaseAsyncClient):
         Returns:
             schemas.SSHKeyResponse: Обновленный SSH-ключ.
         '''
+        data: dict[str, str] = {}
+        if name:
+            data['name'] = name
+        if body:
+            data['body'] = body
+        if is_default:
+            data['is_default'] = is_default
         key = await self._request(
             'PATCH',
             f'/ssh-keys/{ssh_key_id}',
-            json={
-                'name': name,
-                'body': body,
-                'is_default': is_default,
-            },
+            json=data
         )
         return schemas.SSHKeyResponse(**key.json())
 
