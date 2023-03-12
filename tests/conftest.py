@@ -14,6 +14,7 @@ IP_SERVICES = [
 
 class Config(BaseSettings):
     token: str = Field(..., env='TIMEWEB_TOKEN')
+    ssh_key: str = Field(..., env='TEST_SSH_KEY')
 
     class Config:
         env_file = 'tests/.env'
@@ -36,3 +37,8 @@ def my_ip() -> str:
             if resp.is_success:
                 return resp.text.strip()
     raise RuntimeError('Can\'t fetch IP address!')
+
+
+@pytest.fixture()
+def test_ssh_key() -> str:
+    return Config().ssh_key

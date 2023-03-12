@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 '''Модели для работы с SSH ключами'''
-from uuid import UUID
 from datetime import datetime
 
 from pydantic import Field
@@ -12,10 +11,10 @@ class Server(BaseData):
     '''Модель сервера.
 
     Attributes:
-        id (UUID): Уникальный идентификатор сервера.
+        id (int): Уникальный идентификатор сервера.
         name (str): Название сервера.
     '''
-    id: UUID = Field(..., description='Уникальный идентификатор сервера.')
+    id: int = Field(..., description='Уникальный идентификатор сервера.')
     name: str = Field(..., description='Название сервера.')
 
 
@@ -23,14 +22,14 @@ class SSHKey(BaseData):
     '''Модель SSH ключа.
 
     Attributes:
-        id (UUID): Уникальный идентификатор SSH ключа.
+        id (int): Уникальный идентификатор SSH ключа.
         name (str): Название SSH ключа.
         body (str): Тело SSH-ключа.
         created_at (datetime): Дата и время создания SSH ключа.
         used_by (list[Server]): Массив серверов, на которых используется SSH ключ.
         is_default (bool): Будет ли выбираться SSH-ключ по умолчанию при создании сервера
     '''
-    id: UUID = Field(..., description='Уникальный идентификатор SSH ключа.')
+    id: int = Field(..., description='Уникальный идентификатор SSH ключа.')
     name: str = Field(..., description='Название SSH ключа.')
     body: str = Field(..., description='Тело SSH-ключа.')
     created_at: datetime = Field(
